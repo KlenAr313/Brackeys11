@@ -1,0 +1,26 @@
+Undeads: Zombie, Skeleton
+  mechanic: Firstly the enemyes are laying on the floor as corpses, after the player does any interaction in the room the corpses come to life and attack the player.
+
+Bandits: Bandit, Fake trader
+  mechanic: The trader is going to try scam the player. If the player left the room without noticeing the steal the trader will disapier, or the player can kill the trader for the stolen loot.
+
+Elementals: Pille of stone with or withpout crystal
+  mechanic: In a room there are some pile of stone. If the player try to break down the crystal from the stone the earth elementals come to life and attack the player.
+
+Demons: Imp, Cambion
+
+Devils: Succubus
+  mechanic: The succubus tries to charm the character as a human.
+
+Plants: Enikő
+
+Snakes: Marilith, yuan-ti, posionus snake
+
+Infestied beasts(some parasite or mushroom): Wolf, Bear
+
+Money monsters: Goblin, Hobgoblin
+  mechanic: The monster damage depend on the money the player is curently posess.
+
+Dragonkinds: Kobold, Wyvern
+
+Animated things: Armor, weapon, book
