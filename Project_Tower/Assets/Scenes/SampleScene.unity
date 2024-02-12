@@ -1047,6 +1047,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_GameObject: {fileID: 193007770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &229778815
 GameObject:
   m_ObjectHideFlags: 0
@@ -9647,22 +9656,10 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!1 &1924930496
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2061184033140995077, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
+  m_PrefabInstance: {fileID: 659773363799333321}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1924930498}
-  - component: {fileID: 1924930497}
-  m_Layer: 0
-  m_Name: TileManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1924930497
+--- !u!114 &1924930499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9679,13 +9676,9 @@ MonoBehaviour:
   _tilePrefab: {fileID: 4139945544544620449, guid: f7d99661899c5454d87e230f5f4dd947, type: 3}
   _cam: {fileID: 519420032}
   tilesParent: {fileID: 229778815}
---- !u!4 &1924930498
-Transform:
+--- !u!1001 &659773363799333321
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1924930496}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -11295,7 +11288,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1924930498}
+  - {fileID: 659773363799333321}
   - {fileID: 229778816}
   - {fileID: 962629305}
   - {fileID: 943369445}
+  - {fileID: 193007772}
