@@ -1,15 +1,21 @@
 Undeads: Zombie, Skeleton
   mechanic: Firstly the enemies are laying on the floor as corpses, after the player does any interaction in the room the corpses come to life and attack the player. 
+  weakness: bigger weapons like a hammer or axe because they break the bones
 
 Bandits: Bandit, Fake trader
   mechanic: The trader(shopkeeper) is going to try scam the player. If the player left the room without noticing the steal the trader will disappear, or the player can kill the trader for the stolen loot. 
-            other bandit is a human, may steal another thing
+            other bandit is a human, may steal another thing and/or run away mid fight (dodge)
+  weakness: anything that is meele ranged, because they cant dodge that
 
 Earth elemental: Pile of stone with or without crystal
   mechanic: In a room there are some pile of stone. If the player try to break down the crystal from the stone the earth elementals come to life and attack the player. main point is the pile of stones,
             some of them are mimics and some of them hide some treasure
+  weakness: erosion, either wind or water, some kind of magic
 
-Plants: treants, poisonous flowers or interactable plants on the ground or on the walls. fightable enemy is a venus flytrap or treants
+Plants: treants, flowers or interactable plants on the ground or on the walls.
+  mechanic: fightable enemy is a venus flytrap or treants; plants on the ground are interactable but some of them are poisonous or might hide clues or treasure
+  weakness: fire, again, magic
+  strenght: they heal when they contact w water (erosion)
 
 Demons: Imp, Cambion
 
