@@ -7,9 +7,12 @@ public class Tile : MonoBehaviour
     [SerializeField] private Color _baseColor, _offsetColor;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
+    private int posX;
+    private int posY;
+
     private bool isEdge;
 
-    public void Init(bool isOffset)
+    public void Init(bool isOffset, int posX, int posY)
     {
         _renderer.color = isOffset ? _offsetColor : _baseColor;
     }
@@ -42,5 +45,24 @@ public class Tile : MonoBehaviour
         this.isEdge = isEdge;
     }
 
+    public int getPosX()
+    {
+        return posX;
+    }
+
+    public void SetPosX(int posX)
+    {
+        this.posX = posX;
+    }
+
+    public int getPosY()
+    {
+        return posY;
+    }
+
+    public void SetPosY(int posY)
+    {
+        this.posY = posY;
+    }
 
 }
