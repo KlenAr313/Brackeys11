@@ -4,28 +4,16 @@ using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    [SerializeField] protected int posX;
-    [SerializeField] protected int posY;
+    [SerializeField] private int posX;
+    [SerializeField] private int posY;
 
-    [SerializeField] protected int health; 
-    [SerializeField] protected int baseDamage;
-    [SerializeField] protected int speed;
+    [SerializeField] private int health;
+    [SerializeField] private int baseDamage;
+    [SerializeField] private int speed;
 
-    private void setPosX( int posX){
-        this.posX = posX;
-    }
-
-    private int getPosX( int posX){
-        return posX;
-    }
-
-    private void setPosY( int posY){
-        this.posY = posY;
-    }
-
-    private int getPosY( int posY){
-        return posY;
-    }
-
-
+    protected int PosX { get => posX; set => posX = value; }
+    protected int PosY { get => posY; set => posY = value; }
+    protected int Health { get => health; set => health = value; }
+    protected int BaseDamage { get => baseDamage; set => baseDamage = value; }
+    protected int Speed { get => speed; set => speed = value; }
 }

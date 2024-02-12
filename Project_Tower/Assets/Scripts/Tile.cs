@@ -10,10 +10,13 @@ public class Tile : MonoBehaviour
     private int posX;
     private int posY;
 
+    private GameObject tileManager;
+
     private bool isEdge;
 
-    public void Init(bool isOffset, int posX, int posY)
+    public void Init(bool isOffset, GameObject tileManager, int posX, int posY)
     {
+        this.tileManager = tileManager;
         _renderer.color = isOffset ? _offsetColor : _baseColor;
     }
 

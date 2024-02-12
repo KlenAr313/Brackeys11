@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,14 @@ public class RoomManager : MonoBehaviour
 
     private int[,] RoomsGrid;
 
+    [SerializeField] private List<GameObject> enemies;
+
     void Start()
     {
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
-        int x = Random.Range(0, N);
-        int y = Random.Range(0, N);
+        int x = UnityEngine.Random.Range(0, N);
+        int y = UnityEngine.Random.Range(0, N);
         RoomsGrid = new int[N,N];
         for(int i = 0; i < N; i++)
         {
@@ -40,6 +43,13 @@ public class RoomManager : MonoBehaviour
             Debug.Log(s);
             s = "";
         }
+
+
+        //Load enemies to list
+        GameObject enemyParentObj = this.gameObject.transform.Find("Enemies").gameObject;
+        foreach(Transform child in transform){
+            enemies.Add(child.gameObject);
+        }
     }
 
     private bool RandomizeRooms(int x, int y, int type)
@@ -58,7 +68,7 @@ public class RoomManager : MonoBehaviour
             int bySide = 2;
             int tryCount = 4;
             while(bySide > 0 && tryCount > 0){
-                switch(Random.Range(0,4)){
+                switch(UnityEngine.Random.Range(0,4)){
                     case 0: 
                         reValue = RandomizeRooms(x-1,y, 1);
                         break;
