@@ -781,7 +781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2061184033140995077, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
       propertyPath: m_Name
-      value: TileManager
+      value: Tile Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10970,6 +10970,7 @@ MonoBehaviour:
   isFighting: 1
   playerScript: {fileID: 0}
   roomManagerScript: {fileID: 0}
+  tileManagerScript: {fileID: 0}
   spells: []
 --- !u!4 &2037264998
 Transform:
