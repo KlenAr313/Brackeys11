@@ -20,13 +20,6 @@ public class LevelManager : MonoBehaviour
         CurrentRow = UnityEngine.Random.Range(0, N);
         CurrentCol = UnityEngine.Random.Range(0, N);
         RoomsGrid = new int[N,N];
-        for(int i = 0; i < N; i++)
-        {
-            for(int j = 0; j < N; j++)
-            {
-                RoomsGrid[i,j] = 0;
-            }
-        }
         RandomizeRooms(CurrentRow, CurrentCol, 2);
 
         string s = "";
