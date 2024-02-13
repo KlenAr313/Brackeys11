@@ -14,6 +14,8 @@ public class Tile : MonoBehaviour
 
     private bool isEdge;
 
+    private bool isDoor;
+
     public void Init(bool isOffset, GameObject tileManager, int posX, int posY)
     {
         this.tileManagerScript = tileManager.gameObject.GetComponent<TileManager>();
@@ -53,6 +55,14 @@ public class Tile : MonoBehaviour
     public void SetEdge(bool isEdge)
     {
         this.isEdge = isEdge;
+    }
+
+    public bool IsDoor(){
+        return isDoor;
+    }
+
+    public void SetDoor(bool isDoor){
+        this.isDoor = isDoor;
     }
 
     public int getPosX()
