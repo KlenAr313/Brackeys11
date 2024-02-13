@@ -11,9 +11,21 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int baseDamage;
     [SerializeField] private int speed;
 
-    protected int PosX { get => posX; set => posX = value; }
-    protected int PosY { get => posY; set => posY = value; }
-    protected int Health { get => health; set => health = value; }
-    protected int BaseDamage { get => baseDamage; set => baseDamage = value; }
-    protected int Speed { get => speed; set => speed = value; }
+    public int PosX { get => posX; set => posX = value; }
+    public int PosY { get => posY; set => posY = value; }
+    public int Health { get => health; set => health = value; }
+    public int BaseDamage { get => baseDamage; set => baseDamage = value; }
+    public int Speed { get => speed; set => speed = value; }
+
+    public void Die(){
+        this.gameObject.SetActive(false);
+    }
+
+    public void GetDamaged(int amount){
+        this.Health -= amount;
+        if(this.Health <= 0){
+            Die();
+        }
+    }
+
 }

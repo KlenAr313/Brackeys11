@@ -26,6 +26,8 @@ public class TileManager : MonoBehaviour
             for (int y = 0; y < _height; y++)
             {
                 Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
+                spawnedTile.SetPosX(x);
+                spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
 
@@ -49,5 +51,9 @@ public class TileManager : MonoBehaviour
     {
         if (_tiles.TryGetValue(pos, out var tile)) return tile;
         return null;
+    }
+
+    public void Click(int posX, int posY){
+        roomManagerScript.TileClicked(posX, posY);
     }
 }
