@@ -6,11 +6,12 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    private TileManager _TileManagerPrefab;
+    [SerializeField] private TileManager tileManagerPrefab;
+    [SerializeField] private LevelManager levelManagerScript;
 
-    private bool[] doors;
-    private int height;
-    private int width;
+    [SerializeField] private bool[] doors = {true, true, false, true};
+    [SerializeField] private int height;
+    [SerializeField] private int width;
 
     [SerializeField] private List<GameObject> enemies;
     [SerializeField] private List<GameObject> obstacles;
@@ -19,7 +20,9 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-        doors = new bool[4];
+        this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
+
+        tileManagerPrefab.NewTiles(width,height, doors);
 
         Initialise();
     }
@@ -37,10 +40,14 @@ public class RoomManager : MonoBehaviour
             }
             updateEnemies();
         }
-        else if((doors[0] && posY == height-1 && posX == width / 2) || (doors[1] && posY == height / 2 && posX == width-1)
-                    || (doors[2] && posX == width / 2 && posY == 0) || (doors[3] && posX == 0 && posY == height / 2)){
-                
-        }
+        else if(doors[0] && posY == height-1 && posX == width / 2)
+                levelManagerScript.OpenDoor(0);
+        else if(doors[1] && posY == height / 2 && posX == width-1)
+                levelManagerScript.OpenDoor(1);
+        else if(doors[2] && posX == width / 2 && posY == 0)
+                levelManagerScript.OpenDoor(2);
+        else if(doors[3] && posX == 0 && posY == height / 2)
+                levelManagerScript.OpenDoor(3);
         
     }
 
