@@ -12,11 +12,14 @@ public class TileManager : MonoBehaviour
 
     private Dictionary<Vector2, Tile> _tiles;
 
-    [SerializeField] private bool[] doors = {true, true, true, true};
+    private bool[] doors;
 
-    void Start()
+    public void NewTiles(int width, int height, bool[] doors)
     {
         this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        _width = width;
+        _height = height;
+        this.doors = doors;
         GenerateGrid();
     }
 

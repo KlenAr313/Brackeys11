@@ -763,6 +763,22 @@ PrefabInstance:
       propertyPath: tilesParent
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
+      propertyPath: doors.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
+      propertyPath: doors.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
+      propertyPath: doors.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
+      propertyPath: doors.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2061184033140995077, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
       propertyPath: m_Name
       value: TileManager
@@ -1979,6 +1995,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &467891189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467891190}
+  - component: {fileID: 467891191}
+  m_Layer: 0
+  m_Name: Spells
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &467891190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467891189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2037264998}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &467891191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467891189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab9461ec2be1664baeb2369a8fac4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageModifier: 2
+  cost: 0
 --- !u!1 &468316691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2743,6 +2805,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &677611690 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
+  m_PrefabInstance: {fileID: 148126352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9d8499c8f32d9459ff767f6aa7efce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &699929915
 GameObject:
   m_ObjectHideFlags: 0
@@ -8202,7 +8275,7 @@ GameObject:
   - component: {fileID: 1584098986}
   - component: {fileID: 1584098985}
   m_Layer: 0
-  m_Name: LevelManager
+  m_Name: Level Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8405,6 +8478,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1639834834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639834836}
+  - component: {fileID: 1639834835}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1639834835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639834834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9fb8ce529a16d946adc250786bf66e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posX: 0
+  posY: 0
+  health: 0
+  baseDamage: 0
+  speed: 0
+  selectedSpell: Fireball
+--- !u!4 &1639834836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639834834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.783031, y: 3.7357583, z: 0.037027188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1653269189
 GameObject:
   m_ObjectHideFlags: 0
@@ -8434,6 +8557,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009f1bcd6bb89ce41b8893d21e16387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileManagerPrefab: {fileID: 677611690}
+  levelManagerScript: {fileID: 0}
+  doors: 
+  height: 9
+  width: 16
   enemies: []
   obstacles: []
   interactables: []
@@ -10809,6 +10937,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2037264996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2037264998}
+  - component: {fileID: 2037264997}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2037264997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037264996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18eb07d1fa854843b29ad927eaed15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnNumber: 0
+  isFighting: 1
+  playerScript: {fileID: 0}
+  roomManagerScript: {fileID: 0}
+  spells: []
+--- !u!4 &2037264998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037264996}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 467891190}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2042053516
 GameObject:
   m_ObjectHideFlags: 0
@@ -11489,3 +11667,5 @@ SceneRoots:
   - {fileID: 148126352}
   - {fileID: 1653269191}
   - {fileID: 1584098986}
+  - {fileID: 2037264998}
+  - {fileID: 1639834836}

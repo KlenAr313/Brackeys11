@@ -41,7 +41,6 @@ public class LevelManager : MonoBehaviour
         doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
         roomManager.NextRoom(doors);
 
-        OpenDoor(0);
     }
 
     private bool RandomizeRooms(int x, int y, int type)
