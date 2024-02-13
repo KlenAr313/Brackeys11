@@ -17,22 +17,17 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private List<GameObject> floor;
 
-    private bool isFighting;
-
     void Start()
     {
         doors = new bool[4];
-
-        
-        //TODO Debug miatt true, false legyen alapból!
-        isFighting = true;
 
         Initialise();
     }
 
     //Main click entry point
-    public void TileClicked(int posX, int posY){
-        if(isFighting){
+    public void TileClicked(int posX, int posY, bool isAttack){
+        
+        if(isAttack){
             foreach(GameObject enemy in enemies){
                 EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
@@ -46,7 +41,10 @@ public class RoomManager : MonoBehaviour
                     || (doors[2] && posX == width / 2 && posY == 0) || (doors[3] && posX == 0 && posY == height / 2)){
                 
         }
+        
     }
+
+    
 
     private void Initialise(){
 
@@ -91,14 +89,6 @@ public class RoomManager : MonoBehaviour
                 enemies.Add(child.gameObject);
             }
         }
-    }
-
-    public void StartFight(){
-        this.isFighting = true;
-    }
-
-    public void EndFight(){
-        this.isFighting = false;
     }
 
     public void NextRoom(bool[] doors){
