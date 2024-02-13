@@ -8,13 +8,13 @@ public class TileManager : MonoBehaviour
     [SerializeField] private int _width, _height;
 
     [SerializeField] private Tile _tilePrefab;
-    [SerializeField] private RoomManager roomManagerScript;
+    [SerializeField] private GameManager gameManagerScript;
 
     private Dictionary<Vector2, Tile> _tiles;
 
     void Start()
     {
-        this.roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
+        this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         GenerateGrid();
     }
 
@@ -54,6 +54,6 @@ public class TileManager : MonoBehaviour
     }
 
     public void Click(int posX, int posY){
-        roomManagerScript.TileClicked(posX, posY);
+        gameManagerScript.TileClicked(posX, posY);
     }
 }

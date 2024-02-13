@@ -47,5 +47,4 @@ MonoBehaviour:
   _width: 16
   _height: 9
   _tilePrefab: {fileID: 4139945544544620449, guid: f7d99661899c5454d87e230f5f4dd947, type: 3}
-  _cam: {fileID: 0}
-  tilesParent: {fileID: 0}
+  gameManagerScript: {fileID: 0}
