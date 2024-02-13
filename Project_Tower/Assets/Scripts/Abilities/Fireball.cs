@@ -12,7 +12,7 @@ public class Fireball : SpellBase
 
         List<Tuple<int,int>> coords = new List<Tuple<int, int>>();
 
-        Debug.Log("You cast a fireball spell at: X: " + posX + " Y: " + posY);
+        //Debug.Log("You cast a fireball spell at: X: " + posX + " Y: " + posY);
 
         //Affected Tiles
             coords.Add(new Tuple<int, int>(posX, posY));
