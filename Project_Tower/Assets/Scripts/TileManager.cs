@@ -32,6 +32,7 @@ public class TileManager : MonoBehaviour
                 spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
+                spawnedTile.isHighlightable = true;
 
                 var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffset, this.gameObject, x, y);
@@ -42,13 +43,13 @@ public class TileManager : MonoBehaviour
                 {
                     SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                     spriteRenderer.color = Color.blue;
-                    spawnedTile.SetDoor(true);
+                    spawnedTile.isHighlightable = false;
                 }
                 else if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
                 {
                     SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                     spriteRenderer.color = Color.gray;
-                    spawnedTile.SetEdge(true);
+                    spawnedTile.isHighlightable = false;
                 }
 
                 _tiles[new Vector2(x, y)] = spawnedTile;
@@ -64,5 +65,20 @@ public class TileManager : MonoBehaviour
 
     public void Click(int posX, int posY){
         gameManagerScript.TileClicked(posX, posY);
+    }
+
+    public void SetHightlightedTile(int posX, int posY){
+        foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
+            tile.Value.highlight.SetActive(false);
+        }
+        gameManagerScript.TileHighlighter(posX, posY);
+    }
+
+    public void highlightSpellPreview(int posX, int posY){
+        foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
+            if(tile.Value.getPosX() == posX && tile.Value.getPosY() == posY && tile.Value.isHighlightable){
+                tile.Value.highlight.SetActive(true);
+            }
+        }
     }
 }

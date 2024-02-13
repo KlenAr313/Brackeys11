@@ -6,15 +6,13 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] private Color _baseColor, _offsetColor;
     [SerializeField] private SpriteRenderer _renderer;
-    [SerializeField] private GameObject _highlight;
+    [SerializeField] public GameObject highlight;
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
     private TileManager tileManagerScript;
 
-    private bool isEdge;
-
-    private bool isDoor;
+    public bool isHighlightable = true;
 
     public void Init(bool isOffset, GameObject tileManager, int posX, int posY)
     {
@@ -24,21 +22,22 @@ public class Tile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (isEdge)
+        if (!isHighlightable)
         {
             return;
         }
-        _highlight.SetActive(true);
+        //highlight.SetActive(true);
+        tileManagerScript.SetHightlightedTile(posX, posY);
     }
 
     
     void OnMouseExit()
     {
-        if (isEdge)
+        if (!isHighlightable)
         {
             return;
         }
-        _highlight.SetActive(false);
+        //highlight.SetActive(false);
     }
 
     void OnMouseOver(){
@@ -47,23 +46,6 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public bool IsEdge()
-    {
-        return isEdge;
-    }
-
-    public void SetEdge(bool isEdge)
-    {
-        this.isEdge = isEdge;
-    }
-
-    public bool IsDoor(){
-        return isDoor;
-    }
-
-    public void SetDoor(bool isDoor){
-        this.isDoor = isDoor;
-    }
 
     public int getPosX()
     {
