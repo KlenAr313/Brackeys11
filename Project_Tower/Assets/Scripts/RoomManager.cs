@@ -9,6 +9,8 @@ public class RoomManager : MonoBehaviour
     private TileManager _TileManagerPrefab;
 
     private bool[] doors;
+    private int height;
+    private int width;
 
     [SerializeField] private List<GameObject> enemies;
     [SerializeField] private List<GameObject> obstacles;
@@ -20,7 +22,9 @@ public class RoomManager : MonoBehaviour
     void Start()
     {
         doors = new bool[4];
-        //Debug miatt true, false legyen alapból!
+
+        
+        //TODO Debug miatt true, false legyen alapból!
         isFighting = true;
 
         Initialise();
@@ -32,14 +36,15 @@ public class RoomManager : MonoBehaviour
             foreach(GameObject enemy in enemies){
                 EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
-                    //Majd player damage kell az argumentumba
+                    //TODO Majd player damage kell az argumentumba
                     enemyBaseScript.GetDamaged(2);
                 }
             }
             updateEnemies();
         }
-        else{
-
+        else if((doors[0] && posY == height-1 && posX == width / 2) || (doors[1] && posY == height / 2 && posX == width-1)
+                    || (doors[2] && posX == width / 2 && posY == 0) || (doors[3] && posX == 0 && posY == height / 2)){
+                
         }
     }
 
@@ -99,5 +104,6 @@ public class RoomManager : MonoBehaviour
     public void NextRoom(bool[] doors){
         this.doors = doors;
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
+        //TODO creating next room
     }
 }
