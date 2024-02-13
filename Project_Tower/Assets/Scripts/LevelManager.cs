@@ -20,7 +20,6 @@ public class LevelManager : MonoBehaviour
         CurrentRow = UnityEngine.Random.Range(0, N);
         CurrentCol = UnityEngine.Random.Range(0, N);
         RoomsGrid = new int[N,N];
-        RoomsGrid = new int[N+2,N+2];
         for(int i = 0; i < N; i++)
         {
             for(int j = 0; j < N; j++)
@@ -43,10 +42,10 @@ public class LevelManager : MonoBehaviour
         }
 
         bool[] doors = new bool[4];
-        doors[0] = CurrentRow < 0;
-        doors[1] = CurrentCol >= N;
-        doors[2] = CurrentRow >= N;
-        doors[3] = CurrentCol < 0;
+        doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != 0;
+        doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
+        doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
+        doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
         roomManager.NextRoom(doors);
 
         OpenDoor(0);
@@ -115,14 +114,14 @@ public class LevelManager : MonoBehaviour
                 return false;
         }
 
-        if(NextCol >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol] != 0){
+        if(NextRow >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol] != 0){
             CurrentRow = NextRow;
             CurrentCol = NextCol;
             bool[] doors = new bool[4];
-            doors[0] = CurrentRow < 0;
-            doors[1] = CurrentCol >= N;
-            doors[2] = CurrentRow >= N;
-            doors[3] = CurrentCol < 0;
+            doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != 0;
+            doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
+            doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
+            doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
             roomManager.NextRoom(doors);
             return true;
         }
