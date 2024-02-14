@@ -20,6 +20,8 @@ public class TileManager : MonoBehaviour
         _width = width;
         _height = height;
         this.doors = doors;
+        if(_tiles != null)
+            _tiles.Clear();
         GenerateGrid();
     }
 

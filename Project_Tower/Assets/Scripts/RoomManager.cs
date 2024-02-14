@@ -18,10 +18,12 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private List<GameObject> floor;
 
-    void Start()
+    public void NewRoom(bool[] doors)
     {
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
+        this.tileManagerPrefab = GameObject.Find("Tile Manager").GetComponent<TileManager>();
 
+        this.doors = doors;
         tileManagerPrefab.NewTiles(width,height, doors);
 
         Initialise();
@@ -101,6 +103,7 @@ public class RoomManager : MonoBehaviour
     public void NextRoom(bool[] doors){
         this.doors = doors;
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
+        tileManagerPrefab.NewTiles(width,height, doors);
         //TODO creating next room
     }
 }

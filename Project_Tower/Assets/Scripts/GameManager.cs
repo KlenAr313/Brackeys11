@@ -29,7 +29,11 @@ public class GameManager : MonoBehaviour
         }
 
         //Debug miatt true, false legyen alapból!
+#if DEBUG
         isFighting = true;
+#else
+        isFighting = false;
+#endif
     }
 
     public void TileClicked(int posX, int posY){
@@ -60,5 +64,14 @@ public class GameManager : MonoBehaviour
 
     public void EndFight(){
         this.isFighting = false;
+    }
+
+    public void EnemyStrikes(List<Vector2> positions, int amount)
+    {
+        foreach(Vector2 pos in positions){
+            if(pos.x == playerScript.PosX && pos.y == playerScript.PosY){
+                playerScript.GetDamaged(amount);
+            }
+        }
     }
 }

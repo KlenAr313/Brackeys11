@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private RoomManager roomManager;
+    [SerializeField] private RoomManager roomManagerScript;
     [SerializeField] private int RoomCounter;
     private int RoomLeft;
     private int N;
@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
+
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
         CurrentRow = UnityEngine.Random.Range(0, N);
@@ -22,6 +24,7 @@ public class LevelManager : MonoBehaviour
         RoomsGrid = new int[N,N];
         RandomizeRooms(CurrentRow, CurrentCol, 2);
 
+#if DEBUG
         string s = "";
 
         for(int i = 0; i < N; i++)
@@ -33,13 +36,15 @@ public class LevelManager : MonoBehaviour
             Debug.Log(s);
             s = "";
         }
+#endif
 
         bool[] doors = new bool[4];
         doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != 0;
         doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
         doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
         doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
-        roomManager.NextRoom(doors);
+
+        roomManagerScript.NewRoom(doors);
 
     }
 
@@ -114,7 +119,7 @@ public class LevelManager : MonoBehaviour
             doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
             doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
             doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
-            roomManager.NextRoom(doors);
+            roomManagerScript.NextRoom(doors);
             return true;
         }
         return false;
