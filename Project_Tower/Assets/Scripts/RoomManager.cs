@@ -21,6 +21,7 @@ public class RoomManager : MonoBehaviour
     public void NewRoom(bool[] doors)
     {
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
+        this.tileManagerPrefab = GameObject.Find("Tile Manager").GetComponent<TileManager>();
 
         this.doors = doors;
         tileManagerPrefab.NewTiles(width,height, doors);
