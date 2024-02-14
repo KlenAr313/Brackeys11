@@ -115,6 +115,6 @@ public class RoomManager : MonoBehaviour
         this.roomLayout = Resources.Load<GameObject>("Room Layout " + type);
         Instantiate(roomLayout);
         prevType = type;
-        //TODO creating next room
+        //TODO reloading next room
     }
 }
