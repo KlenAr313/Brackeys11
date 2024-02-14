@@ -8293,7 +8293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d774a4a504b4934db7ee4c2726d5455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomManager: {fileID: 1653269190}
+  roomManagerScript: {fileID: 0}
   RoomCounter: 9
 --- !u!4 &1584098986
 Transform:
@@ -10967,7 +10967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnNumber: 0
-  isFighting: 1
+  isFighting: 0
   playerScript: {fileID: 0}
   roomManagerScript: {fileID: 0}
   tileManagerScript: {fileID: 0}
