@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
         //Debug miatt true, false legyen alapból!
 #if DEBUG
-        isFighting = true;
+        //isFighting = true;
 #else
         isFighting = false;
 #endif
@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
                     roomManagerScript.TileClicked(coord.Item1, coord.Item2, true);
                 }
             }
+        }
+        else
+        {
+            roomManagerScript.TileClicked(posX, posY, false);
         }
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    private GameManager gameManagerScript;
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
@@ -17,6 +18,9 @@ public abstract class EnemyBase : MonoBehaviour
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
     public int Speed { get => speed; set => speed = value; }
 
+    void Start(){
+        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    }
     public virtual void Die(){
         this.gameObject.SetActive(false);
     }
@@ -28,4 +32,14 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
+    public virtual void Move(int x, int y){
+        if(Health >= 0){
+            posX += x;
+            posY += y;
+        }
+    }
+
+    public virtual void Strike(){
+       gameManagerScript.EnemyStrikes(new List<Vector2> {new Vector2(PosX-1,PosY)}, baseDamage); 
+    }
 }
