@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private int baseDamage;
     [SerializeField] private int speed;
+    [SerializeField] private List<string> yourSpells;
+    private GameManager gameManagerScript;
 
     public string selectedSpell;
 
@@ -27,6 +30,32 @@ public class Player : MonoBehaviour
         this.Health -= amount;
         if(this.Health <= 0){
             Die();
+        }
+    }
+
+    void Start(){
+        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        selectedSpell = "Fireball";
+        gameManagerScript.RefreshCurrentSpell();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("1"))
+        {
+            selectedSpell = yourSpells[0];
+            gameManagerScript.RefreshCurrentSpell();
+
+        }
+        if (Input.GetKeyDown("2"))
+        {
+            selectedSpell = yourSpells[1];
+            gameManagerScript.RefreshCurrentSpell();
+        }
+        if (Input.GetKeyDown("3"))
+        {
+            selectedSpell = yourSpells[2];
+            gameManagerScript.RefreshCurrentSpell();
         }
     }
 }
