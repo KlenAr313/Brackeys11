@@ -33,7 +33,6 @@ public class LevelManager : MonoBehaviour
             {
                 s += RoomsGrid[i,j];
             }
-            Debug.Log(s);
             s = "";
         }
 #endif

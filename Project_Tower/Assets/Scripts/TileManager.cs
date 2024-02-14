@@ -86,4 +86,10 @@ public class TileManager : MonoBehaviour
             }
         }
     }
+
+    public void RemoveAllHighlight(){
+        foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
+            tile.Value.highlight.SetActive(false);
+        }
+    }
 }

@@ -7,18 +7,10 @@ using UnityEngine;
 
 public class Fireball : SpellBase
 {
+
     
-    public override List<Tuple<int,int>> Cast(int posX, int posY){
+    public override List<Vector2Int> Cast(int posX, int posY){
 
-        List<Tuple<int,int>> coords = new List<Tuple<int, int>>();
-
-        //Debug.Log("You cast a fireball spell at: X: " + posX + " Y: " + posY);
-
-        //Affected Tiles
-            coords.Add(new Tuple<int, int>(posX, posY));
-            coords.Add(new Tuple<int, int>(posX + 1, posY));
-            coords.Add(new Tuple<int, int>(posX + 2, posY));
-
-        return coords;
+        return base.Cast(posX, posY);
     }
 }
