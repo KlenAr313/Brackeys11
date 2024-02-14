@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
         CurrentRow = UnityEngine.Random.Range(0, N);
         CurrentCol = UnityEngine.Random.Range(0, N);
         RoomsGrid = new int[N,N];
-        RandomizeRooms(CurrentRow, CurrentCol, 2);
+        RandomizeRooms(CurrentRow, CurrentCol, 1);
 
 #if DEBUG
         string s = "";
@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
         doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
         doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
 
-        roomManagerScript.NewRoom(doors);
+        roomManagerScript.NewRoom(doors, RoomsGrid[CurrentRow, CurrentCol]);
 
     }
 
@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
     {
         if(x >= 0 && x < N && y >= 0 && y < N && RoomLeft > 0){
             if(RoomLeft == 1)
-                type = 3;
+                type = 10;
             bool newRoom = false;
             if(RoomsGrid[x,y] == 0)
             {
@@ -66,16 +66,16 @@ public class LevelManager : MonoBehaviour
             while(bySide > 0 && tryCount > 0){
                 switch(UnityEngine.Random.Range(0,4)){
                     case 0: 
-                        reValue = RandomizeRooms(x-1,y, 1);
+                        reValue = RandomizeRooms(x-1,y, Random.Range(2,4));
                         break;
                     case 1: 
-                        reValue = RandomizeRooms(x+1,y, 1);
+                        reValue = RandomizeRooms(x+1,y, Random.Range(2,4));
                         break;
                     case 2: 
-                        reValue = RandomizeRooms(x,y-1, 1);
+                        reValue = RandomizeRooms(x,y-1, Random.Range(2,4));
                         break;
                     case 3: 
-                        reValue = RandomizeRooms(x,y+1, 1);
+                        reValue = RandomizeRooms(x,y+1, Random.Range(2,4));
                         break;
                 }
                 tryCount--;
@@ -119,7 +119,7 @@ public class LevelManager : MonoBehaviour
             doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
             doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
             doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
-            roomManagerScript.NextRoom(doors);
+            roomManagerScript.NextRoom(doors, RoomsGrid[CurrentRow, CurrentCol]);
             return true;
         }
         return false;

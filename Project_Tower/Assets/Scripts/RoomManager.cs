@@ -9,6 +9,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private TileManager tileManagerScript;
     [SerializeField] private LevelManager levelManagerScript;
 
+    [SerializeField] private GameObject roomLayout;
+
     [SerializeField] private bool[] doors = {true, true, false, true};
     [SerializeField] private int height;
     [SerializeField] private int width;
@@ -18,11 +20,16 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private List<GameObject> floor;
 
-    public void NewRoom(bool[] doors)
+    private int prevType;
+
+    public void NewRoom(bool[] doors, int type)
     {
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
-
+        this.roomLayout = Resources.Load<GameObject>("Room Layout " + type);
+        Instantiate(roomLayout);
+        //this.roomLayout = GameObject.Find("Room Layout " + type);
+        prevType = type;
         this.doors = doors;
         tileManagerScript.NewTiles(width,height, doors);
 
@@ -58,7 +65,7 @@ public class RoomManager : MonoBehaviour
     private void Initialise(){
 
         //Load enemies to list
-        GameObject enemyParentObj = this.gameObject.transform.Find("Enemies").gameObject;
+        GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
         foreach(Transform child in enemyParentObj.transform){
             if(child.gameObject.activeSelf){
                 enemies.Add(child.gameObject);
@@ -66,7 +73,7 @@ public class RoomManager : MonoBehaviour
         }
 
         //Load interactables to list
-        GameObject interactableParentObj = this.gameObject.transform.Find("Interactable").gameObject;
+        GameObject interactableParentObj = roomLayout.gameObject.transform.Find("Interactable").gameObject;
         foreach(Transform child in interactableParentObj.transform){
             if(child.gameObject.activeSelf){
                 interactables.Add(child.gameObject);
@@ -74,7 +81,7 @@ public class RoomManager : MonoBehaviour
         }
 
         //Load obstacles to list
-        GameObject obstacleParentObj = this.gameObject.transform.Find("Obstacles").gameObject;
+        GameObject obstacleParentObj = roomLayout.gameObject.transform.Find("Obstacles").gameObject;
         foreach(Transform child in obstacleParentObj.transform){
             if(child.gameObject.activeSelf){
                 obstacles.Add(child.gameObject);
@@ -82,7 +89,7 @@ public class RoomManager : MonoBehaviour
         }
 
         //Load floor to list
-        GameObject floorParentObj = this.gameObject.transform.Find("Floor").gameObject;
+        GameObject floorParentObj = roomLayout.gameObject.transform.Find("Floor").gameObject;
         foreach(Transform child in floorParentObj.transform){
             if(child.gameObject.activeSelf){
                 floor.Add(child.gameObject);
@@ -92,7 +99,7 @@ public class RoomManager : MonoBehaviour
 
     private void updateEnemies(){
         enemies.Clear();
-        GameObject enemyParentObj = this.gameObject.transform.Find("Enemies").gameObject;
+        GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
         foreach(Transform child in enemyParentObj.transform){
             if(child.gameObject.activeSelf){
                 enemies.Add(child.gameObject);
@@ -100,10 +107,14 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void NextRoom(bool[] doors){
+    public void NextRoom(bool[] doors, int type){
         this.doors = doors;
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
         tileManagerScript.NewTiles(width,height, doors);
+        GameObject.DestroyImmediate(GameObject.Find("Room Layout " + prevType + "(Clone)"), true);
+        this.roomLayout = Resources.Load<GameObject>("Room Layout " + type);
+        Instantiate(roomLayout);
+        prevType = type;
         //TODO creating next room
     }
 }
