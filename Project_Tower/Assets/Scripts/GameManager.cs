@@ -29,7 +29,11 @@ public class GameManager : MonoBehaviour
         }
 
         //Debug miatt true, false legyen alapból!
-        isFighting = true;
+#if DEBUG
+        //isFighting = true;
+#else
+        isFighting = false;
+#endif
     }
 
     public void TileClicked(int posX, int posY){
