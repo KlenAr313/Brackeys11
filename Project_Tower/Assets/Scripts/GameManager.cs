@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void StartFight(){
         this.isFighting = true;
+        combatManagerScript.StartCombat();
     }
 
     public void EndFight(){

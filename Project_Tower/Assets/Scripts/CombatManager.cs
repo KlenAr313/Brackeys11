@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private List<IFighter> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
 
+    public event Action refreshCombatUI;
+
     private int playerPosition;
     private int currentTurnIndex;
 
@@ -16,13 +19,8 @@ public class CombatManager : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
-    public void StartCombat()
-    {
-        combatParticipants = new List<IFighter>();
-        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
-        {
-            combatParticipants.Add(i.GetComponent<EnemyBase>());
-        });
+    public void StartCombat(){
+        UpdateEnemyList();
 
         combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
         playerPosition = combatParticipants.Count - 1;
@@ -92,6 +90,7 @@ public class CombatManager : MonoBehaviour
         if(combatParticipants.Count == 0){
             gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
+            refreshCombatUI?.Invoke();
             return;
         }
 
@@ -99,5 +98,7 @@ public class CombatManager : MonoBehaviour
         playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();
+
+        refreshCombatUI?.Invoke();
     }
 }
