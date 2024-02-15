@@ -39,6 +39,9 @@ public class TileManager : MonoBehaviour
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.isHighlightable = true;
 
+                SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
+                spriteRenderer.color = Color.white;
+
                 var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffset, this.gameObject, x, y);
 
@@ -46,13 +49,13 @@ public class TileManager : MonoBehaviour
                 if((doors[0] && y == _height-1 && x == _width / 2) || (doors[1] && y == _height / 2 && x == _width-1)
                     || (doors[2] && x == _width / 2 && y == 0) || (doors[3] && x == 0 && y == _height / 2))
                 {
-                    SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
+                    spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                     spriteRenderer.color = Color.blue;
                     spawnedTile.isHighlightable = false;
                 }
                 else if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
                 {
-                    SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
+                    spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                     spriteRenderer.color = Color.gray;
                     spawnedTile.isHighlightable = false;
                 }
