@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RoomData
 {
-    public bool IsWin;
+    public bool IsWon;
     public int Type;
     public List<AbstractInteractable> Interactables;
 
@@ -16,7 +16,7 @@ public class RoomData
     }
     public RoomData(int Type)
     {
-        IsWin = false;
+        IsWon = false;
         this.Type = Type;
         Interactables = new List<AbstractInteractable>();
         randomiseChest();

@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void EndFight(){
         this.isFighting = false;
+        roomManagerScript.WinFight();
     }
 
     public void EnemyStrikes(List<Vector2> positions, int amount)
@@ -145,10 +146,7 @@ public class GameManager : MonoBehaviour
             tileManagerScript.RemoveAllHighlight();
             combatManagerScript.EndCombat();
         }
-    }
-
-#else
-        
+    } 
 #endif
 
 }
