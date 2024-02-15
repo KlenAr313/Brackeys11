@@ -50,7 +50,7 @@ public class RoomManager : MonoBehaviour
         }
         else if(doors[0] && posY == height-1 && posX == width / 2)
                 levelManagerScript.OpenDoor(0);
-        else if(doors[1] && posY == height / 2 && posX == width-1)
+        else if(doors[1] && posY == height / 2 && posX == width-1 )
                 levelManagerScript.OpenDoor(1);
         else if(doors[2] && posX == width / 2 && posY == 0)
                 levelManagerScript.OpenDoor(2);

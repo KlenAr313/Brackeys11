@@ -58,4 +58,8 @@ public class Player : MonoBehaviour
             gameManagerScript.RefreshCurrentSpell();
         }
     }
+    
+    public List<string> playerSpells(){
+        return yourSpells;
+    }
 }

@@ -9,13 +9,16 @@ public class GameManager : MonoBehaviour
     //0 mindig a player
     [SerializeField] private int turnNumber;
     [SerializeField] private bool isFighting;
-    [SerializeField] private Player playerScript;
+    [SerializeField] public Player playerScript;
     [SerializeField] private RoomManager roomManagerScript;
     [SerializeField] private TileManager tileManagerScript;
     [SerializeField] private List<SpellBase> spellList;
-    [SerializeField] private SpellBase currentSpell = null;
+    [SerializeField] public SpellBase currentSpell = null;
+
     private int currentX;
     private int currentY;
+
+    public event Action SpellRefreshed;
 
     void Start(){
         playerScript = GameObject.Find("Player").GetComponent<Player>();
@@ -108,6 +111,8 @@ public class GameManager : MonoBehaviour
             }
             TileHighlighter(currentX, currentY);
         }
+
+        SpellRefreshed?.Invoke();
     }
 
 }
