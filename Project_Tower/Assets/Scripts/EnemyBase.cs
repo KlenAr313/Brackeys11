@@ -23,13 +23,16 @@ public abstract class EnemyBase : MonoBehaviour
     }
     public virtual void Die(){
         this.gameObject.SetActive(false);
+        Debug.Log("I died");
     }
 
     public virtual void GetDamaged(int amount){
+        Debug.Log("E "+Health);
         this.Health -= amount;
         if(this.Health <= 0){
             Die();
         }
+        Debug.Log("U "+ Health);
     }
 
     public virtual void Move(int x, int y){

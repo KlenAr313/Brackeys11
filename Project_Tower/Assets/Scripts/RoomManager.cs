@@ -38,7 +38,6 @@ public class RoomManager : MonoBehaviour
 
     //Main click entry point
     public void TileClicked(int posX, int posY, bool isAttack){
-        
         if(isAttack){
             foreach(GameObject enemy in enemies){
                 EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
