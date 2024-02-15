@@ -31,8 +31,9 @@ public class LevelManager : MonoBehaviour
         {
             for(int j = 0; j < N; j++)
             {
-                s += RoomsGrid[i,j];
+                s += RoomsGrid[i,j]+ " ";
             }
+            //Debug.Log(s);
             s = "";
         }
 #endif
@@ -60,9 +61,8 @@ public class LevelManager : MonoBehaviour
                 newRoom = true;
             }
             bool reValue = false;
-            int bySide = 2;
             int tryCount = 4;
-            while(bySide > 0 && tryCount > 0){
+            while(RoomLeft > 0 && tryCount > 0){
                 switch(UnityEngine.Random.Range(0,4)){
                     case 0: 
                         reValue = RandomizeRooms(x-1,y, Random.Range(2,4));
@@ -77,10 +77,8 @@ public class LevelManager : MonoBehaviour
                         reValue = RandomizeRooms(x,y+1, Random.Range(2,4));
                         break;
                 }
-                tryCount--;
                 if(reValue){
-                    bySide--;
-                    tryCount = 3;
+                    tryCount--;
                     reValue = false;
                 }
             }

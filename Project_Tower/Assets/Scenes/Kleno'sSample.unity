@@ -1816,7 +1816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnNumber: 0
-  isFighting: 1
+  isFighting: 0
   playerScript: {fileID: 0}
   roomManagerScript: {fileID: 0}
   tileManagerScript: {fileID: 0}
