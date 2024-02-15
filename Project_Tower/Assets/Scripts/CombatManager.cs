@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> combatParticipants;
+    [SerializeField] private List<IFighter> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
 
     private int playerPosition;
@@ -15,10 +16,15 @@ public class CombatManager : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
-    public void StartCombat(){
-        combatParticipants = gameManagerScript.roomManagerScript.GetAllEnemies();
+    public void StartCombat()
+    {
+        combatParticipants = new List<IFighter>();
+        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
+        {
+            combatParticipants.Add(i.GetComponent<EnemyBase>());
+        });
 
-        combatParticipants.Add(gameManagerScript.playerObj);
+        combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
         playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();
@@ -33,25 +39,7 @@ public class CombatManager : MonoBehaviour
     }
 
     private void SortBySpeed(){
-        /*
-        int changes = -1;
-        while(changes == 0){
-            changes = 0;
-
-            for(int i = 0; i < combatParticipants.Count-1; i++){
-                //egyik sem a player
-                if(i != playerPosition && i+1 != playerPosition){
-                    EnemyBase leftEnemy = combatParticipants[i].GetComponent<EnemyBase>();
-                    EnemyBase rightEnemy = combatParticipants[i+1].GetComponent<EnemyBase>();
-
-                    if(leftEnemy.Speed > rightEnemy.Speed){
-                        GameObject tmp = combatParticipants[i];
-                        GameManager 
-                    }
-                }
-            }
-        }
-        */
+        combatParticipants = combatParticipants.OrderByDescending(i => i.Speed).ToList();
     }
 
     private void NextTurn(){
@@ -61,7 +49,7 @@ public class CombatManager : MonoBehaviour
         }
 
         //Enemy turn
-        if(currentTurnIndex != playerPosition){
+        if(combatParticipants[currentTurnIndex] is not Player){
             StartCoroutine(TakeEnemyTurn());
         }
 
@@ -95,15 +83,19 @@ public class CombatManager : MonoBehaviour
 
 
     private void UpdateEnemyList(){
-        combatParticipants = gameManagerScript.roomManagerScript.GetAllEnemies();
+        combatParticipants.Clear();
+        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
+        {
+            combatParticipants.Add(i.GetComponent<EnemyBase>());
+        });
 
         if(combatParticipants.Count == 0){
-            gameManagerScript.isFighting = false;
+            gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
             return;
         }
 
-        combatParticipants.Add(gameManagerScript.playerObj);
+        combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
         playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();

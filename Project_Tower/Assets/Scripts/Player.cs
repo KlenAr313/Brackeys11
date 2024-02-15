@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IFighter
 {
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
     [SerializeField] private int health;
     [SerializeField] private int baseDamage;
-    [SerializeField] private int speed;
+    [SerializeField ]private int setSpeed;
     [SerializeField] private List<string> yourSpells;
     private GameManager gameManagerScript;
 
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public int PosY { get => posY; set => posY = value; }
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
-    public int Speed { get => speed; set => speed = value; }
+    public int Speed { get => setSpeed; set => setSpeed = value; }
 
     public void Die(){
         this.gameObject.SetActive(false);
