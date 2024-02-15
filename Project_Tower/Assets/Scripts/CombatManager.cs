@@ -98,7 +98,7 @@ public class CombatManager : MonoBehaviour
         combatParticipants = gameManagerScript.roomManagerScript.GetAllEnemies();
 
         if(combatParticipants.Count == 0){
-            gameManagerScript.isFighting = false;
+            gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
             return;
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private List<GameObject> floor;
 
+    private RoomData roomData;
     private int prevType;
 
     public void NewRoom(RoomData data)
@@ -28,8 +30,8 @@ public class RoomManager : MonoBehaviour
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
         
-        generateRoomFromLayout(data);
         this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        generateRoomFromLayout(data);
     }
 
     //Main click entry point
@@ -63,12 +65,19 @@ public class RoomManager : MonoBehaviour
 
     private void Initialise()
     {
-        enemies.Clear();
-        //Load enemies to list
-        GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
-        foreach(Transform child in enemyParentObj.transform){
-            if(child.gameObject.activeSelf){
-                enemies.Add(child.gameObject);
+        if(roomData.IsWon)
+        {
+            GameObject.DestroyImmediate(GameObject.Find("Enemies"), true);
+        }
+        else
+        {
+            enemies.Clear();
+            //Load enemies to list
+            GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
+            foreach(Transform child in enemyParentObj.transform){
+                if(child.gameObject.activeSelf){
+                    enemies.Add(child.gameObject);
+                }
             }
         }
 
@@ -119,6 +128,7 @@ public class RoomManager : MonoBehaviour
 
     private void generateRoomFromLayout(RoomData data)
     {
+        this.roomData = data;
         this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + data.Type));
         roomLayout.transform.parent = this.transform;
 
@@ -136,6 +146,11 @@ public class RoomManager : MonoBehaviour
         }
         Initialise();
 
+        
+
+        if(enemies.Count > 0)
+            gameManagerScript.StartFight();
+
     }
 
 
@@ -147,5 +162,10 @@ public class RoomManager : MonoBehaviour
         }
 
         return enemiesCopy;
+    }
+
+    internal void WinFight()
+    {
+        this.roomData.IsWon = true;
     }
 }
