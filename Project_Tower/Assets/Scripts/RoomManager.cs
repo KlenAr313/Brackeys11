@@ -26,8 +26,7 @@ public class RoomManager : MonoBehaviour
     {
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
-        this.roomLayout = Resources.Load<GameObject>("Room Layout " + type);
-        Instantiate(roomLayout);
+        this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + type));
         //this.roomLayout = GameObject.Find("Room Layout " + type);
         prevType = type;
         this.doors = doors;
