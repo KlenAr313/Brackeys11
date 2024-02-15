@@ -123,6 +123,9 @@ public class RoomManager : MonoBehaviour
         GameObject.DestroyImmediate(GameObject.Find("Room Layout " + prevType + "(Clone)"), true);
         generateRoomFromLayout(data);
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
+        
+        if(enemies.Count > 0)
+            gameManagerScript.StartFight();
         //TODO reloading next room
     }
 
@@ -148,8 +151,6 @@ public class RoomManager : MonoBehaviour
 
         
 
-        if(enemies.Count > 0)
-            gameManagerScript.StartFight();
 
     }
 

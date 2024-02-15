@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] private List<IFighter> combatParticipants;
+    [SerializeField] public List<IFighter> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
 
     public event Action refreshCombatUI;
@@ -20,7 +20,12 @@ public class CombatManager : MonoBehaviour
     }
 
     public void StartCombat(){
-        UpdateEnemyList();
+        //UpdateEnemyList();
+        combatParticipants = new List<IFighter>();
+        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
+        {
+            combatParticipants.Add(i.GetComponent<EnemyBase>());
+        });
 
         combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
         playerPosition = combatParticipants.Count - 1;
@@ -28,6 +33,8 @@ public class CombatManager : MonoBehaviour
         SortBySpeed();
 
         currentTurnIndex = 0;
+
+        refreshCombatUI?.Invoke();
 
         NextTurn();
     }
@@ -81,6 +88,7 @@ public class CombatManager : MonoBehaviour
 
 
     private void UpdateEnemyList(){
+
         combatParticipants.Clear();
         gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
         {

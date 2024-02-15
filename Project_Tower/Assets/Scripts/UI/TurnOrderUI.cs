@@ -21,7 +21,7 @@ public class TurnOrderUI : MonoBehaviour
         deleteUIElements();
 
         int i = 0;
-        foreach(GameObject obj in combatManagerScript.combatParticipants){
+        foreach(IFighter obj in combatManagerScript.combatParticipants){
             GameObject turnOrderItem = GameObject.Instantiate(turnOrderItemPrefab, new Vector3(firstPosition + i * gapSize, 500, 0), Quaternion.identity, this.gameObject.transform);
             turnOrderItems.Add(turnOrderItem);
             i++;
