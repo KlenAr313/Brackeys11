@@ -7,6 +7,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] private TileManager tileManagerScript;
+    [SerializeField] private GameManager gameManagerScript;
     [SerializeField] private LevelManager levelManagerScript;
 
     [SerializeField] private GameObject roomLayout;
@@ -26,6 +27,8 @@ public class RoomManager : MonoBehaviour
     {
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
+        this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
         this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + type));
         //this.roomLayout = GameObject.Find("Room Layout " + type);
         prevType = type;
@@ -41,9 +44,12 @@ public class RoomManager : MonoBehaviour
         if(isAttack){
             foreach(GameObject enemy in enemies){
                 EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
+                if(enemyBaseScript == null){
+                    Debug.Log("Enemy script null");
+                }
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
                     //TODO Majd player damage kell az argumentumba
-                    enemyBaseScript.GetDamaged(2);
+                    enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage());
                 }
             }
             updateEnemies();
@@ -115,5 +121,15 @@ public class RoomManager : MonoBehaviour
         Instantiate(roomLayout);
         prevType = type;
         //TODO reloading next room
+    }
+
+    public List<GameObject> GetAllEnemies(){
+        List<GameObject> enemiesCopy = new List<GameObject>();
+
+        foreach(GameObject enemy in enemies){
+            enemiesCopy.Add(enemy);
+        }
+
+        return enemiesCopy;
     }
 }
