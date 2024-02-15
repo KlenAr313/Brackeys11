@@ -4,5 +4,11 @@ using UnityEngine;
 
 public abstract class AbstractInteractable
 {
-    public bool isEnable;
+    public bool IsEnable;
+    public Vector2Int Pos;
+
+    public AbstractInteractable(bool IsEnable, Vector2Int Pos){
+        this.IsEnable = IsEnable;
+        this.Pos = Pos;
+    }
 }

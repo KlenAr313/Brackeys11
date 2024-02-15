@@ -27,7 +27,8 @@ public class RoomManager : MonoBehaviour
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
         this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + type));
-        //this.roomLayout = GameObject.Find("Room Layout " + type);
+        roomLayout.transform.parent = this.transform;
+
         prevType = type;
         this.doors = doors;
         tileManagerScript.NewTiles(width,height, doors);
@@ -111,8 +112,8 @@ public class RoomManager : MonoBehaviour
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
         tileManagerScript.NewTiles(width,height, doors);
         GameObject.DestroyImmediate(GameObject.Find("Room Layout " + prevType + "(Clone)"), true);
-        this.roomLayout = Resources.Load<GameObject>("Room Layout " + type);
-        Instantiate(roomLayout);
+        this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + type));
+        roomLayout.transform.parent = this.transform;
         prevType = type;
         //TODO reloading next room
     }

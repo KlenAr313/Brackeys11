@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Chest : AbstractInteractable
 {
-    public string clue;
+    public string Clue;
 
-    public Chest(bool isEnable, string clue = "")
+    public Chest(bool IsEnable, Vector2Int Pos, string Clue = "") : base(IsEnable, Pos)
     {
-        this.isEnable = isEnable;
-        if(isEnable){
-            this.clue = clue;
+        if(IsEnable){
+            this.Clue = Clue;
         }
     }
 }
