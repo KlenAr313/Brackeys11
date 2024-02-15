@@ -5,13 +5,26 @@ using UnityEngine;
 
 public class RoomData
 {
-    public bool IsWin;
+    public bool IsWon;
     public int Type;
     public List<AbstractInteractable> Interactables;
 
+    public bool[] Doors;
+
+    public RoomData(){
+        Type = 0;
+    }
     public RoomData(int Type)
     {
-        IsWin = false;
+        IsWon = false;
         this.Type = Type;
+        Interactables = new List<AbstractInteractable>();
+        randomiseChest();
+    }
+
+    private bool randomiseChest(){
+        Chest chest = new Chest(true, new Vector2Int(1,1), "A kankalin sötétben virágzik");  
+        Interactables.Add(chest);  
+        return true;
     }
 }

@@ -1109,7 +1109,7 @@ MonoBehaviour:
   posY: 5
   health: 10
   baseDamage: 2
-  speed: 10
+  setSpeed: 10
 --- !u!1 &1445669230223103513
 GameObject:
   m_ObjectHideFlags: 0
@@ -7562,7 +7562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2698076663087203390}
   m_Layer: 0
-  m_Name: Interactable
+  m_Name: Interactables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
