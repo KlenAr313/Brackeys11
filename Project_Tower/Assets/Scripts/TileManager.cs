@@ -56,7 +56,7 @@ public class TileManager : MonoBehaviour
                 else if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
                 {
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
-                    spriteRenderer.color = Color.gray;
+                    //spriteRenderer.color = Color.gray;
                     spawnedTile.isHighlightable = false;
                 }
 
