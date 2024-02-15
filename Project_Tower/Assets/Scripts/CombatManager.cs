@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,8 +6,10 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> combatParticipants;
+    [SerializeField] public List<GameObject> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
+
+    public event Action refreshCombatUI;
 
     private int playerPosition;
     private int currentTurnIndex;
@@ -16,12 +19,7 @@ public class CombatManager : MonoBehaviour
     }
 
     public void StartCombat(){
-        combatParticipants = gameManagerScript.roomManagerScript.GetAllEnemies();
-
-        combatParticipants.Add(gameManagerScript.playerObj);
-        playerPosition = combatParticipants.Count - 1;
-
-        SortBySpeed();
+        UpdateEnemyList();
 
         currentTurnIndex = 0;
 
@@ -100,6 +98,7 @@ public class CombatManager : MonoBehaviour
         if(combatParticipants.Count == 0){
             gameManagerScript.isFighting = false;
             Debug.Log("Combat vége!");
+            refreshCombatUI?.Invoke();
             return;
         }
 
@@ -107,5 +106,7 @@ public class CombatManager : MonoBehaviour
         playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();
+
+        refreshCombatUI?.Invoke();
     }
 }
