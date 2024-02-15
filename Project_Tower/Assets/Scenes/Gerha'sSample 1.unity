@@ -1718,7 +1718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11607d1626986e4449b7266b019f40d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatParticipants: []
   gameManagerScript: {fileID: 0}
 --- !u!1 &2098686061
 GameObject:
@@ -1754,7 +1753,7 @@ MonoBehaviour:
   posY: 3
   health: 10
   baseDamage: 2
-  speed: 30
+  setSpeed: 0
   yourSpells:
   - Fireball
   - Meteor
@@ -1921,6 +1920,63 @@ MonoBehaviour:
   spellName: Fireball
   spellIcon: {fileID: 13472914}
   selectedImage: {fileID: 1362912281}
+--- !u!1001 &7781040100853320067
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2304051925833407614, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_Name
+      value: FireSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972177817915218267, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1933,3 +1989,4 @@ SceneRoots:
   - {fileID: 2098686064}
   - {fileID: 1042792672}
   - {fileID: 1972663400}
+  - {fileID: 7781040100853320067}
