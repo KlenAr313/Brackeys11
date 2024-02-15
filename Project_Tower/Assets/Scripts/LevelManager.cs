@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int RoomCounter;
     private int RoomLeft;
     private int N;
-    private int[,] RoomsGrid;
+    private RoomData[,] RoomsGrid;
     private int CurrentRow;
     private int CurrentCol;
 
@@ -21,7 +22,14 @@ public class LevelManager : MonoBehaviour
         RoomLeft = RoomCounter;
         CurrentRow = UnityEngine.Random.Range(0, N);
         CurrentCol = UnityEngine.Random.Range(0, N);
-        RoomsGrid = new int[N,N];
+        RoomsGrid = new RoomData[N,N];
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                RoomsGrid[i,j] = new RoomData();
+            }
+        }
         RandomizeRooms(CurrentRow, CurrentCol, 1);
 
 #if DEBUG
@@ -39,12 +47,12 @@ public class LevelManager : MonoBehaviour
 #endif
 
         bool[] doors = new bool[4];
-        doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != 0;
-        doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
-        doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
-        doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
-
-        roomManagerScript.NewRoom(doors, RoomsGrid[CurrentRow, CurrentCol]);
+        doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol].Type != 0;
+        doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1].Type != 0;
+        doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol].Type != 0;
+        doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
+        RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
+        roomManagerScript.NewRoom(RoomsGrid[CurrentRow, CurrentCol]);
 
     }
 
@@ -54,9 +62,9 @@ public class LevelManager : MonoBehaviour
             if(RoomLeft == 1)
                 type = 10;
             bool newRoom = false;
-            if(RoomsGrid[x,y] == 0)
+            if(RoomsGrid[x,y].Type == 0)
             {
-                RoomsGrid[x,y] = type;
+                RoomsGrid[x,y] = new RoomData(type);
                 RoomLeft--;
                 newRoom = true;
             }
@@ -108,15 +116,16 @@ public class LevelManager : MonoBehaviour
                 return false;
         }
 
-        if(NextRow >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol] != 0){
+        if(NextRow >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol].Type != 0){
             CurrentRow = NextRow;
             CurrentCol = NextCol;
             bool[] doors = new bool[4];
-            doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != 0;
-            doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != 0;
-            doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != 0;
-            doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != 0;
-            roomManagerScript.NextRoom(doors, RoomsGrid[CurrentRow, CurrentCol]);
+            doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol].Type != 0;
+            doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1].Type != 0;
+            doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol].Type != 0;
+            doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
+            RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
+            roomManagerScript.NextRoom(RoomsGrid[CurrentRow, CurrentCol]);
             return true;
         }
         return false;
