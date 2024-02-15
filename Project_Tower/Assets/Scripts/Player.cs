@@ -62,4 +62,8 @@ public class Player : MonoBehaviour
     public List<string> playerSpells(){
         return yourSpells;
     }
+
+    public int GetFinalDamage(){
+        return baseDamage * gameManagerScript.GetSpellDamage(selectedSpell);
+    }
 }
