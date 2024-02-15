@@ -145,10 +145,7 @@ public class GameManager : MonoBehaviour
             tileManagerScript.RemoveAllHighlight();
             combatManagerScript.EndCombat();
         }
-    }
-
-#else
-        
+    } 
 #endif
 
 }

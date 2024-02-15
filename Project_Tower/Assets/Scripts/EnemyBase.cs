@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IFighter
 {
     private GameManager gameManagerScript;
     [SerializeField] private int posX;
@@ -10,13 +10,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     [SerializeField] private int health;
     [SerializeField] private int baseDamage;
-    [SerializeField] private int speed;
+    [SerializeField] private int setSpeed;
 
     public int PosX { get => posX; set => posX = value; }
     public int PosY { get => posY; set => posY = value; }
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
-    public int Speed { get => speed; set => speed = value; }
+    public int Speed { get => setSpeed; set => setSpeed = value; }
 
     void Start(){
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();

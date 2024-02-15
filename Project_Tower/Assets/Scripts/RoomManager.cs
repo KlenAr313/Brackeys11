@@ -160,7 +160,7 @@ public class RoomManager : MonoBehaviour
         foreach(GameObject enemy in enemies){
             enemiesCopy.Add(enemy);
         }
-
+        
         return enemiesCopy;
     }
 
