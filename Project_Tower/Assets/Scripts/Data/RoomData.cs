@@ -7,7 +7,7 @@ public class RoomData
 {
     public bool IsWon;
     public int Type;
-    public List<AbstractInteractable> Interactables;
+    public List<InteractableBase> Interactables;
 
     public bool[] Doors;
 
@@ -18,7 +18,7 @@ public class RoomData
     {
         IsWon = false;
         this.Type = Type;
-        Interactables = new List<AbstractInteractable>();
+        Interactables = new List<InteractableBase>();
         randomiseChest();
     }
 

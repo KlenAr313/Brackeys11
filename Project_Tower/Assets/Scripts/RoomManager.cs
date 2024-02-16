@@ -25,13 +25,13 @@ public class RoomManager : MonoBehaviour
     private RoomData roomData;
     private int prevType;
 
-    public void NewRoom(RoomData data)
+    public void NewRoom(ref RoomData data)
     {
         this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
         
         this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        generateRoomFromLayout(data);
+        generateRoomFromLayout(ref data);
     }
 
     //Main click entry point
@@ -58,7 +58,13 @@ public class RoomManager : MonoBehaviour
                 levelManagerScript.OpenDoor(2);
         else if(doors[3] && posX == 0 && posY == height / 2)
                 levelManagerScript.OpenDoor(3);
-        
+        else{
+            foreach(GameObject item in interactables){
+                if(item.transform.position.x == posX && item.transform.position.y == posY){
+                    item.GetComponent<IInteractable>().Click();
+                }
+            }
+        }
     }
 
     
@@ -81,14 +87,14 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        interactables.Clear();
+        /*interactables.Clear();
         //Load interactables to list
         GameObject interactableParentObj = roomLayout.gameObject.transform.Find("Interactables").gameObject;
         foreach(Transform child in interactableParentObj.transform){
             if(child.gameObject.activeSelf){
                 interactables.Add(child.gameObject);
             }
-        }
+        }*/
 
         obstacles.Clear();
         //Load obstacles to list
@@ -129,9 +135,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void NextRoom(RoomData data){
+    public void NextRoom(ref RoomData data){
         GameObject.DestroyImmediate(GameObject.Find("Room Layout " + prevType + "(Clone)"), true);
-        generateRoomFromLayout(data);
+        generateRoomFromLayout(ref data);
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
         
         if(enemies.Count > 0)
@@ -139,7 +145,7 @@ public class RoomManager : MonoBehaviour
         //TODO reloading next room
     }
 
-    private void generateRoomFromLayout(RoomData data)
+    private void generateRoomFromLayout(ref RoomData data)
     {
         this.roomData = data;
         this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + data.Type));
@@ -149,12 +155,15 @@ public class RoomManager : MonoBehaviour
         this.doors = data.Doors;
         tileManagerScript.NewTiles(width,height, doors);
 
-        foreach (AbstractInteractable item in data.Interactables)
-        {
-            if(item is Chest){
-                GameObject interactableGameObj = GameObject.Instantiate(Resources.Load<GameObject>("Interactables/ChestObj"));
-                interactableGameObj.transform.position = item.Pos;
+        interactables.Clear();
+        for(int i = 0; i < data.Interactables.Count; ++i){
+            if(data.Interactables[i] is Chest){
+                GameObject interactableGameObj = Resources.Load<GameObject>("Interactables/ChestObj");
+                interactableGameObj.transform.position = data.Interactables[i].Pos;
+                interactableGameObj.GetComponent<Chest>().CopyData((Chest)data.Interactables[i]);
+                interactableGameObj = GameObject.Instantiate(interactableGameObj);
                 interactableGameObj.transform.parent = GameObject.Find("Interactables").transform;
+                interactables.Add(interactableGameObj);
             }
         }
         Initialise();
