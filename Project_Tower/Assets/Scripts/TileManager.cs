@@ -32,7 +32,7 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                Tile spawnedTile = Instantiate(Resources.Load<Tile>("Tile"), new Vector3(x, y), Quaternion.identity);
+                Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.SetPosX(x);
                 spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;
@@ -50,7 +50,7 @@ public class TileManager : MonoBehaviour
                     || (doors[2] && x == _width / 2 && y == 0) || (doors[3] && x == 0 && y == _height / 2))
                 {
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
-                    spriteRenderer.color = Color.blue;
+                    //spriteRenderer.color = Color.blue;
                     spawnedTile.isHighlightable = false;
                 }
                 else if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)

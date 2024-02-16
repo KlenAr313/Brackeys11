@@ -103,7 +103,17 @@ public class RoomManager : MonoBehaviour
         //Load floor to list
         GameObject floorParentObj = roomLayout.gameObject.transform.Find("Floor").gameObject;
         foreach(Transform child in floorParentObj.transform){
-            if(child.gameObject.activeSelf){
+            if(child.gameObject.activeSelf)
+            {
+                if(doors[0] && child.transform.position.y == height-1 && child.transform.position.x == width / 2)
+                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+                if (doors[1] && child.transform.position.y == height / 2 && child.transform.position.x == width-1)
+                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da1"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+                if(doors[2] && child.transform.position.x == width / 2 && child.transform.position.y == 0)
+                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da3"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+                if(doors[3] && child.transform.position.x == 0 && child.transform.position.y == height / 2)
+                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da2"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+            
                 floor.Add(child.gameObject);
             }
         }
