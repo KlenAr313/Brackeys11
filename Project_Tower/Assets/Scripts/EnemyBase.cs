@@ -47,8 +47,8 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     public virtual void Attack(){
         //Ide lehet irni a spell kiválasztás logikáját
         Vector2Int target = this.GetAttackPosition();
-        gameManagerScript.GetSpell(spells[0]).PlayAnimation(target.x, target.y);
-        foreach(Vector2Int coord in gameManagerScript.GetSpell(spells[0]).Cast(target.x, target.y)){
+        gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(target.x, target.y);
+        foreach(Vector2Int coord in gameManagerScript.GetSpellByName(spells[0]).Cast(target.x, target.y)){
             if(coord.x == gameManagerScript.playerScript.PosX && coord.y == gameManagerScript.playerScript.PosY){
                 gameManagerScript.playerScript.GetDamaged(baseDamage);
                 Debug.Log("Player damaged");

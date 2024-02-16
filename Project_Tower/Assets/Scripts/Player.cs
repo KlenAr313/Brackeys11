@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IFighter
     [SerializeField] public int baseHealth;
     [SerializeField] private int baseDamage;
     [SerializeField] public int mana;
-    [SerializeField] private int baseMana;
+    [SerializeField] public int baseMana;
     [SerializeField ]private int setSpeed;
     [SerializeField] private List<string> yourSpells;
     private GameManager gameManagerScript;
@@ -37,6 +37,12 @@ public class Player : MonoBehaviour, IFighter
         if(this.Health <= 0){
             Die();
         }
+    }
+
+    public void DecreaseMana(int amount){
+        mana -= amount;
+        UpdateStatUI?.Invoke();
+        Debug.Log("Mana levonva. Maradék: " + mana);
     }
 
     void Start(){
