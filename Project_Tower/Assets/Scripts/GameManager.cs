@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Player playerScript;
     [SerializeField] public RoomManager roomManagerScript;
     [SerializeField] public TileManager tileManagerScript;
-    [SerializeField] private List<SpellBase> spellList;
+    [SerializeField] public List<SpellBase> spellList;
     [SerializeField] public SpellBase currentSpell = null;
     [SerializeField] private CombatManager combatManagerScript;
 
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public event Action SpellRefreshed;
 
-    void Start(){
+    void Awake(){
         playerObj = GameObject.Find("Player").gameObject;
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
             if(isPlayerTurn){
                 if(currentSpell != null){
                     foreach(Vector2Int coord in currentSpell.Cast(posX, posY)){
+                        //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
                         roomManagerScript.TileClicked(coord.x, coord.y, true);
                     }
                     combatManagerScript.PlayerTakeTurn();
@@ -120,6 +121,15 @@ public class GameManager : MonoBehaviour
         }
 
         SpellRefreshed?.Invoke();
+    }
+
+    public SpellBase GetSpell(string spellName){
+        foreach(SpellBase spell in spellList){
+            if(spell.spellName == spellName){
+                return spell;
+            }
+        }
+        return null;
     }
 
     public int GetSpellDamage(string spellName){
