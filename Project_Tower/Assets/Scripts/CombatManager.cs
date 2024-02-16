@@ -70,14 +70,15 @@ public class CombatManager : MonoBehaviour
         Debug.Log(currentTurnIndex + ". enemy köre");
         yield return new WaitForSeconds(1f);
         Debug.Log("Castoltam a spellt");
-        combatParticipants[currentTurnIndex].Attack();
-        yield return new WaitForSeconds(1f);
+        float waitAfterAttack = combatParticipants[currentTurnIndex].Attack();
+        yield return new WaitForSeconds(waitAfterAttack + 0.5f);
         Debug.Log("továbbadás");
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
         NextTurn();
     }
 
-    public void PlayerTakeTurn(){
+    public IEnumerator PlayerTakeTurn(){
+        yield return new WaitForSeconds(gameManagerScript.currentSpell.animationTime + 0.5f);
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
         gameManagerScript.isPlayerTurn = false;
         Debug.Log("Player körének vége");
@@ -89,12 +90,14 @@ public class CombatManager : MonoBehaviour
 
 
     private void UpdateEnemyList(){
-
+        gameManagerScript.roomManagerScript.RoomUpdateEnemies();
         combatParticipants.Clear();
         gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
         {
             combatParticipants.Add(i.GetComponent<EnemyBase>());
         });
+
+        Debug.Log(combatParticipants.Count);
 
         if(combatParticipants.Count == 0){
             gameManagerScript.EndFight();

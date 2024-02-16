@@ -27,15 +27,16 @@ public class Player : MonoBehaviour, IFighter
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
     public int Speed { get => setSpeed; set => setSpeed = value; }
 
-    public void Die(){
+    public IEnumerator Die(float waitTilDisappear){
+        yield return new WaitForSeconds(waitTilDisappear);
         this.gameObject.SetActive(false);
     }
 
-    public void GetDamaged(int amount){
+    public void GetDamaged(int amount, float waitTilDisappear){
         this.Health -= amount;
         UpdateStatUI?.Invoke();
         if(this.Health <= 0){
-            Die();
+            StartCoroutine(Die(waitTilDisappear));
         }
     }
 
@@ -79,8 +80,8 @@ public class Player : MonoBehaviour, IFighter
         return baseDamage * gameManagerScript.GetSpellDamage(selectedSpell);
     }
 
-    public void Attack()
+    public float Attack()
     {
-        
+        return 1;
     }
 }

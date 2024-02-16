@@ -32,7 +32,7 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
+                Tile spawnedTile = Instantiate(Resources.Load<Tile>("Tile"), new Vector3(x, y), Quaternion.identity);
                 spawnedTile.SetPosX(x);
                 spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;

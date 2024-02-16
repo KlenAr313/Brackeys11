@@ -45,10 +45,10 @@ public class RoomManager : MonoBehaviour
                 }
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
                     //TODO Majd player damage kell az argumentumba
-                    enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage());
+                    float animationTime = gameManagerScript.currentSpell.PlayAnimation(posX, posY);
+                    enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), animationTime);
                 }
             }
-            updateEnemies();
         }
         else if(doors[0] && posY == height-1 && posX == width / 2)
                 levelManagerScript.OpenDoor(0);
@@ -109,7 +109,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void updateEnemies(){
+    public void RoomUpdateEnemies(){
         enemies.Clear();
         GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
         foreach(Transform child in enemyParentObj.transform){

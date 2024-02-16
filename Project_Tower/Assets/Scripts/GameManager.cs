@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
                     }
 
                     playerScript.DecreaseMana(currentSpell.ManaCost);
-                    combatManagerScript.PlayerTakeTurn();
+                    StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
             }
         }
@@ -97,15 +97,6 @@ public class GameManager : MonoBehaviour
     public void EndFight(){
         this.isFighting = false;
         roomManagerScript.WinFight();
-    }
-
-    public void EnemyStrikes(List<Vector2> positions, int amount)
-    {
-        foreach(Vector2 pos in positions){
-            if(pos.x == playerScript.PosX && pos.y == playerScript.PosY){
-                playerScript.GetDamaged(amount);
-            }
-        }
     }
 
     public void RefreshCurrentSpell(){
