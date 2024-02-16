@@ -13,6 +13,6 @@ public class ManaBarUI : MonoBehaviour
     }
 
     private void RefreshHealthUI(){
-        manaBarImage.fillAmount = (float) gameManagerScript.playerScript.health / (float) gameManagerScript.playerScript.baseHealth;
+        manaBarImage.fillAmount = (float) gameManagerScript.playerScript.mana / (float) gameManagerScript.playerScript.baseMana;
     }
 }

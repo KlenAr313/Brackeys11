@@ -8,13 +8,13 @@ public abstract class SpellBase : MonoBehaviour
 {
     [SerializeField] public string spellName;
     [SerializeField] protected int damageModifier;
-    [SerializeField] protected int cost;
+    [SerializeField] protected int manaCost;
 
     [SerializeField] private ParticleSystem particlePrefab;
     [SerializeField] protected List<Vector2Int> extraAffectedTiles;
 
     public int DamageModifier { get => damageModifier; set => damageModifier = value; }
-    public int Cost { get => cost; set => cost = value; }
+    public int ManaCost { get => manaCost; set => manaCost = value; }
 
 
     public virtual List<Vector2Int> Cast(int posX, int posY){

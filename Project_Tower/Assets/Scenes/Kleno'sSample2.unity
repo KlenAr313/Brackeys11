@@ -492,7 +492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: 0}
+  m_AnchoredPosition: {x: 18.3, y: 0}
   m_SizeDelta: {x: 3730, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &368885195
@@ -508,15 +508,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.26415092, g: 0.13766578, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3c8013a77c0eba5418d8670bb7454246, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Fireball
   damageModifier: 2
-  cost: 3
+  manaCost: 0
   particlePrefab: {fileID: 0}
   extraAffectedTiles:
   - {x: 1, y: 0}
@@ -676,7 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Meteor
   damageModifier: 10
-  cost: 30
+  manaCost: 90
   particlePrefab: {fileID: 0}
   extraAffectedTiles:
   - {x: 0, y: 1}
@@ -701,7 +701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: FlameVortex
   damageModifier: 20
-  cost: 20
+  manaCost: 10
   particlePrefab: {fileID: 1044466045935826120, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
   extraAffectedTiles:
   - {x: 0, y: 1}
@@ -817,7 +817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: 0}
+  m_AnchoredPosition: {x: 18.300049, y: 0}
   m_SizeDelta: {x: 3730, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &489200949
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe730252201802a4bbc01a4cda4e8512, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 338e2419dc882da49b282ea0fa364913, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -984,7 +984,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -17.000061, y: 0}
+  m_AnchoredPosition: {x: -17, y: 0}
   m_SizeDelta: {x: 1920, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &573085768
@@ -1008,18 +1008,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.059552606, b: 0.6037736, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 4b9176751524e234c85a6d62b51720bb, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -2003,15 +2003,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.26415092, g: 0.13766578, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3c8013a77c0eba5418d8670bb7454246, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2199,8 +2199,8 @@ MonoBehaviour:
   health: 100
   baseHealth: 100
   baseDamage: 2
-  mana: 0
-  baseMana: 0
+  mana: 100
+  baseMana: 100
   setSpeed: 20
   yourSpells:
   - Fireball

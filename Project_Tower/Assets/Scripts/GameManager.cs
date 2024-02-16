@@ -57,11 +57,13 @@ public class GameManager : MonoBehaviour
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
-                if(currentSpell != null){
+                if(currentSpell != null && currentSpell.ManaCost <= playerScript.mana){
                     foreach(Vector2Int coord in currentSpell.Cast(posX, posY)){
                         //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
                         roomManagerScript.TileClicked(coord.x, coord.y, true);
                     }
+
+                    playerScript.DecreaseMana(currentSpell.ManaCost);
                     combatManagerScript.PlayerTakeTurn();
                 }
             }
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
         SpellRefreshed?.Invoke();
     }
 
-    public SpellBase GetSpell(string spellName){
+    public SpellBase GetSpellByName(string spellName){
         foreach(SpellBase spell in spellList){
             if(spell.spellName == spellName){
                 return spell;
