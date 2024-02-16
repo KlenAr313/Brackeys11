@@ -325,87 +325,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaBarImage: {fileID: 573085769}
   gameManagerScript: {fileID: 2037264997}
---- !u!1001 &148126352
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: _height
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: tilesParent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: doors.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: doors.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: doors.Array.data[2]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: doors.Array.data[3]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061184033140995077, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-      propertyPath: m_Name
-      value: Tile Manager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
 --- !u!1 &343142040
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 18.3, y: 0}
+  m_AnchoredPosition: {x: 18.300049, y: 0}
   m_SizeDelta: {x: 3730, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &368885195
@@ -658,6 +577,7 @@ MonoBehaviour:
   spellName: Fireball
   damageModifier: 2
   manaCost: 0
+  animationTime: 0
   particlePrefab: {fileID: 0}
   extraAffectedTiles:
   - {x: 1, y: 0}
@@ -677,6 +597,7 @@ MonoBehaviour:
   spellName: Meteor
   damageModifier: 10
   manaCost: 90
+  animationTime: 0
   particlePrefab: {fileID: 0}
   extraAffectedTiles:
   - {x: 0, y: 1}
@@ -702,6 +623,7 @@ MonoBehaviour:
   spellName: FlameVortex
   damageModifier: 20
   manaCost: 10
+  animationTime: 0
   particlePrefab: {fileID: 1044466045935826120, guid: 978a8beb2b1de854e9b757dc7e554e49, type: 3}
   extraAffectedTiles:
   - {x: 0, y: 1}
@@ -1853,8 +1775,8 @@ CanvasRenderer:
 --- !u!1 &1618395018
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 2061184033140995077, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-  m_PrefabInstance: {fileID: 148126352}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -1870,8 +1792,8 @@ GameObject:
 --- !u!114 &1618395019
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1865597609145209665, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-  m_PrefabInstance: {fileID: 148126352}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618395018}
   m_Enabled: 1
@@ -1886,8 +1808,8 @@ MonoBehaviour:
 --- !u!4 &1618395020
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1612649973540471759, guid: 5f757cee55f157145bcabd5a9b7b658b, type: 3}
-  m_PrefabInstance: {fileID: 148126352}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618395018}
   serializedVersion: 2
@@ -2373,7 +2295,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 148126352}
+  - {fileID: 1618395020}
   - {fileID: 1653269191}
   - {fileID: 1584098986}
   - {fileID: 2037264998}

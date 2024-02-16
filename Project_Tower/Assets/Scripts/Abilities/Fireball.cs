@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class Fireball : SpellBase
 {
+    public void Start(){
+        base.particlePrefab = Resources.Load<ParticleSystem>("Effects/FireballParticles");
+        animationTime = particlePrefab.main.duration;
+    }
 
     
     public override List<Vector2Int> Cast(int posX, int posY){

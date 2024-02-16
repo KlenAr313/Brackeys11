@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,15 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
         this.posX = (int)this.gameObject.transform.position.x;
         this.posY = (int)this.gameObject.transform.position.y;
     }
-    public virtual void Die(){
+    public IEnumerator Die(float waitTilDisappear){
+        yield return new WaitForSeconds(waitTilDisappear);
         this.gameObject.SetActive(false);
     }
 
-    public virtual void GetDamaged(int amount){
+    public virtual void GetDamaged(int amount, float waitTilDisappear){
         this.Health -= amount;
         if(this.Health <= 0){
-            Die();
+            StartCoroutine(Die(waitTilDisappear));
         }
     }
 
@@ -44,24 +46,19 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
         }
     }
 
-    public virtual void Attack(){
+    public virtual float Attack(){
         //Ide lehet irni a spell kiválasztás logikáját
         Vector2Int target = this.GetAttackPosition();
-        gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(target.x, target.y);
+        float animationTime = gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(target.x, target.y);
         foreach(Vector2Int coord in gameManagerScript.GetSpellByName(spells[0]).Cast(target.x, target.y)){
             if(coord.x == gameManagerScript.playerScript.PosX && coord.y == gameManagerScript.playerScript.PosY){
-                gameManagerScript.playerScript.GetDamaged(baseDamage);
+                gameManagerScript.playerScript.GetDamaged(baseDamage, animationTime);
                 Debug.Log("Player damaged");
             }
         }
+        return animationTime;
     }
 
-    public virtual void Strike(){
-       gameManagerScript.EnemyStrikes(new List<Vector2> {new Vector2(PosX-1,PosY)}, baseDamage); 
-    }
-
-    protected virtual Vector2Int GetAttackPosition(){
-        return new Vector2Int(-1,-1);
-    }
+    protected abstract Vector2Int GetAttackPosition();
 
 }

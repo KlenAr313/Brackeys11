@@ -10,7 +10,9 @@ public abstract class SpellBase : MonoBehaviour
     [SerializeField] protected int damageModifier;
     [SerializeField] protected int manaCost;
 
-    [SerializeField] private ParticleSystem particlePrefab;
+    public float animationTime;
+
+    [SerializeField] protected ParticleSystem particlePrefab;
     [SerializeField] protected List<Vector2Int> extraAffectedTiles;
 
     public int DamageModifier { get => damageModifier; set => damageModifier = value; }
@@ -31,9 +33,12 @@ public abstract class SpellBase : MonoBehaviour
         return coords;
     }
 
-    public virtual void PlayAnimation(int posX, int posY){
+    public virtual float PlayAnimation(int posX, int posY){
         ParticleSystem particle = Instantiate(particlePrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+        
         particle.Play();
+        
+        return animationTime;
     }
 
 }
