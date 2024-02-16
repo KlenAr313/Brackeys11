@@ -105,6 +105,7 @@ MonoBehaviour:
   highlight: {fileID: 6349206722244416378}
   posX: 0
   posY: 0
+  isHighlightable: 1
 --- !u!61 &5167670624770167584
 BoxCollider2D:
   m_ObjectHideFlags: 0

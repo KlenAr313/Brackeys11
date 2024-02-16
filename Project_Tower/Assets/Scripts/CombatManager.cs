@@ -70,6 +70,7 @@ public class CombatManager : MonoBehaviour
         Debug.Log(currentTurnIndex + ". enemy köre");
         yield return new WaitForSeconds(1f);
         Debug.Log("Castoltam a spellt");
+        combatParticipants[currentTurnIndex].Attack();
         yield return new WaitForSeconds(1f);
         Debug.Log("továbbadás");
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
