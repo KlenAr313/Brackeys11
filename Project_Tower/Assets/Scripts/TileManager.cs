@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    [SerializeField] private int _width, _height;
+    [SerializeField] public int _width, _height;
 
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private GameManager gameManagerScript;
@@ -94,5 +94,21 @@ public class TileManager : MonoBehaviour
         foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
             tile.Value.highlight.SetActive(false);
         }
+    }
+
+    public bool IsTileClickable(int posX, int posY){
+        if(FindTileByCoord(posX, posY).isHighlightable){
+            return true;
+        }
+        return false;
+    }
+
+    public Tile FindTileByCoord(int posX, int posY){
+        foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
+            if(tile.Value.getPosX() == posX && tile.Value.getPosY() == posY){
+                return tile.Value;
+            }
+        }
+        return null;
     }
 }
