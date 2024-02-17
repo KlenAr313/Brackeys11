@@ -34,7 +34,7 @@ public abstract class SpellBase : MonoBehaviour
     }
 
     public virtual float PlayAnimation(int posX, int posY){
-        ParticleSystem particle = Instantiate(particlePrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+        ParticleSystem particle = Instantiate(particlePrefab, new Vector3(posX, posY, -1), Quaternion.identity);
         
         particle.Play();
         

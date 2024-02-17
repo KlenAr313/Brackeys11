@@ -2608,7 +2608,7 @@ MonoBehaviour:
   baseDamage: 2
   mana: 100
   baseMana: 100
-  setSpeed: 20
+  setSpeed: 1
   yourSpells:
   - Fireball
   - Meteor

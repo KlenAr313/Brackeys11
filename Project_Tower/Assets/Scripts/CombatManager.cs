@@ -65,23 +65,25 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator TakeEnemyTurn(){
         Debug.Log(currentTurnIndex + ". enemy köre");
+        ((EnemyBase)combatParticipants[currentTurnIndex]).Highlight();
         yield return new WaitForSeconds(1f);
         Debug.Log("Castoltam a spellt");
         float waitAfterAttack = combatParticipants[currentTurnIndex].Attack();
         yield return new WaitForSeconds(waitAfterAttack + 0.5f);
+        ((EnemyBase)combatParticipants[currentTurnIndex]).Lowlight();
         Debug.Log("továbbadás");
-        currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
         UpdateEnemyList();
+        //currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
         NextTurn();
     }
 
     public IEnumerator PlayerTakeTurn(){
         gameManagerScript.isPlayerTurn = false;
         yield return new WaitForSeconds(gameManagerScript.currentSpell.animationTime + 0.5f);
-        currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
-        Debug.Log("Player körének vége");
-
         UpdateEnemyList();
+        //currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
+
+        Debug.Log("Player körének vége");
 
         NextTurn();
     }
@@ -89,24 +91,56 @@ public class CombatManager : MonoBehaviour
 
     private void UpdateEnemyList(){
         gameManagerScript.roomManagerScript.RoomUpdateEnemies();
-        combatParticipants.Clear();
-        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
+        List<IFighter> currentFigtingEnemies = new List<IFighter>();
+        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => currentFigtingEnemies.Add(i.GetComponent<EnemyBase>()));
+        //combatParticipants.Clear();
+        int cnt = -1;
+        int deadBefCurInd = 0;
+        for(int i = 0; i < combatParticipants.Count;){
+            cnt++;
+            if(combatParticipants[i] is not Player && !currentFigtingEnemies.Contains(combatParticipants[i])){
+                combatParticipants.RemoveAt(i);
+                if(cnt <= currentTurnIndex)
+                    currentTurnIndex--;
+                    deadBefCurInd++;
+            }
+            else
+                i++;
+        }
+        /*combatParticipants.RemoveAll(i => {
+            cnt++;
+            if(i is not Player && !currentFigtingEnemies.Contains(i)){
+                if(cnt <= currentTurnIndex)
+                    deadBefCurInd++;
+                return true;
+            }
+            return false;
+        });*/
+        /*gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
         {
+            if(combatParticipants.Contains(i.GetComponent<EnemyBase>()))
             combatParticipants.Add(i.GetComponent<EnemyBase>());
-        });
+        });*/
+
+        //currentTurnIndex -= deadBefCurInd;
+        currentTurnIndex++;
+        if(currentTurnIndex >= combatParticipants.Count){
+            currentTurnIndex = 0;
+            SortBySpeed();
+        }
 
         Debug.Log(combatParticipants.Count);
 
-        if(combatParticipants.Count == 0){
+        if(combatParticipants.Count == 1){
             gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
             refreshCombatUI?.Invoke();
             return;
         }
 
-        combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
+        //combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
 
-        SortBySpeed();
+        //SortBySpeed();
 
         refreshCombatUI?.Invoke();
     }
