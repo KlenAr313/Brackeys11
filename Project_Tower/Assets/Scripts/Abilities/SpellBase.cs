@@ -1,18 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public abstract class SpellBase : MonoBehaviour
 {
     [SerializeField] public string spellName;
     [SerializeField] protected int damageModifier;
-    [SerializeField] protected int cost;
+    [SerializeField] protected int manaCost;
 
+    public float animationTime;
+
+    [SerializeField] protected ParticleSystem particlePrefab;
     [SerializeField] protected List<Vector2Int> extraAffectedTiles;
 
     public int DamageModifier { get => damageModifier; set => damageModifier = value; }
-    public int Cost { get => cost; set => cost = value; }
+    public int ManaCost { get => manaCost; set => manaCost = value; }
 
 
     public virtual List<Vector2Int> Cast(int posX, int posY){
@@ -27,6 +31,14 @@ public abstract class SpellBase : MonoBehaviour
         }
 
         return coords;
+    }
+
+    public virtual float PlayAnimation(int posX, int posY){
+        ParticleSystem particle = Instantiate(particlePrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+        
+        particle.Play();
+        
+        return animationTime;
     }
 
 }

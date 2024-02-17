@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Player playerScript;
     [SerializeField] public RoomManager roomManagerScript;
     [SerializeField] public TileManager tileManagerScript;
-    [SerializeField] private List<SpellBase> spellList;
+    [SerializeField] public List<SpellBase> spellList;
     [SerializeField] public SpellBase currentSpell = null;
     [SerializeField] private CombatManager combatManagerScript;
 
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public event Action SpellRefreshed;
 
-    void Start(){
+    void Awake(){
         playerObj = GameObject.Find("Player").gameObject;
         playerScript = GameObject.Find("Player").GetComponent<Player>();
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
@@ -57,11 +57,14 @@ public class GameManager : MonoBehaviour
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
-                if(currentSpell != null){
+                if(currentSpell != null && currentSpell.ManaCost <= playerScript.mana){
                     foreach(Vector2Int coord in currentSpell.Cast(posX, posY)){
+                        //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
                         roomManagerScript.TileClicked(coord.x, coord.y, true);
                     }
-                    combatManagerScript.PlayerTakeTurn();
+
+                    playerScript.DecreaseMana(currentSpell.ManaCost);
+                    StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
             }
         }
@@ -88,20 +91,12 @@ public class GameManager : MonoBehaviour
 
     public void StartFight(){
         this.isFighting = true;
+        combatManagerScript.StartCombat();
     }
 
     public void EndFight(){
         this.isFighting = false;
         roomManagerScript.WinFight();
-    }
-
-    public void EnemyStrikes(List<Vector2> positions, int amount)
-    {
-        foreach(Vector2 pos in positions){
-            if(pos.x == playerScript.PosX && pos.y == playerScript.PosY){
-                playerScript.GetDamaged(amount);
-            }
-        }
     }
 
     public void RefreshCurrentSpell(){
@@ -119,6 +114,15 @@ public class GameManager : MonoBehaviour
         }
 
         SpellRefreshed?.Invoke();
+    }
+
+    public SpellBase GetSpellByName(string spellName){
+        foreach(SpellBase spell in spellList){
+            if(spell.spellName == spellName){
+                return spell;
+            }
+        }
+        return null;
     }
 
     public int GetSpellDamage(string spellName){

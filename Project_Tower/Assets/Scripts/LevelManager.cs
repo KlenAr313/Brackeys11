@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
         doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol].Type != 0;
         doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
         RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
-        roomManagerScript.NewRoom(RoomsGrid[CurrentRow, CurrentCol]);
+        roomManagerScript.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol]);
 
     }
 
@@ -125,7 +125,7 @@ public class LevelManager : MonoBehaviour
             doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol].Type != 0;
             doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
             RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
-            roomManagerScript.NextRoom(RoomsGrid[CurrentRow, CurrentCol]);
+            roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol]);
             return true;
         }
         return false;

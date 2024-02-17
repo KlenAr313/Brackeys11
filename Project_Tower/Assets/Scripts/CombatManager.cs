@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,10 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] private List<IFighter> combatParticipants;
+    [SerializeField] public List<IFighter> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
+
+    public event Action refreshCombatUI;
 
     private int playerPosition;
     private int currentTurnIndex;
@@ -16,8 +19,8 @@ public class CombatManager : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
-    public void StartCombat()
-    {
+    public void StartCombat(){
+        //UpdateEnemyList();
         combatParticipants = new List<IFighter>();
         gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
         {
@@ -30,6 +33,8 @@ public class CombatManager : MonoBehaviour
         SortBySpeed();
 
         currentTurnIndex = 0;
+
+        refreshCombatUI?.Invoke();
 
         NextTurn();
     }
@@ -65,13 +70,15 @@ public class CombatManager : MonoBehaviour
         Debug.Log(currentTurnIndex + ". enemy köre");
         yield return new WaitForSeconds(1f);
         Debug.Log("Castoltam a spellt");
-        yield return new WaitForSeconds(1f);
+        float waitAfterAttack = combatParticipants[currentTurnIndex].Attack();
+        yield return new WaitForSeconds(waitAfterAttack + 0.5f);
         Debug.Log("továbbadás");
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
         NextTurn();
     }
 
-    public void PlayerTakeTurn(){
+    public IEnumerator PlayerTakeTurn(){
+        yield return new WaitForSeconds(gameManagerScript.currentSpell.animationTime + 0.5f);
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
         gameManagerScript.isPlayerTurn = false;
         Debug.Log("Player körének vége");
@@ -83,15 +90,19 @@ public class CombatManager : MonoBehaviour
 
 
     private void UpdateEnemyList(){
+        gameManagerScript.roomManagerScript.RoomUpdateEnemies();
         combatParticipants.Clear();
         gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
         {
             combatParticipants.Add(i.GetComponent<EnemyBase>());
         });
 
+        Debug.Log(combatParticipants.Count);
+
         if(combatParticipants.Count == 0){
             gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
+            refreshCombatUI?.Invoke();
             return;
         }
 
@@ -99,5 +110,7 @@ public class CombatManager : MonoBehaviour
         playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();
+
+        refreshCombatUI?.Invoke();
     }
 }

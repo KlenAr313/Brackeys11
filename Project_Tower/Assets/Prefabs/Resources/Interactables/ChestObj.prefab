@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3973319297083468860}
   - component: {fileID: 8695431881430060946}
+  - component: {fileID: -5246233038431766439}
   m_Layer: 0
   m_Name: ChestObj
   m_TagString: Untagged
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5246233038431766439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753655922544830098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89835fa6f92f65a459c56f56973b2cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsEnable: 1
+  Pos: {x: 1, y: 1, z: 0}
+  Clue: "A kankalin s\xF6t\xE9tben vir\xE1gzik"

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,13 +9,17 @@ public class Player : MonoBehaviour, IFighter
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
-    [SerializeField] private int health;
+    [SerializeField] public int health;
+    [SerializeField] public int baseHealth;
     [SerializeField] private int baseDamage;
+    [SerializeField] public int mana;
+    [SerializeField] public int baseMana;
     [SerializeField ]private int setSpeed;
     [SerializeField] private List<string> yourSpells;
     private GameManager gameManagerScript;
 
     public string selectedSpell;
+    public event Action UpdateStatUI;
 
     public int PosX { get => posX; set => posX = value; }
     public int PosY { get => posY; set => posY = value; }
@@ -22,15 +27,23 @@ public class Player : MonoBehaviour, IFighter
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
     public int Speed { get => setSpeed; set => setSpeed = value; }
 
-    public void Die(){
+    public IEnumerator Die(float waitTilDisappear){
+        yield return new WaitForSeconds(waitTilDisappear);
         this.gameObject.SetActive(false);
     }
 
-    public void GetDamaged(int amount){
+    public void GetDamaged(int amount, float waitTilDisappear){
         this.Health -= amount;
+        UpdateStatUI?.Invoke();
         if(this.Health <= 0){
-            Die();
+            StartCoroutine(Die(waitTilDisappear));
         }
+    }
+
+    public void DecreaseMana(int amount){
+        mana -= amount;
+        UpdateStatUI?.Invoke();
+        Debug.Log("Mana levonva. Maradék: " + mana);
     }
 
     void Start(){
@@ -65,5 +78,10 @@ public class Player : MonoBehaviour, IFighter
 
     public int GetFinalDamage(){
         return baseDamage * gameManagerScript.GetSpellDamage(selectedSpell);
+    }
+
+    public float Attack()
+    {
+        return 1;
     }
 }

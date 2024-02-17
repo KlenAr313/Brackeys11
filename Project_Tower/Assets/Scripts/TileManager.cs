@@ -50,13 +50,13 @@ public class TileManager : MonoBehaviour
                     || (doors[2] && x == _width / 2 && y == 0) || (doors[3] && x == 0 && y == _height / 2))
                 {
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
-                    spriteRenderer.color = Color.blue;
+                    //spriteRenderer.color = Color.blue;
                     spawnedTile.isHighlightable = false;
                 }
                 else if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
                 {
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
-                    spriteRenderer.color = Color.gray;
+                    //spriteRenderer.color = Color.gray;
                     spawnedTile.isHighlightable = false;
                 }
 
