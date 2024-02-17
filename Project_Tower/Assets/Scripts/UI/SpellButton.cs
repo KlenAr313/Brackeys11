@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -15,7 +16,6 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     private SpellBase spellBaseScript;
 
-    private static int GlobalSpellIndex = GameManager.MaxAbilities;
     void Start()
     {
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -25,8 +25,9 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         selectedImage.SetActive(false);
         Refresh();
 
-        GlobalSpellIndex--;
-        mySpellIndex = GlobalSpellIndex;
+        mySpellIndex = Int32.Parse(gameObject.name.Substring(gameObject.name.Length-1)) - 1;
+
+        Debug.Log(gameObject.name);
     }
 
 
@@ -35,6 +36,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(mySpellIndex < gameManagerScript.playerScript.yourSpells.Count){
             spellBaseScript = gameManagerScript.GetSpellByName(gameManagerScript.playerScript.yourSpells[mySpellIndex]);
             spellIcon.GetComponent<UnityEngine.UI.Image>().sprite = spellBaseScript.icon;
+            spellName = spellBaseScript.spellName;
         }
 
         if(gameManagerScript.currentSpell.spellName == this.spellBaseScript.spellName){

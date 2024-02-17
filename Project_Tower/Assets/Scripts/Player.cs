@@ -33,7 +33,8 @@ public class Player : MonoBehaviour, IFighter
 
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
-        this.gameObject.SetActive(false);
+        gameManagerScript.GameOver();
+        //this.gameObject.SetActive(false);
     }
 
     public void GetDamaged(int amount, float waitTilDisappear){
@@ -79,6 +80,12 @@ public class Player : MonoBehaviour, IFighter
         {
             selectedSpell = yourSpells[2];
             gameManagerScript.RefreshCurrentSpell();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && health <= 0)
+        {
+            Debug.Log("Restart button pressed");
+            gameManagerScript.Restart();
         }
     }
 
