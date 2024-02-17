@@ -51,13 +51,13 @@ public class RoomManager : MonoBehaviour
             }
         }
         else if(doors[0] && posY == height-1 && posX == width / 2)
-                levelManagerScript.OpenDoor(0);
+                StartCoroutine(levelManagerScript.OpenDoor(0));
         else if(doors[1] && posY == height / 2 && posX == width-1 )
-                levelManagerScript.OpenDoor(1);
+                StartCoroutine(levelManagerScript.OpenDoor(1));
         else if(doors[2] && posX == width / 2 && posY == 0)
-                levelManagerScript.OpenDoor(2);
+                StartCoroutine(levelManagerScript.OpenDoor(2));
         else if(doors[3] && posX == 0 && posY == height / 2)
-                levelManagerScript.OpenDoor(3);
+                StartCoroutine(levelManagerScript.OpenDoor(3));
         else{
             foreach(GameObject item in interactables){
                 if(item.transform.position.x == posX && item.transform.position.y == posY){
@@ -137,6 +137,7 @@ public class RoomManager : MonoBehaviour
     }
 
     public void NextRoom(ref RoomData data){
+        Debug.Log("New Room Created");
         GameObject.DestroyImmediate(GameObject.Find("Room Layout " + prevType + "(Clone)"), true);
         generateRoomFromLayout(ref data);
         Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
