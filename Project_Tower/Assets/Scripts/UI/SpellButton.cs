@@ -51,6 +51,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         gameManagerScript.playerScript.selectedSpell = this.spellBaseScript.spellName;
         gameManagerScript.RefreshCurrentSpell();
+        Refresh();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

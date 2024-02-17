@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart(){
         //Végleges Scene név re beirni
-        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
 
 #if DEBUG
