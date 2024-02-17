@@ -1,4 +1,4 @@
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +18,21 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
 
     [SerializeField] protected Sprite previewImage;
 
+    [SerializeField] protected bool randomiseSpeed = true;
+
     public int PosX { get => posX; set => posX = value; }
     public int PosY { get => posY; set => posY = value; }
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
-    public int Speed { get => setSpeed; set => setSpeed = value; }
+    public int Speed 
+    { 
+        get {
+            if(randomiseSpeed)
+                return setSpeed + Random.Range(-1,3);
+            return setSpeed;
+        } 
+        set => setSpeed = value;
+     }
     public Sprite PreviewImage { get => previewImage; set => previewImage = value; }
 
     void Start(){
@@ -66,4 +76,11 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
 
     protected abstract Vector2Int GetAttackPosition();
 
+    public void Highlight(){
+        this.GetComponentInParent<SpriteRenderer>().color = Color.red;
+    }
+    
+    public void Lowlight(){
+        this.GetComponentInParent<SpriteRenderer>().color = Color.white;
+    }
 }
