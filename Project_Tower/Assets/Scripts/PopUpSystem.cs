@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PopUpSystem : MonoBehaviour
 {
-    public GameObject popUpBox;
-    public Animator animator;
-    public TMP_Text popupText;
+    [SerializeField] private GameObject popUpBox;
+    [SerializeField] private Animator animator;
+    [SerializeField] private TMP_Text popupText;
 
     public void PopUp(string text){
         popUpBox.SetActive(true);
