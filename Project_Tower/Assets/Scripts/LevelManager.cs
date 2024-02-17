@@ -20,6 +20,19 @@ public class LevelManager : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
 
+        RoomData.cluePool = new List<string>{
+        "Clue Water",
+        "Clue Earth",
+        "Clue Fire",
+        "Clue Air",
+        "Clue Long ago",
+        "Clue The four nation",
+        "Clue Lived together",
+        "Cleu In harmony",
+        "Clue Then everything changed",
+        "Clue When The firenation attacked"
+        };
+        
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
         CurrentRow = UnityEngine.Random.Range(0, N);

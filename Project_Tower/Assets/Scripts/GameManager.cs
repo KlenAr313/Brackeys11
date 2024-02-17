@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     private int currentY;
 
     public event Action SpellRefreshed;
+    public event Action OnGameOver;
 
     void Awake(){
         playerObj = GameObject.Find("Player").gameObject;
@@ -150,6 +152,15 @@ public class GameManager : MonoBehaviour
             }
         }
         return 0;
+    }
+
+    public void GameOver(){
+        OnGameOver.Invoke();
+    }
+
+    public void Restart(){
+        //Végleges Scene név re beirni
+        SceneManager.LoadScene(0);
     }
 
 #if DEBUG

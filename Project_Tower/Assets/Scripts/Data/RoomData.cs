@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RoomData
 {
-    private static List<string> cluePool = new List<string>{
+    public static List<string> cluePool = new List<string>{
         "Clue Water",
         "Clue Earth",
         "Clue Fire",
