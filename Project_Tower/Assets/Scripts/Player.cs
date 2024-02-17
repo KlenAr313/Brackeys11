@@ -52,6 +52,10 @@ public class Player : MonoBehaviour, IFighter
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         selectedSpell = "Fireball";
         gameManagerScript.RefreshCurrentSpell();
+        this.baseHealth = this.health;
+
+        this.posX = (int)transform.position.x;
+        this.posY = (int)transform.position.y;
     }
 
     void Update()
@@ -89,5 +93,16 @@ public class Player : MonoBehaviour, IFighter
 
     public int GetBaseHealth(){
         return baseHealth;
+    }
+
+    public void RefreshPosition(){
+        this.posX = (int)this.transform.position.x;
+        this.posY = (int)this.transform.position.y;
+    }
+
+    public void SetPosition(int newPosX, int newPosY){
+        this.transform.position = new Vector3((float) newPosX, (float) newPosY);
+        this.posX = newPosX;
+        this.posY = newPosY;
     }
 }

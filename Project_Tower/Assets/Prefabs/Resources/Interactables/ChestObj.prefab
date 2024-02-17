@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2753655922544830098}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 12, y: 1, z: 0}
   m_LocalScale: {x: 4, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,5 +98,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsEnable: 1
-  Pos: {x: 1, y: 1, z: 0}
-  Clue: "A kankalin s\xF6t\xE9tben vir\xE1gzik"
+  Pos: {x: 12, y: 1, z: 0}
+  Clue: Click any door to go to the next room
