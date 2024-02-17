@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
         "Clue Then everything changed",
         "Clue When The firenation attacked"
         };
-        
+
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
         CurrentRow = UnityEngine.Random.Range(0, N);
@@ -119,22 +119,22 @@ public class LevelManager : MonoBehaviour
         {
             case 0:
                 NextRow--;
-                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,1);
+                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 1:
                 NextCol++;
-                gameManagerScript.playerScript.SetPosition(1,gameManagerScript.tileManagerScript._height/2);
+                gameManagerScript.playerScript.SetPosition(2,gameManagerScript.tileManagerScript._height/2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 2:
                 NextRow++;
-                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,gameManagerScript.tileManagerScript._height-2);
+                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,gameManagerScript.tileManagerScript._height-3);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 3:
                 NextCol--;
-                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width-2,gameManagerScript.tileManagerScript._height/2);
+                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width-3,gameManagerScript.tileManagerScript._height/2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,180,0);
                 break;
             default:
