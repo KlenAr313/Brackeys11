@@ -97,7 +97,9 @@ public class LevelManager : MonoBehaviour
         return false;
     }
 
-    public bool OpenDoor(int doorI){
+    public IEnumerator OpenDoor(int doorI){
+        GameObject.Find("Game Manager").GetComponent<FadeSystem>().OpenDoor();
+        yield return new WaitForSeconds(1.7f);
         int NextRow = CurrentRow;
         int NextCol = CurrentCol;
         switch (doorI)
@@ -123,7 +125,7 @@ public class LevelManager : MonoBehaviour
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,180,0);
                 break;
             default:
-                return false;
+                break;
         }
 
         if(NextRow >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol].Type != 0){
@@ -136,9 +138,7 @@ public class LevelManager : MonoBehaviour
             doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
             RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
             roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol]);
-            return true;
         }
-        return false;
     }
 
 }

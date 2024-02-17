@@ -33,6 +33,5 @@ public class Chest : InteractableBase, IInteractable
 
     public void Click(){
         GameObject.Find("Game Manager").GetComponent<PopUpSystem>().PopUp(Clue);
-            Debug.Log(Clue);
     }
 }
