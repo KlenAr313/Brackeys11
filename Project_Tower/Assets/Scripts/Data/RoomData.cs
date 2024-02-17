@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class RoomData
 {
+    private static List<string> cluePool = new List<string>{
+        "Clue Water",
+        "Clue Earth",
+        "Clue Fire",
+        "Clue Air",
+        "Clue Long ago",
+        "Clue The four nation",
+        "Clue Lived together",
+        "Cleu In harmony",
+        "Clue Then everything changed",
+        "Clue When The firenation attacked"
+    };
     public bool IsWon;
     public int Type;
     public List<InteractableBase> Interactables;
@@ -23,14 +35,16 @@ public class RoomData
     }
 
     private bool randomiseChest(){
-        Chest chest = new Chest(true, new Vector2Int(1,1), "A kankalin sötétben virágzik"); 
+        Chest chest;
         if(Type == 1){
             chest = new Chest(true, new Vector2Int(12,1), "Click any door to go to the next room"); 
-            Interactables.Add(chest);
         }
         else{
-            Interactables.Add(chest);
+            int r = Random.Range(0, cluePool.Count);
+            chest = new Chest(true, new Vector2Int(1,1), cluePool[r]);
+            cluePool.RemoveAt(r); 
         }
+        Interactables.Add(chest);
         return true;
     }
 }
