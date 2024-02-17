@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IFighter
 {
+    public static Player Instance{get; private set;}
+
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
@@ -14,7 +16,7 @@ public class Player : MonoBehaviour, IFighter
     [SerializeField] public int mana;
     [SerializeField] public int baseMana;
     [SerializeField] private int setSpeed;
-    [SerializeField] private List<string> yourSpells;
+    [SerializeField] public List<string> yourSpells;
     [SerializeField] protected Sprite previewImage;
     private GameManager gameManagerScript;
     private int baseHealth;
@@ -49,6 +51,8 @@ public class Player : MonoBehaviour, IFighter
     }
 
     void Start(){
+        Instance = this;
+
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         selectedSpell = "Fireball";
         gameManagerScript.RefreshCurrentSpell();
@@ -76,6 +80,10 @@ public class Player : MonoBehaviour, IFighter
             selectedSpell = yourSpells[2];
             gameManagerScript.RefreshCurrentSpell();
         }
+    }
+
+    public static int GetPlayerBaseDamage(){
+        return Instance.baseDamage;
     }
     
     public List<string> playerSpells(){
@@ -105,4 +113,5 @@ public class Player : MonoBehaviour, IFighter
         this.posX = newPosX;
         this.posY = newPosY;
     }
+
 }

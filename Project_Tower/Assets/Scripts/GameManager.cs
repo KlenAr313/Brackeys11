@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public SpellBase currentSpell = null;
     [SerializeField] private CombatManager combatManagerScript;
 
+    //Basically the length of the spell bar
+    [SerializeField] public static int MaxAbilities = 3;
     private int currentX;
     private int currentY;
 
