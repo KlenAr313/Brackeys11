@@ -56,6 +56,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("Hover event");
         TooltipUI.ShowTooltipStatic(spellBaseScript.GetDescription());
     }
 
