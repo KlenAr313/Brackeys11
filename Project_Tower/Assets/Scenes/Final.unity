@@ -3474,7 +3474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posX: 2
   posY: 3
-  health: 1
+  health: 100
   baseDamage: 2
   mana: 100
   baseMana: 100
