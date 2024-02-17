@@ -10,14 +10,14 @@ public class Player : MonoBehaviour, IFighter
     [SerializeField] private int posY;
 
     [SerializeField] public int health;
-    [SerializeField] public int baseHealth;
     [SerializeField] private int baseDamage;
     [SerializeField] public int mana;
     [SerializeField] public int baseMana;
-    [SerializeField ]private int setSpeed;
+    [SerializeField] private int setSpeed;
     [SerializeField] private List<string> yourSpells;
     [SerializeField] protected Sprite previewImage;
     private GameManager gameManagerScript;
+    private int baseHealth;
 
     public string selectedSpell;
     public event Action UpdateStatUI;
@@ -85,5 +85,9 @@ public class Player : MonoBehaviour, IFighter
     public float Attack()
     {
         return 1;
+    }
+
+    public int GetBaseHealth(){
+        return baseHealth;
     }
 }
