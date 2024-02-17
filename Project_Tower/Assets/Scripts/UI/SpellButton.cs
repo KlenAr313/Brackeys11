@@ -16,6 +16,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
         gameManagerScript.SpellRefreshed += Refresh;
 
         selectedImage.SetActive(false);
+        Refresh();
     }
 
 

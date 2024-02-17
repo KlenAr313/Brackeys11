@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        isPlayerTurn = true;
+
         RefreshCurrentSpell();
 
         //Debug miatt true, false legyen alapból!
@@ -63,6 +65,10 @@ public class GameManager : MonoBehaviour
                         roomManagerScript.TileClicked(coord.x, coord.y, true);
                     }
 
+                    currentSpell.PlayAnimation(posX, posY);
+                    tileManagerScript.RemoveAllHighlight();
+
+
                     playerScript.DecreaseMana(currentSpell.ManaCost);
                     StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
@@ -75,6 +81,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void TileHighlighter(int posX, int posY){
+
+        if(!isPlayerTurn){
+            return;
+        }
+
         currentX = posX;
         currentY = posY;
         if(isFighting){

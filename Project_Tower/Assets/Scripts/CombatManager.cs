@@ -9,11 +9,9 @@ public class CombatManager : MonoBehaviour
 {
     [SerializeField] public List<IFighter> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
+    [SerializeField] public int currentTurnIndex;
 
     public event Action refreshCombatUI;
-
-    private int playerPosition;
-    private int currentTurnIndex;
 
     void Start(){
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -28,7 +26,6 @@ public class CombatManager : MonoBehaviour
         });
 
         combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
-        playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();
 
@@ -74,13 +71,14 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(waitAfterAttack + 0.5f);
         Debug.Log("továbbadás");
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
+        UpdateEnemyList();
         NextTurn();
     }
 
     public IEnumerator PlayerTakeTurn(){
+        gameManagerScript.isPlayerTurn = false;
         yield return new WaitForSeconds(gameManagerScript.currentSpell.animationTime + 0.5f);
         currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
-        gameManagerScript.isPlayerTurn = false;
         Debug.Log("Player körének vége");
 
         UpdateEnemyList();
@@ -107,7 +105,6 @@ public class CombatManager : MonoBehaviour
         }
 
         combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
-        playerPosition = combatParticipants.Count - 1;
 
         SortBySpeed();
 

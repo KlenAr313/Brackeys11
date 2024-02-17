@@ -16,11 +16,14 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     [SerializeField] protected int baseDamage;
     [SerializeField] protected int setSpeed;
 
+    [SerializeField] protected Sprite previewImage;
+
     public int PosX { get => posX; set => posX = value; }
     public int PosY { get => posY; set => posY = value; }
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
     public int Speed { get => setSpeed; set => setSpeed = value; }
+    public Sprite PreviewImage { get => previewImage; set => previewImage = value; }
 
     void Start(){
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();

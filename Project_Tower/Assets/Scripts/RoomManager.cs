@@ -39,13 +39,14 @@ public class RoomManager : MonoBehaviour
         if(isAttack){
             foreach(GameObject enemy in enemies){
                 EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
+                /*
                 if(enemyBaseScript == null){
                     Debug.Log("Enemy script null");
                 }
+                */
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
                     //TODO Majd player damage kell az argumentumba
-                    float animationTime = gameManagerScript.currentSpell.PlayAnimation(posX, posY);
-                    enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), animationTime);
+                    enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
                 }
             }
         }

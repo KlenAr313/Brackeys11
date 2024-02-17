@@ -16,6 +16,7 @@ public class Player : MonoBehaviour, IFighter
     [SerializeField] public int baseMana;
     [SerializeField ]private int setSpeed;
     [SerializeField] private List<string> yourSpells;
+    [SerializeField] protected Sprite previewImage;
     private GameManager gameManagerScript;
 
     public string selectedSpell;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour, IFighter
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
     public int Speed { get => setSpeed; set => setSpeed = value; }
+    public Sprite PreviewImage { get => previewImage; set => previewImage = value; }
 
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
