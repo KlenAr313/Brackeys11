@@ -54,18 +54,21 @@ public class GameManager : MonoBehaviour
     }
 
     public void TileClicked(int posX, int posY){
-        currentX = posX;
-        currentY = posY;
+        if(tileManagerScript.IsTileClickable(posX, posY)){
+            currentX = posX;
+            currentY = posY;
+        }
+
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
                 if(currentSpell != null && currentSpell.ManaCost <= playerScript.mana){
-                    foreach(Vector2Int coord in currentSpell.Cast(posX, posY)){
+                    foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
                         //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
                         roomManagerScript.TileClicked(coord.x, coord.y, true);
                     }
 
-                    currentSpell.PlayAnimation(posX, posY);
+                    currentSpell.PlayAnimation(currentX, currentY);
                     tileManagerScript.RemoveAllHighlight();
 
 
@@ -86,13 +89,15 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        currentX = posX;
-        currentY = posY;
+        if(tileManagerScript.IsTileClickable(posX, posY)){
+            currentX = posX;
+            currentY = posY;
+        }
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
                 if(currentSpell != null){
-                    foreach(Vector2Int coord in currentSpell.Cast(posX, posY)){
+                    foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
                         tileManagerScript.highlightSpellPreview(coord.x, coord.y);
                     }
                 }

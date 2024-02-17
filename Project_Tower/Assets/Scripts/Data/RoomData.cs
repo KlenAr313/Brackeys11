@@ -23,8 +23,14 @@ public class RoomData
     }
 
     private bool randomiseChest(){
-        Chest chest = new Chest(true, new Vector2Int(1,1), "A kankalin sötétben virágzik");  
-        Interactables.Add(chest);  
+        Chest chest = new Chest(true, new Vector2Int(1,1), "A kankalin sötétben virágzik"); 
+        if(Type == 1){
+            chest = new Chest(true, new Vector2Int(12,1), "Click any door to go to the next room"); 
+            Interactables.Add(chest);
+        }
+        else{
+            Interactables.Add(chest);
+        }
         return true;
     }
 }
