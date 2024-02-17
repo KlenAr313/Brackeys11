@@ -16,11 +16,14 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     [SerializeField] protected int baseDamage;
     [SerializeField] protected int setSpeed;
 
+    [SerializeField] protected Sprite previewImage;
+
     public int PosX { get => posX; set => posX = value; }
     public int PosY { get => posY; set => posY = value; }
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
     public int Speed { get => setSpeed; set => setSpeed = value; }
+    public Sprite PreviewImage { get => previewImage; set => previewImage = value; }
 
     void Start(){
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -30,6 +33,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
         this.gameObject.SetActive(false);
+        Debug.Log("I died");
     }
 
     public virtual void GetDamaged(int amount, float waitTilDisappear){
@@ -37,6 +41,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
         if(this.Health <= 0){
             StartCoroutine(Die(waitTilDisappear));
         }
+        Debug.Log("U "+ Health);
     }
 
     public virtual void Move(int x, int y){
