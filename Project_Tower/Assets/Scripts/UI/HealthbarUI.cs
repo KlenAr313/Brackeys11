@@ -15,6 +15,6 @@ public class HealthbarUI : MonoBehaviour
     }
 
     private void RefreshHealthUI(){
-        healthBarImage.fillAmount = (float) gameManagerScript.playerScript.health / (float) gameManagerScript.playerScript.baseHealth;
+        healthBarImage.fillAmount = (float) gameManagerScript.playerScript.health / (float) gameManagerScript.playerScript.GetBaseHealth();
     }
 }

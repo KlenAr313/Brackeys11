@@ -1,4 +1,5 @@
 //using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +13,28 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     [SerializeField] protected int posY;
     [SerializeField] protected List<string> spells;
 
-    [SerializeField] protected int health;
+    [SerializeField] public int health;
     [SerializeField] protected int baseDamage;
     [SerializeField] protected int setSpeed;
 
     [SerializeField] protected Sprite previewImage;
 
     [SerializeField] protected bool randomiseSpeed = true;
+    [SerializeField] public Color color;
+
+    protected int baseHealth;
 
     public int PosX { get => posX; set => posX = value; }
     public int PosY { get => posY; set => posY = value; }
     public int Health { get => health; set => health = value; }
     public int BaseDamage { get => baseDamage; set => baseDamage = value; }
+
+    public event Action UpdateEnemyHealthUI;
     public int Speed 
     { 
         get {
             if(randomiseSpeed)
-                return setSpeed + Random.Range(-1,3);
+                return setSpeed + UnityEngine.Random.Range(-1,3);
             return setSpeed;
         } 
         set => setSpeed = value;
@@ -39,6 +45,8 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         this.posX = (int)this.gameObject.transform.position.x;
         this.posY = (int)this.gameObject.transform.position.y;
+
+        this.baseHealth = health;
     }
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
@@ -52,6 +60,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
             StartCoroutine(Die(waitTilDisappear));
         }
         Debug.Log("U "+ Health);
+        UpdateEnemyHealthUI.Invoke();
     }
 
     public virtual void Move(int x, int y){
@@ -82,5 +91,9 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     
     public void Lowlight(){
         this.GetComponentInParent<SpriteRenderer>().color = Color.white;
+    }
+
+    public int GetBaseHealth(){
+        return baseHealth;
     }
 }

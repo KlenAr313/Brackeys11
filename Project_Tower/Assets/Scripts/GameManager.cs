@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        isPlayerTurn = true;
+        isPlayerTurn = false;
 
         RefreshCurrentSpell();
 

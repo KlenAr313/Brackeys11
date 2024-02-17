@@ -10,6 +10,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] public List<IFighter> combatParticipants;
     [SerializeField] private GameManager gameManagerScript;
     [SerializeField] public int currentTurnIndex;
+    [SerializeField] public List<Color> colors;
 
     public event Action refreshCombatUI;
 
@@ -20,10 +21,20 @@ public class CombatManager : MonoBehaviour
     public void StartCombat(){
         //UpdateEnemyList();
         combatParticipants = new List<IFighter>();
+        /*
         gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
         {
             combatParticipants.Add(i.GetComponent<EnemyBase>());
         });
+        */
+
+        int i = 0;
+        foreach(GameObject obj in gameManagerScript.roomManagerScript.GetAllEnemies()){
+            EnemyBase enemyBaseScript = obj.GetComponent<EnemyBase>();
+            combatParticipants.Add(enemyBaseScript);
+            enemyBaseScript.color = colors[i];
+            i++;
+        }
 
         combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
 
@@ -38,6 +49,7 @@ public class CombatManager : MonoBehaviour
 
     public void EndCombat(){
         combatParticipants.Clear();
+        refreshCombatUI.Invoke();
     }
 
     private void SortBySpeed(){
