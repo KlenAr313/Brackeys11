@@ -62,7 +62,6 @@ public class RoomManager : MonoBehaviour
             foreach(GameObject item in interactables){
                 if(item.transform.position.x == posX && item.transform.position.y == posY){
                     item.GetComponent<IInteractable>().Click();
-                    Debug.Log("Why not?");
                 }
             }
         }
@@ -144,7 +143,6 @@ public class RoomManager : MonoBehaviour
         
         if(enemies.Count > 0)
             gameManagerScript.StartFight();
-        //TODO reloading next room
     }
 
     private void generateRoomFromLayout(ref RoomData data)

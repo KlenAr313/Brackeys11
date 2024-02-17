@@ -155,7 +155,6 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.K)){
             Debug.Log("Combat started!");
             isFighting = true;
-            //isPlayerTurn = true;
             combatManagerScript.StartCombat();
         }
 

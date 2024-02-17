@@ -19,14 +19,7 @@ public class CombatManager : MonoBehaviour
     }
 
     public void StartCombat(){
-        //UpdateEnemyList();
         combatParticipants = new List<IFighter>();
-        /*
-        gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
-        {
-            combatParticipants.Add(i.GetComponent<EnemyBase>());
-        });
-        */
 
         int i = 0;
         foreach(GameObject obj in gameManagerScript.roomManagerScript.GetAllEnemies()){
@@ -79,13 +72,15 @@ public class CombatManager : MonoBehaviour
         Debug.Log(currentTurnIndex + ". enemy köre");
         ((EnemyBase)combatParticipants[currentTurnIndex]).Highlight();
         yield return new WaitForSeconds(1f);
+
         Debug.Log("Castoltam a spellt");
         float waitAfterAttack = combatParticipants[currentTurnIndex].Attack();
         yield return new WaitForSeconds(waitAfterAttack + 0.5f);
+
         ((EnemyBase)combatParticipants[currentTurnIndex]).Lowlight();
         Debug.Log("továbbadás");
         UpdateEnemyList();
-        //currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
+        
         NextTurn();
     }
 
@@ -93,7 +88,6 @@ public class CombatManager : MonoBehaviour
         gameManagerScript.isPlayerTurn = false;
         yield return new WaitForSeconds(gameManagerScript.currentSpell.animationTime + 0.5f);
         UpdateEnemyList();
-        //currentTurnIndex = (currentTurnIndex+1) % combatParticipants.Count;
 
         Debug.Log("Player körének vége");
 
@@ -119,22 +113,7 @@ public class CombatManager : MonoBehaviour
             else
                 i++;
         }
-        /*combatParticipants.RemoveAll(i => {
-            cnt++;
-            if(i is not Player && !currentFigtingEnemies.Contains(i)){
-                if(cnt <= currentTurnIndex)
-                    deadBefCurInd++;
-                return true;
-            }
-            return false;
-        });*/
-        /*gameManagerScript.roomManagerScript.GetAllEnemies().ForEach(i => 
-        {
-            if(combatParticipants.Contains(i.GetComponent<EnemyBase>()))
-            combatParticipants.Add(i.GetComponent<EnemyBase>());
-        });*/
-
-        //currentTurnIndex -= deadBefCurInd;
+        
         currentTurnIndex++;
         if(currentTurnIndex >= combatParticipants.Count){
             currentTurnIndex = 0;
@@ -149,10 +128,6 @@ public class CombatManager : MonoBehaviour
             refreshCombatUI?.Invoke();
             return;
         }
-
-        //combatParticipants.Add(gameManagerScript.playerObj.GetComponent<Player>());
-
-        //SortBySpeed();
 
         refreshCombatUI?.Invoke();
     }
