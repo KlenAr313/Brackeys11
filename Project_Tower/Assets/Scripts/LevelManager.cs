@@ -104,25 +104,21 @@ public class LevelManager : MonoBehaviour
         {
             case 0:
                 NextRow--;
-                Debug.Log("alulról jött");
                 gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,1);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 1:
                 NextCol++;
-                Debug.Log("balról jött");
                 gameManagerScript.playerScript.SetPosition(1,gameManagerScript.tileManagerScript._height/2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 2:
                 NextRow++;
-                Debug.Log("felülről jött");
                 gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,gameManagerScript.tileManagerScript._height-2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 3:
                 NextCol--;
-                Debug.Log("jobbról jött");
                 gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width-2,gameManagerScript.tileManagerScript._height/2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,180,0);
                 break;
