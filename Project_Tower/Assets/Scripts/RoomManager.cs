@@ -62,6 +62,7 @@ public class RoomManager : MonoBehaviour
             foreach(GameObject item in interactables){
                 if(item.transform.position.x == posX && item.transform.position.y == posY){
                     item.GetComponent<IInteractable>().Click();
+                    Debug.Log("Why not?");
                 }
             }
         }
@@ -87,14 +88,15 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        /*interactables.Clear();
+        /*interactables.Clear();*/
         //Load interactables to list
         GameObject interactableParentObj = roomLayout.gameObject.transform.Find("Interactables").gameObject;
         foreach(Transform child in interactableParentObj.transform){
-            if(child.gameObject.activeSelf){
+            if(child.gameObject.activeSelf && !interactables.Contains(child.gameObject)){
                 interactables.Add(child.gameObject);
+                Debug.Log("I added one element");
             }
-        }*/
+        }
 
         obstacles.Clear();
         //Load obstacles to list
