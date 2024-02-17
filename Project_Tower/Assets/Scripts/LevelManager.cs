@@ -111,6 +111,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public IEnumerator OpenDoor(int doorI){
+        GameObject.Find("Game Manager").GetComponent<GameManager>().canClick = false;
         GameObject.Find("Game Manager").GetComponent<FadeSystem>().OpenDoor();
         yield return new WaitForSeconds(1.7f);
         int NextRow = CurrentRow;
@@ -152,6 +153,10 @@ public class LevelManager : MonoBehaviour
             RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
             roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol]);
         }
+
+        
+        yield return new WaitForSeconds(1.3f);
+        GameObject.Find("Game Manager").GetComponent<GameManager>().canClick = true;
     }
 
 }

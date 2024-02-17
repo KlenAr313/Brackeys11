@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     //Basically the length of the spell bar
     [SerializeField] public static int MaxAbilities = 3;
+
+    public bool canClick = true;
     private int currentX;
     private int currentY;
 
