@@ -9,8 +9,10 @@ public abstract class SpellBase : MonoBehaviour
     [SerializeField] public string spellName;
     [SerializeField] protected int damageModifier;
     [SerializeField] protected int manaCost;
+    [SerializeField] public Sprite icon;
 
     public float animationTime;
+    [SerializeField] private string description;
 
     [SerializeField] protected ParticleSystem particlePrefab;
     [SerializeField] protected List<Vector2Int> extraAffectedTiles;
@@ -21,8 +23,6 @@ public abstract class SpellBase : MonoBehaviour
 
     public virtual List<Vector2Int> Cast(int posX, int posY){
         List<Vector2Int> coords = new List<Vector2Int>();
-
-        //Debug.Log("You cast a fireball spell at: X: " + posX + " Y: " + posY);
 
         //Affected Tiles
         coords.Add(new Vector2Int(posX, posY));
@@ -39,6 +39,10 @@ public abstract class SpellBase : MonoBehaviour
         particle.Play();
         
         return animationTime;
+    }
+
+    public string GetDescription(){
+        return "Name: " + this.spellName + "\nCost: " + this.manaCost + "\nDamage: " + (Player.GetPlayerBaseDamage() * damageModifier) + "\nDesc: " +  description;
     }
 
 }
