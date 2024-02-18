@@ -106,7 +106,7 @@ public class Player : MonoBehaviour, IFighter
             gameManagerScript.Restart();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && health <= 0)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
