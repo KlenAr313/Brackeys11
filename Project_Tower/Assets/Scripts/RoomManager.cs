@@ -44,8 +44,10 @@ public class RoomManager : MonoBehaviour
                 }
                 */
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
-                    //TODO Majd player damage kell az argumentumba
-                    enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                    //Ne sebezzünk ha:
+                    if(gameManagerScript.currentSpell.spellName != "Heal" && gameManagerScript.currentSpell.spellName != "Mana"){
+                        enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                    }
                 }
             }
 
