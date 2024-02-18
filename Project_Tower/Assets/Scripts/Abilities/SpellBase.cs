@@ -10,6 +10,7 @@ public abstract class SpellBase : MonoBehaviour
     [SerializeField] protected int damageModifier;
     [SerializeField] protected int manaCost;
     [SerializeField] public Sprite icon;
+    [SerializeField] public SFXPlay sfx;
 
     public float animationTime;
     [SerializeField] protected string description;
@@ -39,6 +40,11 @@ public abstract class SpellBase : MonoBehaviour
         particle.Play();
         
         return animationTime;
+    }
+
+    public virtual void PlaySound()
+    {
+        sfx.PlayFX(spellName);
     }
 
     public virtual string GetDescription(){

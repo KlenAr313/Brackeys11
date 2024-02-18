@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
                     }
 
                     currentSpell.PlayAnimation(currentX, currentY);
+                    currentSpell.PlaySound();
                     tileManagerScript.RemoveAllHighlight();
 
 
