@@ -25,6 +25,9 @@
 ## Clues
 	- Portals do not refer to the next level
 
+## Merchants
+	- Haggle with merchants (Potion Craft)
+
 
 
 
