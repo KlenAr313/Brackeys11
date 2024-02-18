@@ -21,16 +21,19 @@ public class LevelManager : MonoBehaviour
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
 
         RoomData.cluePool = new List<string>{
-        "Clue Water",
-        "Clue Earth",
-        "Clue Fire",
-        "Clue Air",
-        "Clue Long ago",
-        "Clue The four nation",
-        "Clue Lived together",
-        "Cleu In harmony",
-        "Clue Then everything changed",
-        "Clue When The firenation attacked"
+        "Behind the left portal there are brain eaters",
+        "Don't choose the middle portal",
+        "When the moon is full, the nights are cold",
+        "Not many people return from the right one",
+        "If you are greedy, don't choose the left portal",
+        "In all three portals, you will be alone",
+        "All three portals are under construction...",
+        "Keep your health high for the right portal",
+        "Keep your mana high for the middle portal",
+        "Choose the left because that's the best",
+        "The blind enemies are stuuuupid, don't trust them",
+        "Kill the healer for quick success",
+        "Maybe the clues can lie?"
         };
 
         N = RoomCounter / 2;

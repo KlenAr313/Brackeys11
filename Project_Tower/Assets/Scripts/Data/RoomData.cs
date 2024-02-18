@@ -5,18 +5,7 @@ using UnityEngine;
 
 public class RoomData
 {
-    public static List<string> cluePool = new List<string>{
-        "Clue Water",
-        "Clue Earth",
-        "Clue Fire",
-        "Clue Air",
-        "Clue Long ago",
-        "Clue The four nation",
-        "Clue Lived together",
-        "Cleu In harmony",
-        "Clue Then everything changed",
-        "Clue When The firenation attacked"
-    };
+    public static List<string> cluePool;
     public bool IsWon;
     public int Type;
     public List<InteractableBase> Interactables;
