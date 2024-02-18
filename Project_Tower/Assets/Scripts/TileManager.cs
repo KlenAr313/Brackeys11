@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    [SerializeField] public int _width, _height;
+    private int _width, _height;
 
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private GameManager gameManagerScript;
@@ -110,5 +110,22 @@ public class TileManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public List<Vector2Int> GetPlayableArea(int padding = 0){
+        List<Vector2Int> coords = new List<Vector2Int>();
+
+        foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
+            
+            if( (tile.Key.x >= 0 && tile.Key.x <= 0 + padding) || (tile.Key.x >= _width - 1 - padding  && tile.Key.x <= _width - 1) || 
+            (tile.Key.y >= 0 && tile.Key.y <= 0 + padding) || (tile.Key.y >= _height - 1 - padding  && tile.Key.y <= _height - 1)){
+                continue;
+            }
+            else{
+                coords.Add(new Vector2Int((int)tile.Key.x, (int)tile.Key.y));
+            }
+            
+        }
+        return coords;
     }
 }

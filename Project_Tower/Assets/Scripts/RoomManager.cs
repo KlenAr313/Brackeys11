@@ -14,8 +14,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private GameObject roomLayout;
 
     [SerializeField] private bool[] doors = {true, true, false, true};
-    [SerializeField] private int height;
-    [SerializeField] private int width;
+    [SerializeField] public int height;
+    [SerializeField] public int width;
 
     [SerializeField] private List<GameObject> enemies;
     [SerializeField] private List<GameObject> obstacles;
@@ -187,6 +187,9 @@ public class RoomManager : MonoBehaviour
         this.roomData.IsWon = true;
     }
 
+
+    #region Utilities
+
     public string GetTileNameByCoord(int posX, int posY){
 
         foreach(GameObject obj in enemies){
@@ -244,4 +247,7 @@ public class RoomManager : MonoBehaviour
 
         return null;
     }
+
+
+    #endregion
 }

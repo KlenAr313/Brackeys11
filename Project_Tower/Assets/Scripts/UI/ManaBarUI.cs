@@ -9,10 +9,11 @@ public class ManaBarUI : MonoBehaviour
     [SerializeField] private GameManager gameManagerScript;
 
     void Start(){
-        gameManagerScript.playerScript.UpdateStatUI += RefreshHealthUI;
+        gameManagerScript.playerScript.UpdateStatUI += RefreshManaUI;
     }
 
-    private void RefreshHealthUI(){
-        manaBarImage.fillAmount = (float) gameManagerScript.playerScript.mana / (float) gameManagerScript.playerScript.baseMana;
+    private void RefreshManaUI(){
+        Debug.Log("Mana updating in UI");
+        manaBarImage.fillAmount = (float) gameManagerScript.playerScript.mana / (float) gameManagerScript.playerScript.GetBaseMana();
     }
 }
