@@ -12,7 +12,7 @@ public abstract class SpellBase : MonoBehaviour
     [SerializeField] public Sprite icon;
 
     public float animationTime;
-    [SerializeField] private string description;
+    [SerializeField] protected string description;
 
     [SerializeField] protected ParticleSystem particlePrefab;
     [SerializeField] protected List<Vector2Int> extraAffectedTiles;
@@ -41,7 +41,7 @@ public abstract class SpellBase : MonoBehaviour
         return animationTime;
     }
 
-    public string GetDescription(){
+    public virtual string GetDescription(){
         return "Name: " + this.spellName + "\nCost: " + this.manaCost + "\nDamage: " + (Player.GetPlayerBaseDamage() * damageModifier) + "\nDesc: " +  description;
     }
 

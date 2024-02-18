@@ -51,7 +51,16 @@ public class RoomManager : MonoBehaviour
             }
 
             if(posX == gameManagerScript.playerScript.PosX && posY == gameManagerScript.playerScript.PosY){
-                gameManagerScript.playerScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                if(gameManagerScript.currentSpell.spellName == "Heal"){
+                    gameManagerScript.playerScript.GetHealed(gameManagerScript.playerScript.GetFinalDamage());
+                    //Debug.Log("Healing: " + gameManagerScript.playerScript.GetFinalDamage());
+                }
+                else if(gameManagerScript.currentSpell.spellName == "Mana"){
+                    gameManagerScript.playerScript.GiveMana(gameManagerScript.playerScript.GetFinalDamage());
+                }
+                else{
+                    gameManagerScript.playerScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                }
             }
         }
         else if(doors[0] && posY == height-1 && posX == width / 2)
