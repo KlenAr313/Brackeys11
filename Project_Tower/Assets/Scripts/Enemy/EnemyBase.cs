@@ -43,6 +43,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
 
     void Start(){
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
         this.posX = (int)this.gameObject.transform.position.x;
         this.posY = (int)this.gameObject.transform.position.y;
 
