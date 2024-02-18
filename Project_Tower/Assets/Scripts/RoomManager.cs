@@ -49,6 +49,10 @@ public class RoomManager : MonoBehaviour
                     enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
                 }
             }
+
+            if(posX == gameManagerScript.playerScript.PosX && posY == gameManagerScript.playerScript.PosY){
+                gameManagerScript.playerScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+            }
         }
         else if(doors[0] && posY == height-1 && posX == width / 2)
                 StartCoroutine(levelManagerScript.OpenDoor(0));
