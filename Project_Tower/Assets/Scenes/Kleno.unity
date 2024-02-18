@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 467891191}
   - component: {fileID: 467891192}
   - component: {fileID: 467891193}
+  - component: {fileID: 467891194}
   m_Layer: 0
   m_Name: Spells
   m_TagString: Untagged
@@ -592,6 +593,26 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
   - {x: 0, y: -1}
+--- !u!114 &467891194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467891189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6565e90b74145ca4d9faace573bab62e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellName: Heal
+  damageModifier: 0
+  manaCost: 0
+  icon: {fileID: 0}
+  animationTime: 0
+  description: 
+  particlePrefab: {fileID: 1044466045935826120, guid: 25fc4abe9ce6ea84b83179943ce64d8e, type: 3}
+  extraAffectedTiles: []
 --- !u!1 &489200947
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,6 +2868,7 @@ MonoBehaviour:
   spellList: []
   currentSpell: {fileID: 0}
   combatManagerScript: {fileID: 0}
+  canClick: 1
 --- !u!4 &2037264998
 Transform:
   m_ObjectHideFlags: 0

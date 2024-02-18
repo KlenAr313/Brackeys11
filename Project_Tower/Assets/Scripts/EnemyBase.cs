@@ -96,4 +96,8 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     public int GetBaseHealth(){
         return baseHealth;
     }
+
+    public void GetHealed(int amount){
+        this.health += amount;
+    }
 }
