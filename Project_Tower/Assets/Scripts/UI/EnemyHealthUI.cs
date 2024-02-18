@@ -9,6 +9,7 @@ public class EnemyHealthUI : MonoBehaviour
     [SerializeField] private EnemyBase enemyBaseScript;
 
     void Start(){
+        enemyBaseScript = this.gameObject.GetComponent<EnemyBase>();
         enemyBaseScript.UpdateEnemyHealthUI += RefreshHealthUI;
         this.healthBarImage.color = enemyBaseScript.color;
     }
