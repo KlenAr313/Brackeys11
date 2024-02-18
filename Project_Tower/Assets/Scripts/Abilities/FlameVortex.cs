@@ -9,4 +9,8 @@ public class FlameVortex : SpellBase
         base.particlePrefab = Resources.Load<ParticleSystem>("Effects/FlameVortexParticles");
         animationTime = particlePrefab.main.duration;
     }
+
+    public override string GetDescription(){
+        return "Name: " + "Flame Vortex" + "\nCost: " + this.manaCost + "\nDamage: " + (Player.GetPlayerBaseDamage() * damageModifier) + "\nDesc: " +  description;
+    }
 }

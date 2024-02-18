@@ -45,6 +45,14 @@ public class Player : MonoBehaviour, IFighter
         }
     }
 
+    public void GetHealed(int amount){
+        this.health = health + amount;
+        if(baseHealth < health){
+            health = baseHealth;
+        }
+        UpdateStatUI.Invoke();
+    }
+
     public void DecreaseMana(int amount){
         mana -= amount;
         UpdateStatUI.Invoke();
@@ -80,6 +88,16 @@ public class Player : MonoBehaviour, IFighter
         if (Input.GetKeyDown("3"))
         {
             selectedSpell = yourSpells[2];
+            gameManagerScript.RefreshCurrentSpell();
+        }
+        if (Input.GetKeyDown("4"))
+        {
+            selectedSpell = yourSpells[3];
+            gameManagerScript.RefreshCurrentSpell();
+        }
+        if (Input.GetKeyDown("5"))
+        {
+            selectedSpell = yourSpells[4];
             gameManagerScript.RefreshCurrentSpell();
         }
 
