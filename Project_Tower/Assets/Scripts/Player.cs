@@ -103,8 +103,12 @@ public class Player : MonoBehaviour, IFighter
 
         if (Input.GetKeyDown(KeyCode.R) && health <= 0)
         {
-            Debug.Log("Restart button pressed");
             gameManagerScript.Restart();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 

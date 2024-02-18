@@ -35,11 +35,11 @@ public class TooltipUI : MonoBehaviour
     }
 
     void Update(){
-        rectTransform.anchoredPosition = new Vector3(Input.mousePosition.x+1, Input.mousePosition.y+1,0)/ canvasRectTransform.localScale.x;
+        rectTransform.anchoredPosition = new Vector3(Input.mousePosition.x+2, Input.mousePosition.y+2,0)/ canvasRectTransform.localScale.x;
     }
 
     private void ShowTooltip(string textToShow){
-        rectTransform.anchoredPosition = new Vector3(Input.mousePosition.x+1, Input.mousePosition.y+1,0)/ canvasRectTransform.localScale.x;
+        rectTransform.anchoredPosition = new Vector3(Input.mousePosition.x+2, Input.mousePosition.y+2,0)/ canvasRectTransform.localScale.x;
         gameObject.SetActive(true);
         SetText(textToShow);
     }
