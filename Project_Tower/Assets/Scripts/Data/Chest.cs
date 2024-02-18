@@ -36,6 +36,6 @@ public class Chest : InteractableBase, IInteractable
     }
 
     public void NewPos(Vector2Int Pos){
-        this.Pos = new Vector3Int(Pos.x, Pos.y, 0);
+        this.Pos = new Vector3Int(Pos.x, Pos.y, -1);
     }
 }
