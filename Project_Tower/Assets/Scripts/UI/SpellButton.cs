@@ -49,6 +49,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Kattintás");
         gameManagerScript.playerScript.selectedSpell = this.spellBaseScript.spellName;
         gameManagerScript.RefreshCurrentSpell();
         Refresh();
