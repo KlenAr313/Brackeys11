@@ -85,6 +85,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
                 enemy.GetDamaged(baseDamage, animationTime);
             }
         }
+        gameManagerScript.GetSpellByName(spells[0]).PlaySound();
         this.Lowlight();
         return animationTime;
     }
