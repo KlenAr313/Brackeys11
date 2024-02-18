@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -164,6 +163,10 @@ public class RoomManager : MonoBehaviour
         for(int i = 0; i < data.Interactables.Count; ++i){
             if(data.Interactables[i] is Chest){
                 GameObject interactableGameObj = Resources.Load<GameObject>("Interactables/ChestObj");
+                if(!data.IsWon){
+                    List<Vector2Int> vects = gameManagerScript.tileManagerScript.GetPlayableArea();
+                    ((Chest)data.Interactables[i]).NewPos(vects[Random.Range(0, vects.Count)]);
+                }
                 interactableGameObj.transform.position = data.Interactables[i].Pos;
                 interactableGameObj.GetComponent<Chest>().CopyData((Chest)data.Interactables[i]);
                 interactableGameObj = GameObject.Instantiate(interactableGameObj);
