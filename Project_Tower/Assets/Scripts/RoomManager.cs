@@ -169,9 +169,6 @@ public class RoomManager : MonoBehaviour
         }
         Initialise();
 
-        
-
-
     }
 
 
@@ -188,5 +185,63 @@ public class RoomManager : MonoBehaviour
     internal void WinFight()
     {
         this.roomData.IsWon = true;
+    }
+
+    public string GetTileNameByCoord(int posX, int posY){
+
+        foreach(GameObject obj in enemies){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return "enemy";
+            }
+        }
+
+        foreach(GameObject obj in interactables){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return "interactable";
+            }
+        }
+
+        foreach(GameObject obj in obstacles){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return "obsatcle";
+            }
+        }
+
+        foreach(GameObject obj in floor){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return "floor";
+            }
+        }
+
+        return null;
+    }
+
+    public GameObject GetTileGameObjectByCoord(int posX, int posY){
+        
+        foreach(GameObject obj in enemies){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return obj;
+            }
+        }
+
+        foreach(GameObject obj in interactables){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return obj;
+            }
+        }
+
+        foreach(GameObject obj in obstacles){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return obj;
+            }
+        }
+
+        foreach(GameObject obj in floor){
+            if(obj.transform.position.x == posX && obj.transform.position.y == posY){
+                return obj;
+            }
+        }
+
+        return null;
     }
 }

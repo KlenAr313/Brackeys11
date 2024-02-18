@@ -178,11 +178,12 @@ MonoBehaviour:
   posY: 5
   spells:
   - FlameVortex
-  health: 10
+  health: 33
   baseDamage: 30
   setSpeed: -10
   previewImage: {fileID: 21300000, guid: 3f8e848a277e1e842973f90282df7931, type: 3}
   randomiseSpeed: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1578341711385801297
 MonoBehaviour:
   m_ObjectHideFlags: 0

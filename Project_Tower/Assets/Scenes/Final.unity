@@ -2847,6 +2847,7 @@ MonoBehaviour:
   spellList: []
   currentSpell: {fileID: 0}
   combatManagerScript: {fileID: 0}
+  canClick: 1
 --- !u!4 &2037264998
 Transform:
   m_ObjectHideFlags: 0
@@ -3093,7 +3094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posX: 2
   posY: 3
-  health: 100
+  health: 10000
   baseDamage: 2
   mana: 100
   baseMana: 100
