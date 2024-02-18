@@ -37,7 +37,7 @@ public class RoomData
     private bool randomiseChest(){
         Chest chest;
         if(Type == 1){
-            chest = new Chest(true, new Vector2Int(12,1), "Click any door to go to the next room"); 
+            chest = new Chest(true, new Vector2Int(13,1), "Click any door to go to the next room"); 
         }
         else{
             int r = Random.Range(0, cluePool.Count);

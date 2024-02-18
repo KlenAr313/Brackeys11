@@ -34,4 +34,8 @@ public class Chest : InteractableBase, IInteractable
     public void Click(){
         GameObject.Find("Game Manager").GetComponent<PopUpSystem>().PopUp(Clue);
     }
+
+    public void NewPos(Vector2Int Pos){
+        this.Pos = new Vector3Int(Pos.x, Pos.y, 0);
+    }
 }
