@@ -178,7 +178,7 @@ MonoBehaviour:
   posY: 5
   spells:
   - FlameVortex
-  health: 33
+  health: 45
   baseDamage: 30
   setSpeed: -10
   previewImage: {fileID: 21300000, guid: 3f8e848a277e1e842973f90282df7931, type: 3}

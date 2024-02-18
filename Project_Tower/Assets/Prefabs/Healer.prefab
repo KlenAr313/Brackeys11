@@ -192,9 +192,9 @@ MonoBehaviour:
   posY: 0
   spells:
   - Heal
-  health: 0
-  baseDamage: 0
-  setSpeed: 0
+  health: 20
+  baseDamage: 6
+  setSpeed: 5
   previewImage: {fileID: 21300000, guid: 3f8e848a277e1e842973f90282df7931, type: 3}
   randomiseSpeed: 1
   color: {r: 0, g: 0, b: 0, a: 0}

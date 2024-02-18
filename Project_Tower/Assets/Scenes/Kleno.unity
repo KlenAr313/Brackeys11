@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellName: Fireball
-  damageModifier: 2
+  damageModifier: 4
   manaCost: 0
   icon: {fileID: 21300000, guid: 1e994333838ccaa49ba39491f6cd4dbc, type: 3}
   animationTime: 0
@@ -554,8 +554,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellName: Meteor
-  damageModifier: 10
-  manaCost: 90
+  damageModifier: 20
+  manaCost: 35
   icon: {fileID: 21300000, guid: 361086f8bde30a142b732092ed88c49d, type: 3}
   animationTime: 0
   description: DESTRUCTIOOOON
@@ -582,8 +582,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellName: FlameVortex
-  damageModifier: 4
-  manaCost: 10
+  damageModifier: 10
+  manaCost: 20
   icon: {fileID: 21300000, guid: 5f5ce346ffc04d148806fcd4396fb647, type: 3}
   animationTime: 0
   description: Balanced AoE spell
@@ -606,8 +606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellName: Heal
-  damageModifier: 0
-  manaCost: 0
+  damageModifier: 10
+  manaCost: 10
   icon: {fileID: 0}
   animationTime: 0
   description: 
