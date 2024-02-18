@@ -172,7 +172,7 @@ public class RoomManager : MonoBehaviour
         for(int i = 0; i < data.Interactables.Count; ++i){
             if(data.Interactables[i] is Chest){
                 GameObject interactableGameObj = Resources.Load<GameObject>("Interactables/ChestObj");
-                if(!data.IsWon){
+                if(!data.IsWon && data.Type != 1){
                     List<Vector2Int> vects = gameManagerScript.tileManagerScript.GetPlayableArea();
                     ((Chest)data.Interactables[i]).NewPos(vects[Random.Range(0, vects.Count)]);
                 }
