@@ -12,14 +12,14 @@ public class Player : MonoBehaviour, IFighter
     [SerializeField] private int posY;
 
     [SerializeField] public int health;
+    private int baseHealth;
     [SerializeField] private int baseDamage;
     [SerializeField] public int mana;
-    [SerializeField] public int baseMana;
+    private int baseMana;
     [SerializeField] private int setSpeed;
     [SerializeField] public List<string> yourSpells;
     [SerializeField] protected Sprite previewImage;
     private GameManager gameManagerScript;
-    private int baseHealth;
 
     public string selectedSpell;
     public event Action UpdateStatUI;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour, IFighter
 
     public void GetDamaged(int amount, float waitTilDisappear){
         this.Health -= amount;
-        UpdateStatUI?.Invoke();
+        UpdateStatUI.Invoke();
         if(this.Health <= 0){
             StartCoroutine(Die(waitTilDisappear));
         }
@@ -47,8 +47,8 @@ public class Player : MonoBehaviour, IFighter
 
     public void DecreaseMana(int amount){
         mana -= amount;
-        UpdateStatUI?.Invoke();
-        Debug.Log("Mana levonva. Maradék: " + mana);
+        UpdateStatUI.Invoke();
+        //Debug.Log("Mana levonva. Maradék: " + mana);
     }
 
     void Start(){
@@ -58,6 +58,7 @@ public class Player : MonoBehaviour, IFighter
         selectedSpell = "Fireball";
         gameManagerScript.RefreshCurrentSpell();
         this.baseHealth = this.health;
+        this.baseMana = this.mana;
 
         this.posX = (int)transform.position.x;
         this.posY = (int)transform.position.y;
@@ -89,6 +90,14 @@ public class Player : MonoBehaviour, IFighter
         }
     }
 
+    public void GiveMana(int amount){
+        mana += amount;
+        if(mana > baseMana){
+            mana = baseMana;
+        }
+        UpdateStatUI.Invoke();
+    }
+
     public static int GetPlayerBaseDamage(){
         return Instance.baseDamage;
     }
@@ -108,6 +117,10 @@ public class Player : MonoBehaviour, IFighter
 
     public int GetBaseHealth(){
         return baseHealth;
+    }
+
+    public int GetBaseMana(){
+        return baseMana;
     }
 
     public void RefreshPosition(){

@@ -61,6 +61,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void TileClicked(int posX, int posY){
+
+        if(!canClick){
+            return;
+        }
+
         if(tileManagerScript.IsTileClickable(posX, posY)){
             currentX = posX;
             currentY = posY;
@@ -93,6 +98,10 @@ public class GameManager : MonoBehaviour
     public void TileHighlighter(int posX, int posY){
 
         if(!isPlayerTurn){
+            return;
+        }
+
+        if(!canClick){
             return;
         }
 
@@ -166,6 +175,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+
+//Debug buttons
 #if DEBUG
     void Update(){
         if(Input.GetKeyDown(KeyCode.K)){
@@ -179,6 +190,11 @@ public class GameManager : MonoBehaviour
             isFighting = false;
             tileManagerScript.RemoveAllHighlight();
             combatManagerScript.EndCombat();
+        }
+
+        if(Input.GetKeyDown(KeyCode.P)){
+            Debug.Log("P gombnyomás");
+            tileManagerScript.GetPlayableArea(1);
         }
     } 
 #endif

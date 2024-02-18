@@ -120,22 +120,22 @@ public class LevelManager : MonoBehaviour
         {
             case 0:
                 NextRow--;
-                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,2);
+                gameManagerScript.playerScript.SetPosition(gameManagerScript.roomManagerScript.width/2,2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 1:
                 NextCol++;
-                gameManagerScript.playerScript.SetPosition(2,gameManagerScript.tileManagerScript._height/2);
+                gameManagerScript.playerScript.SetPosition(2,gameManagerScript.roomManagerScript.height/2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 2:
                 NextRow++;
-                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width/2,gameManagerScript.tileManagerScript._height-3);
+                gameManagerScript.playerScript.SetPosition(gameManagerScript.roomManagerScript.width/2,gameManagerScript.roomManagerScript.height-3);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 3:
                 NextCol--;
-                gameManagerScript.playerScript.SetPosition(gameManagerScript.tileManagerScript._width-3,gameManagerScript.tileManagerScript._height/2);
+                gameManagerScript.playerScript.SetPosition(gameManagerScript.roomManagerScript.width-3,gameManagerScript.roomManagerScript.height/2);
                 gameManagerScript.playerScript.transform.rotation = Quaternion.Euler(0,180,0);
                 break;
             default:

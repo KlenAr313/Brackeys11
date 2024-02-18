@@ -126,6 +126,7 @@ public class CombatManager : MonoBehaviour
         if(combatParticipants.Count == 1){
             gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
+            gameManagerScript.playerScript.GiveMana(20);
             refreshCombatUI?.Invoke();
             StopAllCoroutines();
             return;
