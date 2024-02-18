@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void TileClicked(int posX, int posY){
+
+        if(!canClick){
+            return;
+        }
+
         if(tileManagerScript.IsTileClickable(posX, posY)){
             currentX = posX;
             currentY = posY;
@@ -92,6 +97,10 @@ public class GameManager : MonoBehaviour
     public void TileHighlighter(int posX, int posY){
 
         if(!isPlayerTurn){
+            return;
+        }
+
+        if(!canClick){
             return;
         }
 
