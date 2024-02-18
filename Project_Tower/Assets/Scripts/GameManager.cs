@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TileManager tileManagerScript;
     [SerializeField] public List<SpellBase> spellList;
     [SerializeField] public SpellBase currentSpell = null;
-    [SerializeField] private CombatManager combatManagerScript;
+    [SerializeField] public CombatManager combatManagerScript;
 
     //Basically the length of the spell bar
     [SerializeField] public static int MaxAbilities = 3;
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         foreach(Component comp in components){
             if(comp.ToString() != "Spells (UnityEngine.Transform)"){
                 spellList.Add((SpellBase)comp);
+                Debug.Log("Spell Added");
             }
         }
 

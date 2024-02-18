@@ -101,4 +101,12 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     public int GetBaseHealth(){
         return baseHealth;
     }
+
+    public void GetHealed(int amount){
+        this.health = health + amount;
+        if(baseHealth < health){
+            health = baseHealth;
+        }
+        UpdateEnemyHealthUI.Invoke();
+    }
 }

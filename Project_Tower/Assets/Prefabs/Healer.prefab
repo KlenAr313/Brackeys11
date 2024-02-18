@@ -85,10 +85,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5488983405700985312}
   - component: {fileID: 8337424797861403315}
-  - component: {fileID: 103423970579734619}
   - component: {fileID: 1578341711385801297}
+  - component: {fileID: -3205329043031137890}
   m_Layer: 0
-  m_Name: Basic Enemy
+  m_Name: Healer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f8e848a277e1e842973f90282df7931, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -162,28 +162,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &103423970579734619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3604369520162704485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21caf695cb93153449be5167b4d5c47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  posX: 7
-  posY: 5
-  spells:
-  - FlameVortex
-  health: 45
-  baseDamage: 30
-  setSpeed: -10
-  previewImage: {fileID: 21300000, guid: 3f8e848a277e1e842973f90282df7931, type: 3}
-  randomiseSpeed: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1578341711385801297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +175,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 1336331234598178724}
-  enemyBaseScript: {fileID: 103423970579734619}
+  enemyBaseScript: {fileID: 0}
+--- !u!114 &-3205329043031137890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604369520162704485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad78b10ac4c8b9b4cabdc47db61ae77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posX: 0
+  posY: 0
+  spells:
+  - Heal
+  health: 20
+  baseDamage: 6
+  setSpeed: 5
+  previewImage: {fileID: 21300000, guid: 3f8e848a277e1e842973f90282df7931, type: 3}
+  randomiseSpeed: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &4607935484324643954
 GameObject:
   m_ObjectHideFlags: 0
