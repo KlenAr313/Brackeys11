@@ -19,6 +19,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     void Start()
     {
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        selectedImage = this.transform.Find("Selected").gameObject;
         spellIcon = transform.Find("Icon").gameObject;
         gameManagerScript.SpellRefreshed += Refresh;
 
