@@ -15556,8 +15556,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 4107633822866980814}
     m_Modifications:
     - target: {fileID: 103423970579734619, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
+      propertyPath: health
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 103423970579734619, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
+      propertyPath: setSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 103423970579734619, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
       propertyPath: baseDamage
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3604369520162704485, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
       propertyPath: m_Name
@@ -15621,6 +15629,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4107633822866980814}
     m_Modifications:
+    - target: {fileID: -3205329043031137890, guid: 58700e3b80ed0a448aabd0e83f6440e9, type: 3}
+      propertyPath: health
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -3205329043031137890, guid: 58700e3b80ed0a448aabd0e83f6440e9, type: 3}
+      propertyPath: setSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3604369520162704485, guid: 58700e3b80ed0a448aabd0e83f6440e9, type: 3}
       propertyPath: m_Name
       value: Healer
@@ -15683,6 +15699,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4107633822866980814}
     m_Modifications:
+    - target: {fileID: 103423970579734619, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
+      propertyPath: health
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 103423970579734619, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
+      propertyPath: setSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3604369520162704485, guid: 65624df25d90fd9468a920fdfa823959, type: 3}
       propertyPath: m_Name
       value: Basic Enemy
