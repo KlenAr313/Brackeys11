@@ -79,7 +79,12 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
                 gameManagerScript.playerScript.GetDamaged(baseDamage, animationTime);
                 Debug.Log("Player damaged");
             }
+            if(gameManagerScript.roomManagerScript.GetTileNameByCoord(coord.x, coord.y) == "enemy"){
+                EnemyBase enemy = gameManagerScript.roomManagerScript.GetTileGameObjectByCoord(coord.x,coord.y).GetComponent<EnemyBase>();
+                enemy.GetDamaged(baseDamage, animationTime);
+            }
         }
+        this.Lowlight();
         return animationTime;
     }
 

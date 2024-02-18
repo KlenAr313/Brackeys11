@@ -76,8 +76,9 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Castoltam a spellt");
         float waitAfterAttack = combatParticipants[currentTurnIndex].Attack();
         yield return new WaitForSeconds(waitAfterAttack + 0.5f);
+        //UpdateEnemyList();
 
-        ((EnemyBase)combatParticipants[currentTurnIndex]).Lowlight();
+        //((EnemyBase)combatParticipants[currentTurnIndex]).Lowlight();
         Debug.Log("továbbadás");
         UpdateEnemyList();
         
@@ -126,6 +127,7 @@ public class CombatManager : MonoBehaviour
             gameManagerScript.EndFight();
             Debug.Log("Combat vége!");
             refreshCombatUI?.Invoke();
+            StopAllCoroutines();
             return;
         }
 
