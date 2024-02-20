@@ -91,16 +91,16 @@ public class LevelManager : MonoBehaviour
             while(RoomLeft > 0 && tryCount > 0){
                 switch(UnityEngine.Random.Range(0,4)){
                     case 0: 
-                        reValue = RandomizeRooms(x-1,y, Random.Range(2,4));
+                        reValue = RandomizeRooms(x-1,y, Random.Range(2,7));
                         break;
                     case 1: 
-                        reValue = RandomizeRooms(x+1,y, Random.Range(2,4));
+                        reValue = RandomizeRooms(x+1,y, Random.Range(2,7));
                         break;
                     case 2: 
-                        reValue = RandomizeRooms(x,y-1, Random.Range(2,4));
+                        reValue = RandomizeRooms(x,y-1, Random.Range(2,7));
                         break;
                     case 3: 
-                        reValue = RandomizeRooms(x,y+1, Random.Range(2,4));
+                        reValue = RandomizeRooms(x,y+1, Random.Range(2,7));
                         break;
                 }
                 if(reValue){
