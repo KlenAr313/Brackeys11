@@ -1,3 +1,9 @@
+# Takeaway
+ - Replayability --
+ - Nice to see ++
+ - Art Schematic
+ - Timetable for contributors
+
 # What's behind the door
 	- Turn based fighting game
 	- Inspirations: 
