@@ -34,6 +34,9 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
 
     private void Refresh(){
+
+        selectedImage.SetActive(false);
+
         if(mySpellIndex < gameManagerScript.currCharacter.spells.Count){
             spellBaseScript = gameManagerScript.GetSpellByName(gameManagerScript.currCharacter.spells[mySpellIndex]);
             if(spellBaseScript != null){

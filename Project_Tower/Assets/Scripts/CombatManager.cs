@@ -76,6 +76,7 @@ public class CombatManager : MonoBehaviour
             GameManager.Instance.currCharacter = (Character)combatParticipants[currentTurnIndex];
             GameManager.Instance.isPlayerTurn = true;
             GameManager.Instance.RefreshCurrentSpell();
+            GameManager.Instance.currCharacter.UpdateUI();
         }
     }
 
@@ -110,14 +111,14 @@ public class CombatManager : MonoBehaviour
 
     private void UpdateEnemyList(){
         GameManager.Instance.roomManagerScript.RoomUpdateEnemies();
-        List<IFighter> currentFigtingEnemies = new List<IFighter>();
-        GameManager.Instance.roomManagerScript.GetAllEnemies().ForEach(i => currentFigtingEnemies.Add(i.GetComponent<EnemyBase>()));
+        List<IFighter> currentFightingEnemies = new List<IFighter>();
+        GameManager.Instance.roomManagerScript.GetAllEnemies().ForEach(i => currentFightingEnemies.Add(i.GetComponent<EnemyBase>()));
         //combatParticipants.Clear();
         int cnt = -1;
         int deadBefCurInd = 0;
         for(int i = 0; i < combatParticipants.Count;){
             cnt++;
-            if(combatParticipants[i] is not Character && !currentFigtingEnemies.Contains(combatParticipants[i])){
+            if(combatParticipants[i] is not Character && !currentFightingEnemies.Contains(combatParticipants[i])){
                 combatParticipants.RemoveAt(i);
                 if(cnt <= currentTurnIndex)
                     currentTurnIndex--;
@@ -133,9 +134,9 @@ public class CombatManager : MonoBehaviour
             SortBySpeed();
         }
 
-        Debug.Log(combatParticipants.Count);
+        Debug.Log(enemyCount);
 
-        if(combatParticipants.Count == 1){
+        if(enemyCount <= 0){
             GameManager.Instance.EndFight();
             //Debug.Log("Combat vége!");
             foreach(Character character in GameManager.Instance.characterScritps){

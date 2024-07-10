@@ -148,4 +148,8 @@ public class Character : MonoBehaviour, IFighter
         this.posY = newPosY;
     }
 
+    public void UpdateUI(){
+        UpdateStatUI.Invoke();
+    }
+
 }
