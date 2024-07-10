@@ -5,8 +5,8 @@ using UnityEngine;
 public class HealerEnemy : EnemyBase
 {
     protected override Vector2Int GetAttackPosition(){
-        int playerPosX = gameManagerScript.playerScript.PosX;
-        int playerPosY = gameManagerScript.playerScript.PosY;
+        int playerPosX = GameManager.Instance.currCharacter.PosX;
+        int playerPosY = GameManager.Instance.currCharacter.PosY;
 
         System.Random rnd = new System.Random();
 
@@ -20,7 +20,7 @@ public class HealerEnemy : EnemyBase
         List<IFighter> combPart = gameManagerScript.combatManagerScript.combatParticipants;
         int ind = Random.Range(0,combPart.Count - 1);
         float animationTime;
-        if(combPart[ind] is Player){
+        if(combPart[ind] is Character){
             ((EnemyBase)combPart[ind + 1]).GetHealed(baseDamage);
 
             animationTime = gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(((EnemyBase)combPart[ind + 1]).PosX, ((EnemyBase)combPart[ind + 1]).PosY);
