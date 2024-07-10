@@ -99,10 +99,7 @@ public class GameManager : MonoBehaviour
             if(isPlayerTurn){
                 //currCharacter = characterScritps[currCharacterIndex];
                 if(currentSpell != null && currentSpell.ManaCost <= currCharacter.mana){
-                    foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
-                        //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
-                        roomManagerScript.TileClicked(coord.x, coord.y, true);
-                    }
+                    roomManagerScript.TileClickedAttack(currentSpell.Cast(currentX, currentY));
 
                     currentSpell.PlayAnimation(currentX, currentY);
                     currentSpell.PlaySound();
@@ -116,7 +113,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            roomManagerScript.TileClicked(posX, posY, false);
+            roomManagerScript.TileClicked(posX, posY);
         }
     }
 
