@@ -24,11 +24,10 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         gameManagerScript.SpellRefreshed += Refresh;
 
         selectedImage.SetActive(false);
-        Refresh();
+        //Refresh();
 
         mySpellIndex = Int32.Parse(gameObject.name.Substring(gameObject.name.Length-1)) - 1;
 
-        Debug.Log(gameObject.name);
     }
 
 

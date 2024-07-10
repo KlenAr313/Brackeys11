@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,29 +29,18 @@ public class GameManager : MonoBehaviour
     public event Action SpellRefreshed;
     public event Action OnGameOver;
 
+    public static GameManager GameManagerInstance;
+
     void Awake(){
-        playerObj = GameObject.Find("Player").gameObject;
-        playerScript = GameObject.Find("Player").GetComponent<Player>();
-        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
-        tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
-        combatManagerScript = gameObject.GetComponent<CombatManager>();
 
-        GameObject spellsObj = this.gameObject.transform.Find("Spells").gameObject;
-
-        currentX = -1;
-        currentY = -1;
-
-        Component[] components = spellsObj.GetComponents(typeof(Component));
-        foreach(Component comp in components){
-            if(comp.ToString() != "Spells (UnityEngine.Transform)"){
-                spellList.Add((SpellBase)comp);
-                Debug.Log("Spell Added");
-            }
+        if(GameManagerInstance == null){
+            DontDestroyOnLoad(this.gameObject);
+            GameManagerInstance = this;
         }
-
-        isPlayerTurn = false;
-
-        RefreshCurrentSpell();
+        
+        if(GameManagerInstance != this){
+            Destroy(this.gameObject);
+        }
 
         //Debug miatt true, false legyen alapból!
 #if DEBUG
@@ -58,6 +48,33 @@ public class GameManager : MonoBehaviour
 #else
         isFighting = false;
 #endif
+    }
+
+    void OnValidate(){
+        playerObj = GameObject.Find("Player").gameObject;
+        playerScript = GameObject.Find("Player").GetComponent<Player>();
+        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
+        tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
+        combatManagerScript = gameObject.GetComponent<CombatManager>();
+
+        currentX = -1;
+        currentY = -1;
+
+        isPlayerTurn = false;
+
+        //RefreshCurrentSpell();
+    }
+
+    void Start(){
+        GameObject spellsObj = this.gameObject.transform.Find("Spells").gameObject;
+        Component[] components = spellsObj.GetComponents(typeof(Component));
+        foreach(Component comp in components){
+            if(comp.ToString() != "Spells (UnityEngine.Transform)"){
+                spellList.Add((SpellBase)comp);
+            }
+        }
+//
+        RefreshCurrentSpell();
     }
 
     public void TileClicked(int posX, int posY){

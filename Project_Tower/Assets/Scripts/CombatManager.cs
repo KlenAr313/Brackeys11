@@ -62,24 +62,24 @@ public class CombatManager : MonoBehaviour
 
         //Player turn
         else{
-            Debug.Log("Player köre");
+            //Debug.Log("Player köre");
             gameManagerScript.isPlayerTurn = true;
         }
     }
 
 
     IEnumerator TakeEnemyTurn(){
-        Debug.Log(currentTurnIndex + ". enemy köre");
+        //Debug.Log(currentTurnIndex + ". enemy köre");
         ((EnemyBase)combatParticipants[currentTurnIndex]).Highlight();
         yield return new WaitForSeconds(1f);
 
-        Debug.Log("Castoltam a spellt");
+        //Debug.Log("Castoltam a spellt");
         float waitAfterAttack = combatParticipants[currentTurnIndex].Attack();
         yield return new WaitForSeconds(waitAfterAttack + 0.5f);
         //UpdateEnemyList();
 
         //((EnemyBase)combatParticipants[currentTurnIndex]).Lowlight();
-        Debug.Log("továbbadás");
+        //Debug.Log("továbbadás");
         UpdateEnemyList();
         
         NextTurn();
@@ -90,7 +90,7 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(gameManagerScript.currentSpell.animationTime + 0.5f);
         UpdateEnemyList();
 
-        Debug.Log("Player körének vége");
+        //Debug.Log("Player körének vége");
 
         NextTurn();
     }
@@ -125,7 +125,7 @@ public class CombatManager : MonoBehaviour
 
         if(combatParticipants.Count == 1){
             gameManagerScript.EndFight();
-            Debug.Log("Combat vége!");
+            //Debug.Log("Combat vége!");
             gameManagerScript.playerScript.GiveMana(20);
             refreshCombatUI?.Invoke();
             StopAllCoroutines();

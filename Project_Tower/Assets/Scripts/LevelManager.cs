@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     private int CurrentRow;
     private int CurrentCol;
 
-    void Start()
+    void Awake()
     {
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
