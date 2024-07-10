@@ -52,6 +52,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
         this.gameObject.SetActive(false);
+        CombatManager.Instance.enemyCount--;
         Debug.Log("I died");
     }
 
