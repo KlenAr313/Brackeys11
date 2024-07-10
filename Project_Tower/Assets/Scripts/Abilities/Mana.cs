@@ -11,6 +11,6 @@ public class Mana : SpellBase
     }
 
     public override string GetDescription(){
-        return "Name: " + "Recover Mana" + "\nCost: " + this.manaCost + "\nMana received: " + (Player.GetPlayerBaseDamage() * damageModifier) + "\nDesc: " +  description;
+        return "Name: " + "Recover Mana" + "\nCost: " + this.manaCost + "\nMana received: " + (GameManager.Instance.currCharacter.GetBaseDamage() * damageModifier) + "\nDesc: " +  description;
     }
 }

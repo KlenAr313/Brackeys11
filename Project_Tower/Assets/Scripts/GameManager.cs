@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isPlayerTurn;
     [SerializeField] public bool isFighting;
     [SerializeField] public GameObject playerObj;
-    [SerializeField] public Player playerScript;
     [SerializeField] public RoomManager roomManagerScript;
+    [SerializeField] public List<Character> characterScritps;
     [SerializeField] public TileManager tileManagerScript;
     [SerializeField] public List<SpellBase> spellList;
-    [SerializeField] public SpellBase currentSpell = null;
+    [SerializeField] public SpellBase currentSpell;
     [SerializeField] public CombatManager combatManagerScript;
 
     //Basically the length of the spell bar
@@ -25,20 +25,21 @@ public class GameManager : MonoBehaviour
     public bool canClick = true;
     private int currentX;
     private int currentY;
+    public Character currCharacter;
 
     public event Action SpellRefreshed;
     public event Action OnGameOver;
 
-    public static GameManager GameManagerInstance;
+    public static GameManager Instance;
 
     void Awake(){
 
-        if(GameManagerInstance == null){
+        if(Instance == null){
             DontDestroyOnLoad(this.gameObject);
-            GameManagerInstance = this;
+            Instance = this;
         }
         
-        if(GameManagerInstance != this){
+        if(Instance != this){
             Destroy(this.gameObject);
         }
 
@@ -51,21 +52,19 @@ public class GameManager : MonoBehaviour
     }
 
     void OnValidate(){
-        playerObj = GameObject.Find("Player").gameObject;
-        playerScript = GameObject.Find("Player").GetComponent<Player>();
+        characterScritps.Clear();
+        spellList.Clear();  
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
         tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
         combatManagerScript = gameObject.GetComponent<CombatManager>();
 
-        currentX = -1;
-        currentY = -1;
+        playerObj = GameObject.Find("Player").gameObject;
+        foreach(Transform child in playerObj.transform){
+            if(child.TryGetComponent<Character>(out Character characterScript)){
+                characterScritps.Add(characterScript);
+            }
+        }
 
-        isPlayerTurn = false;
-
-        //RefreshCurrentSpell();
-    }
-
-    void Start(){
         GameObject spellsObj = this.gameObject.transform.Find("Spells").gameObject;
         Component[] components = spellsObj.GetComponents(typeof(Component));
         foreach(Component comp in components){
@@ -73,7 +72,14 @@ public class GameManager : MonoBehaviour
                 spellList.Add((SpellBase)comp);
             }
         }
-//
+
+        currentX = -1;
+        currentY = -1;
+
+        currCharacter = characterScritps[0];
+        currentSpell = GetSpellByName(currCharacter.GetSpells()[0]);
+
+        isPlayerTurn = false;
         RefreshCurrentSpell();
     }
 
@@ -91,7 +97,8 @@ public class GameManager : MonoBehaviour
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
-                if(currentSpell != null && currentSpell.ManaCost <= playerScript.mana){
+                //currCharacter = characterScritps[currCharacterIndex];
+                if(currentSpell != null && currentSpell.ManaCost <= currCharacter.mana){
                     foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
                         //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
                         roomManagerScript.TileClicked(coord.x, coord.y, true);
@@ -102,7 +109,7 @@ public class GameManager : MonoBehaviour
                     tileManagerScript.RemoveAllHighlight();
 
 
-                    playerScript.DecreaseMana(currentSpell.ManaCost);
+                    currCharacter.DecreaseMana(currentSpell.ManaCost);
                     StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
             }
@@ -151,7 +158,7 @@ public class GameManager : MonoBehaviour
 
     public void RefreshCurrentSpell(){
         foreach(SpellBase spell in spellList){
-            if(spell.spellName == playerScript.selectedSpell){
+            if(spell.spellName == currCharacter.selectedSpell){
                 currentSpell = spell;
             }
         }
@@ -191,6 +198,11 @@ public class GameManager : MonoBehaviour
     public void Restart(){
         //Végleges Scene név re beirni
         SceneManager.LoadScene(0);
+    }
+
+    public Character GetRandomCharacter(){
+        System.Random rnd = new System.Random();
+        return characterScritps[rnd.Next(0,characterScritps.Count)];
     }
 
 

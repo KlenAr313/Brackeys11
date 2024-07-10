@@ -45,21 +45,21 @@ public class RoomManager : MonoBehaviour
                 if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
                     //Ne sebezzünk ha:
                     if(gameManagerScript.currentSpell.spellName != "Heal" && gameManagerScript.currentSpell.spellName != "Mana"){
-                        enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                        enemyBaseScript.GetDamaged(gameManagerScript.currCharacter.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
                     }
                 }
             }
 
-            if(posX == gameManagerScript.playerScript.PosX && posY == gameManagerScript.playerScript.PosY){
+            if(posX == gameManagerScript.currCharacter.PosX && posY == gameManagerScript.currCharacter.PosY){
                 if(gameManagerScript.currentSpell.spellName == "Heal"){
-                    gameManagerScript.playerScript.GetHealed(gameManagerScript.playerScript.GetFinalDamage());
+                    gameManagerScript.currCharacter.GetHealed(gameManagerScript.currCharacter.GetFinalDamage());
                     //Debug.Log("Healing: " + gameManagerScript.playerScript.GetFinalDamage());
                 }
                 else if(gameManagerScript.currentSpell.spellName == "Mana"){
-                    gameManagerScript.playerScript.GiveMana(gameManagerScript.playerScript.GetFinalDamage());
+                    gameManagerScript.currCharacter.GiveMana(gameManagerScript.currCharacter.GetFinalDamage());
                 }
                 else{
-                    gameManagerScript.playerScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                    gameManagerScript.currCharacter.GetDamaged(gameManagerScript.currCharacter.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
                 }
             }
         }

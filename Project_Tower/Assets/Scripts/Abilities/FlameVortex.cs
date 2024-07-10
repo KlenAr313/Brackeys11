@@ -11,6 +11,6 @@ public class FlameVortex : SpellBase
     }
 
     public override string GetDescription(){
-        return "Name: " + "Flame Vortex" + "\nCost: " + this.manaCost + "\nDamage: " + (Player.GetPlayerBaseDamage() * damageModifier) + "\nDesc: " +  description;
+        return "Name: " + "Flame Vortex" + "\nCost: " + this.manaCost + "\nDamage: " + (GameManager.Instance.currCharacter.GetBaseDamage() * damageModifier) + "\nDesc: " +  description;
     }
 }

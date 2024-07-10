@@ -10,10 +10,12 @@ public class HealthbarUI : MonoBehaviour
     [SerializeField] private GameManager gameManagerScript;
 
     void Start(){
-        gameManagerScript.playerScript.UpdateStatUI += RefreshHealthUI;
+        for(int i = 0; i < gameManagerScript.characterScritps.Count; i++){
+            gameManagerScript.characterScritps[i].UpdateStatUI += RefreshHealthUI;
+        }
     }
 
     private void RefreshHealthUI(){
-        healthBarImage.fillAmount = (float) gameManagerScript.playerScript.health / (float) gameManagerScript.playerScript.GetBaseHealth();
+        healthBarImage.fillAmount = (float) gameManagerScript.currCharacter.health / (float) gameManagerScript.currCharacter.GetBaseHealth();
     }
 }

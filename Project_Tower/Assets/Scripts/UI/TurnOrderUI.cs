@@ -7,7 +7,7 @@ public class TurnOrderUI : MonoBehaviour
 {
     [SerializeField] private CombatManager combatManagerScript;
 
-    [SerializeField] private List<GameObject> turnOrderItems;
+    [SerializeField] public List<GameObject> turnOrderItems;
 
     void Start(){
         combatManagerScript.refreshCombatUI += RefreshUI;
@@ -31,8 +31,8 @@ public class TurnOrderUI : MonoBehaviour
             turnOrderItems[i].transform.Find("Icon").gameObject.SetActive(true);
             turnOrderItems[i].transform.Find("Icon").GetComponent<UnityEngine.UI.Image>().sprite = obj.PreviewImage;
 
-            if(obj is not Player){
-                Debug.Log("Nem player");
+            if(obj is not Character){
+                //Debug.Log("Nem player");
                 EnemyBase enemyBaseScript = (EnemyBase) obj;
                 turnOrderItems[i].transform.Find("Color").gameObject.SetActive(true);
                 turnOrderItems[i].transform.Find("Color").GetComponent<UnityEngine.UI.Image>().color = enemyBaseScript.color;

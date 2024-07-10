@@ -70,14 +70,14 @@ public class TileManager : MonoBehaviour
     }
 
     public void Click(int posX, int posY){
-        GameManager.GameManagerInstance.TileClicked(posX, posY);
+        GameManager.Instance.TileClicked(posX, posY);
     }
 
     public void SetHightlightedTile(int posX, int posY){
         foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
             tile.Value.highlight.SetActive(false);
         }
-        GameManager.GameManagerInstance.TileHighlighter(posX, posY);
+        GameManager.Instance.TileHighlighter(posX, posY);
     }
 
     public void highlightSpellPreview(int posX, int posY){

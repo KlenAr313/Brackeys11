@@ -10,6 +10,6 @@ public class Heal : SpellBase
     }
 
     public override string GetDescription(){
-        return "Name: " + this.spellName + "\nCost: " + this.manaCost + "\nHealth received: " + (Player.GetPlayerBaseDamage() * damageModifier) + "\nDesc: " +  description;
+        return "Name: " + this.spellName + "\nCost: " + this.manaCost + "\nHealth received: " + (GameManager.Instance.currCharacter.GetBaseDamage() * damageModifier) + "\nDesc: " +  description;
     }
 }
