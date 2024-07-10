@@ -12,7 +12,15 @@ public class TooltipUI : MonoBehaviour
     private TextMeshProUGUI text;
     [SerializeField] float paddingSize;
     [SerializeField] private RectTransform canvasRectTransform;
+
     
+    void OnValidate(){
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
+
     void Start(){
         Instance = this;
 
@@ -20,6 +28,11 @@ public class TooltipUI : MonoBehaviour
         text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
         rectTransform = this.gameObject.GetComponent<RectTransform>();
         canvasRectTransform = transform.parent.gameObject.GetComponent<RectTransform>();
+
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
 
         HideTooltip();
     }

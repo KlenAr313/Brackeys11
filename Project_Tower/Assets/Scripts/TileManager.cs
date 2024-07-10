@@ -8,7 +8,6 @@ public class TileManager : MonoBehaviour
     private int _width, _height;
 
     [SerializeField] private Tile _tilePrefab;
-    [SerializeField] private GameManager gameManagerScript;
 
     private Dictionary<Vector2, Tile> _tiles;
 
@@ -16,7 +15,6 @@ public class TileManager : MonoBehaviour
 
     public void NewTiles(int width, int height, bool[] doors)
     {
-        this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
         _width = width;
         _height = height;
         this.doors = doors;
@@ -72,14 +70,14 @@ public class TileManager : MonoBehaviour
     }
 
     public void Click(int posX, int posY){
-        gameManagerScript.TileClicked(posX, posY);
+        GameManager.GameManagerInstance.TileClicked(posX, posY);
     }
 
     public void SetHightlightedTile(int posX, int posY){
         foreach(KeyValuePair<Vector2, Tile> tile in _tiles){
             tile.Value.highlight.SetActive(false);
         }
-        gameManagerScript.TileHighlighter(posX, posY);
+        GameManager.GameManagerInstance.TileHighlighter(posX, posY);
     }
 
     public void highlightSpellPreview(int posX, int posY){
