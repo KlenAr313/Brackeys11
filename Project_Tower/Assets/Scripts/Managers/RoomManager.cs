@@ -58,26 +58,26 @@ public class RoomManager : MonoBehaviour
                 Vector2Int enemyPos = new Vector2Int(enemyBaseScript.PosX, enemyBaseScript.PosY);
                 if(coordList.Contains(enemyPos)){
                     //Ne sebezzünk ha:
-                    if(gameManagerScript.currentSpell.spellName != "Heal" && gameManagerScript.currentSpell.spellName != "Mana"){
-                        enemyBaseScript.GetDamaged(gameManagerScript.currCharacter.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                    if(Player.Instance.currentSpell.spellName != "Heal" && Player.Instance.currentSpell.spellName != "Mana"){
+                        enemyBaseScript.GetDamaged(Player.Instance.currCharacter.GetFinalDamage(), Player.Instance.currentSpell.animationTime);
                     }
                 }
             }
             
 
-        foreach(Character character in GameManager.Instance.characterScritps){
+        foreach(Character character in Player.Instance.characterScritps){
             Vector2Int characterPos = new Vector2Int(character.PosX, character.PosY);
 
             if(coordList.Contains(characterPos)){
-                if(gameManagerScript.currentSpell.spellName == "Heal"){
-                    character.GetHealed(gameManagerScript.currCharacter.GetFinalDamage());
+                if(Player.Instance.currentSpell.spellName == "Heal"){
+                    character.GetHealed(Player.Instance.currCharacter.GetFinalDamage());
                     //Debug.Log("Healing: " + gameManagerScript.playerScript.GetFinalDamage());
                 }
-                else if(gameManagerScript.currentSpell.spellName == "Mana"){
-                    character.GiveMana(gameManagerScript.currCharacter.GetFinalDamage());
+                else if(Player.Instance.currentSpell.spellName == "Mana"){
+                    character.GiveMana(Player.Instance.currCharacter.GetFinalDamage());
                 }
                 else{
-                    character.GetDamaged(gameManagerScript.currCharacter.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
+                    character.GetDamaged(Player.Instance.currCharacter.GetFinalDamage(), Player.Instance.currentSpell.animationTime);
                 }
             }
         }

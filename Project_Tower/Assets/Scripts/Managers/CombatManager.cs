@@ -37,7 +37,7 @@ public class CombatManager : MonoBehaviour
             enemyCount++;
         }
 
-        foreach(Character charScript in GameManager.Instance.characterScritps){
+        foreach(Character charScript in Player.Instance.characterScritps){
             combatParticipants.Add(charScript);
         }
 
@@ -73,10 +73,10 @@ public class CombatManager : MonoBehaviour
         //Player turn
         else{
             //Debug.Log("Player köre");
-            GameManager.Instance.currCharacter = (Character)combatParticipants[currentTurnIndex];
+            Player.Instance.currCharacter = (Character)combatParticipants[currentTurnIndex];
             GameManager.Instance.isPlayerTurn = true;
             GameManager.Instance.RefreshCurrentSpell();
-            GameManager.Instance.currCharacter.UpdateUI();
+            Player.Instance.currCharacter.UpdateUI();
         }
     }
 
@@ -100,7 +100,7 @@ public class CombatManager : MonoBehaviour
 
     public IEnumerator PlayerTakeTurn(){
         GameManager.Instance.isPlayerTurn = false;
-        yield return new WaitForSeconds(GameManager.Instance.currentSpell.animationTime + 0.5f);
+        yield return new WaitForSeconds(Player.Instance.currentSpell.animationTime + 0.5f);
         UpdateEnemyList();
 
         //Debug.Log("Player körének vége");
@@ -139,7 +139,7 @@ public class CombatManager : MonoBehaviour
         if(enemyCount <= 0){
             GameManager.Instance.EndFight();
             //Debug.Log("Combat vége!");
-            foreach(Character character in GameManager.Instance.characterScritps){
+            foreach(Character character in Player.Instance.characterScritps){
                 character.GiveMana(20);
             }
             refreshCombatUI?.Invoke();

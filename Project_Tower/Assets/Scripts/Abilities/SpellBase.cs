@@ -48,7 +48,7 @@ public abstract class SpellBase : MonoBehaviour
     }
 
     public virtual string GetDescription(){
-        return "Name: " + this.spellName + "\nCost: " + this.manaCost + "\nDamage: " + (GameManager.Instance.currCharacter.GetBaseDamage() * damageModifier) + "\nDesc: " +  description;
+        return "Name: " + this.spellName + "\nCost: " + this.manaCost + "\nDamage: " + (Player.Instance.currCharacter.GetBaseDamage() * damageModifier) + "\nDesc: " +  description;
     }
 
 }

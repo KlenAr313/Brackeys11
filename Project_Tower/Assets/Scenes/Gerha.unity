@@ -4011,6 +4011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaBarImage: {fileID: 573085769}
   gameManagerScript: {fileID: 2037264997}
+  playerScript: {fileID: 1535220373}
 --- !u!1 &48520250
 GameObject:
   m_ObjectHideFlags: 0
@@ -13778,7 +13779,7 @@ MonoBehaviour:
   mana: 100
   setSpeed: 5
   spells:
-  - Fireball
+  - Meteor
   - FlameVortex
   - Meteor
   - 
@@ -13788,7 +13789,7 @@ MonoBehaviour:
   - Heal
   - Mana
   previewImage: {fileID: 21300000, guid: e0d8cbe31f2bf0e4fa12468c2aaf270f, type: 3}
-  selectedSpell: Fireball
+  selectedSpell: Meteor
 --- !u!212 &152085690
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31289,6 +31290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 489200949}
   gameManagerScript: {fileID: 2037264997}
+  playerScript: {fileID: 1535220373}
 --- !u!1 &344520739
 GameObject:
   m_ObjectHideFlags: 0
@@ -77275,7 +77277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &857325774
 GameObject:
   m_ObjectHideFlags: 0
@@ -103855,11 +103857,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManagerScript: {fileID: 2037264997}
-  spellName: Fireball
+  spellName: Meteor
   spellIcon: {fileID: 2127785241}
   selectedImage: {fileID: 1362912281}
   mySpellIndex: 0
-  spellBaseScript: {fileID: 467891191}
+  spellBaseScript: {fileID: 467891192}
 --- !u!1 &1154582733
 GameObject:
   m_ObjectHideFlags: 0
@@ -180301,7 +180303,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
-  velocity: 2
+  velocity: 3
+  currCharacter: {fileID: 152085689}
+  currentSpell: {fileID: 467891192}
+  characterScritps:
+  - {fileID: 152085689}
+  - {fileID: 830425442}
+  - {fileID: 475530375}
 --- !u!4 &1535220374
 Transform:
   m_ObjectHideFlags: 0
@@ -432882,6 +432890,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1967803356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1967803357}
+  - component: {fileID: 1967803358}
+  m_Layer: 0
+  m_Name: Save Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1967803357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967803356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1967803358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967803356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b29d86f280aa1b4e8d763aa805bd8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1968099990
 GameObject:
   m_ObjectHideFlags: 0
@@ -469669,10 +469721,6 @@ MonoBehaviour:
   isFighting: 0
   playerObj: {fileID: 1535220372}
   roomManagerScript: {fileID: 1653269190}
-  characterScritps:
-  - {fileID: 152085689}
-  - {fileID: 830425442}
-  - {fileID: 475530375}
   tileManagerScript: {fileID: 1618395019}
   spellList:
   - {fileID: 467891191}
@@ -469680,10 +469728,8 @@ MonoBehaviour:
   - {fileID: 467891193}
   - {fileID: 467891194}
   - {fileID: 467891195}
-  currentSpell: {fileID: 467891191}
   combatManagerScript: {fileID: 2037264999}
   canClick: 1
-  currCharacter: {fileID: 152085689}
 --- !u!4 &2037264998
 Transform:
   m_ObjectHideFlags: 0
@@ -520997,7 +521043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1e994333838ccaa49ba39491f6cd4dbc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 361086f8bde30a142b732092ed88c49d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -532962,3 +533008,4 @@ SceneRoots:
   - {fileID: 1972663400}
   - {fileID: 1074344776}
   - {fileID: 1535220374}
+  - {fileID: 1967803357}

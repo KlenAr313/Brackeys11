@@ -13,10 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isFighting;
     [SerializeField] public GameObject playerObj;
     [SerializeField] public RoomManager roomManagerScript;
-    [SerializeField] public List<Character> characterScritps;
     [SerializeField] public TileManager tileManagerScript;
     [SerializeField] public List<SpellBase> spellList;
-    [SerializeField] public SpellBase currentSpell;
     [SerializeField] public CombatManager combatManagerScript;
 
     //Basically the length of the spell bar
@@ -25,7 +23,6 @@ public class GameManager : MonoBehaviour
     public bool canClick = true;
     private int currentX;
     private int currentY;
-    public Character currCharacter;
 
     public event Action SpellRefreshed;
     public event Action OnGameOver;
@@ -33,16 +30,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     void Awake(){
-
-        if(Instance == null){
-            DontDestroyOnLoad(this.gameObject);
-            Instance = this;
-        }
-        
-        if(Instance != this){
-            Destroy(this.gameObject);
-        }
-
+        DontDestroyOnLoad(this.gameObject);
         //Debug miatt true, false legyen alapból!
 #if DEBUG
         //isFighting = true;
@@ -52,18 +40,18 @@ public class GameManager : MonoBehaviour
     }
 
     void OnValidate(){
-        characterScritps.Clear();
+        if(Instance == null){
+            Instance = this;
+        }
+        
+        if(Instance != this){
+            Destroy(this.gameObject);
+        }
+
         spellList.Clear();  
         roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
         tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
         combatManagerScript = gameObject.GetComponent<CombatManager>();
-
-        playerObj = GameObject.Find("Player").gameObject;
-        foreach(Transform child in playerObj.transform){
-            if(child.TryGetComponent<Character>(out Character characterScript)){
-                characterScritps.Add(characterScript);
-            }
-        }
 
         GameObject spellsObj = this.gameObject.transform.Find("Spells").gameObject;
         Component[] components = spellsObj.GetComponents(typeof(Component));
@@ -75,9 +63,6 @@ public class GameManager : MonoBehaviour
 
         currentX = -1;
         currentY = -1;
-
-        currCharacter = characterScritps[0];
-        currentSpell = GetSpellByName(currCharacter.GetSpells()[0]);
 
         isPlayerTurn = false;
         RefreshCurrentSpell();
@@ -98,15 +83,15 @@ public class GameManager : MonoBehaviour
             //Player köre
             if(isPlayerTurn){
                 //currCharacter = characterScritps[currCharacterIndex];
-                if(currentSpell != null && currentSpell.ManaCost <= currCharacter.mana){
-                    roomManagerScript.TileClickedAttack(currentSpell.Cast(currentX, currentY));
+                if(Player.Instance.currentSpell != null && Player.Instance.currentSpell.ManaCost <= Player.Instance.currCharacter.mana){
+                    roomManagerScript.TileClickedAttack(Player.Instance.currentSpell.Cast(currentX, currentY));
 
-                    currentSpell.PlayAnimation(currentX, currentY);
-                    currentSpell.PlaySound();
+                    Player.Instance.currentSpell.PlayAnimation(currentX, currentY);
+                    Player.Instance.currentSpell.PlaySound();
                     tileManagerScript.RemoveAllHighlight();
 
 
-                    currCharacter.DecreaseMana(currentSpell.ManaCost);
+                    Player.Instance.currCharacter.DecreaseMana(Player.Instance.currentSpell.ManaCost);
                     StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
             }
@@ -134,8 +119,8 @@ public class GameManager : MonoBehaviour
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
-                if(currentSpell != null){
-                    foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
+                if(Player.Instance.currentSpell != null){
+                    foreach(Vector2Int coord in Player.Instance.currentSpell.Cast(currentX, currentY)){
                         tileManagerScript.highlightSpellPreview(coord.x, coord.y);
                     }
                 }
@@ -153,10 +138,16 @@ public class GameManager : MonoBehaviour
         roomManagerScript.WinFight();
     }
 
+    //Highlight miatt van itt
     public void RefreshCurrentSpell(){
+
+        if(Player.Instance == null){
+            return;
+        }
+
         foreach(SpellBase spell in spellList){
-            if(spell.spellName == currCharacter.selectedSpell){
-                currentSpell = spell;
+            if(spell.spellName == Player.Instance.currCharacter.selectedSpell){
+                Player.Instance.currentSpell = spell;
             }
         }
 
@@ -199,7 +190,7 @@ public class GameManager : MonoBehaviour
 
     public Character GetRandomCharacter(){
         System.Random rnd = new System.Random();
-        return characterScritps[rnd.Next(0,characterScritps.Count)];
+        return Player.Instance.characterScritps[rnd.Next(0,Player.Instance.characterScritps.Count)];
     }
 
 

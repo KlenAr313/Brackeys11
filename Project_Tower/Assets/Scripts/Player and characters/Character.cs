@@ -31,9 +31,11 @@ public class Character : MonoBehaviour, IFighter
 
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
-        if (Input.GetKeyDown(KeyCode.R) && GameManager.Instance.characterScritps[0].health <= 0 
-                    && GameManager.Instance.characterScritps[1].health <= 0 
-                    && GameManager.Instance.characterScritps[2].health <= 0
+
+        //EZ itt mi???
+        if (Input.GetKeyDown(KeyCode.R) && Player.Instance.characterScritps[0].health <= 0 
+                    && Player.Instance.characterScritps[1].health <= 0 
+                    && Player.Instance.characterScritps[2].health <= 0
                 )
             {
                 GameManager.Instance.GameOver();
@@ -73,34 +75,38 @@ public class Character : MonoBehaviour, IFighter
     }
 
     void Start(){
-        GameManager.Instance.RefreshCurrentSpell();
     }
 
     void Update()
     {
-        if(GameManager.Instance.currCharacter == this){
+        if(Player.Instance.currCharacter == this){
+
+            //Ki ne hozd a Refresh-t kivülre mert meghalsz (csak akkor update-elődjön ha van változás, különben minden frame-en hivná)
             if (Input.GetKeyDown("1"))
             {
                 selectedSpell = spells[0];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("2"))
             {
                 selectedSpell = spells[1];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("3"))
             {
                 selectedSpell = spells[2];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("4"))
             {
                 selectedSpell = spells[3];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("5"))
             {
                 selectedSpell = spells[4];
+                GameManager.Instance.RefreshCurrentSpell();
             }
-
-            GameManager.Instance.RefreshCurrentSpell();
         }
     }
 

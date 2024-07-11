@@ -5,8 +5,8 @@ using UnityEngine;
 public class HealerEnemy : EnemyBase
 {
     protected override Vector2Int GetAttackPosition(){
-        int playerPosX = GameManager.Instance.currCharacter.PosX;
-        int playerPosY = GameManager.Instance.currCharacter.PosY;
+        int playerPosX = Player.Instance.currCharacter.PosX;
+        int playerPosY = Player.Instance.currCharacter.PosY;
 
         System.Random rnd = new System.Random();
 

@@ -9,6 +9,11 @@ public class Player : MonoBehaviour
     public bool canMove;
     public float velocity;
 
+    public Character currCharacter;
+
+    [SerializeField] public SpellBase currentSpell;
+    [SerializeField] public List<Character> characterScritps;
+
     private Rigidbody2D rb;
     void OnValidate()
     {
@@ -20,19 +25,35 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        characterScritps.Clear();
+        
+
+        foreach(Transform child in this.transform){
+            if(child.TryGetComponent<Character>(out Character characterScript)){
+                characterScritps.Add(characterScript);
+            }
+        }
+
         canMove = true;
 
         rb = transform.GetChild(0).GetComponent<Rigidbody2D>();
+
+        currCharacter = characterScritps[0];
+        currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
+
+        GameManager.Instance.RefreshCurrentSpell();
     }
 
     void Awake(){
         DontDestroyOnLoad(this.gameObject);
+        currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
     }
 
     void Update(){
-            if (Input.GetKeyDown(KeyCode.R) && GameManager.Instance.characterScritps[0].health <= 0 
-                    && GameManager.Instance.characterScritps[1].health <= 0 
-                    && GameManager.Instance.characterScritps[2].health <= 0
+            if (Input.GetKeyDown(KeyCode.R) 
+                    && characterScritps[0].health <= 0 
+                    && characterScritps[1].health <= 0 
+                    && characterScritps[2].health <= 0
                 )
             {
                 GameManager.Instance.Restart();
@@ -59,6 +80,10 @@ public class Player : MonoBehaviour
 
     public void DisableFreeMovement(){
         canMove = false;
+    }
+
+    public PlayerSaveData GetSaveInfo(){
+        return null;
     }
 
 }

@@ -30,7 +30,7 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                Debug.Log("Tile generated");
+                //Debug.Log("Tile generated");
                 Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.SetPosX(x);
                 spawnedTile.SetPosY(y);
