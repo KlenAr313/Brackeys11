@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,43 +10,42 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameManager gameManagerScript;
     [SerializeField] private RoomManager roomManagerScript;
     [SerializeField] private int RoomCounter;
-    private int RoomLeft;
     private int N;
-    private RoomData[,] RoomsGrid;
+    private GameObject[,] RoomsGrid;
     private int CurrentRow;
     private int CurrentCol;
 
+    // Only for level generation
+    private int RoomLeft;
+
+    public static LevelManager Instance;
+
     void Awake()
     {
-        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
+        if(Instance = null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
 
-        RoomData.cluePool = new List<string>{
-        "Behind the left portal there are brain eaters",
-        "Don't choose the middle portal",
-        "When the moon is full, the nights are cold",
-        "Not many people return from the right one",
-        "If you are greedy, don't choose the left portal",
-        "In all three portals, you will be alone",
-        "All three portals are under construction...",
-        "Keep your health high for the right portal",
-        "Keep your mana high for the middle portal",
-        "Choose the left because that's the best",
-        "The blind enemies are stuuuupid, don't trust them",
-        "Kill the healer for quick success",
-        "Maybe the clues can lie?"
-        };
+        if(Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+
+        gameManagerScript = GameManager.Instance;
+        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
 
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
         CurrentRow = UnityEngine.Random.Range(0, N);
         CurrentCol = UnityEngine.Random.Range(0, N);
-        RoomsGrid = new RoomData[N,N];
+        RoomsGrid = new GameObject[N,N];
         for (int i = 0; i < N; i++)
         {
             for (int j = 0; j < N; j++)
             {
-                RoomsGrid[i,j] = new RoomData();
+                RoomsGrid[i,j] = null;
             }
         }
         RandomizeRooms(CurrentRow, CurrentCol, 1);
@@ -65,12 +65,11 @@ public class LevelManager : MonoBehaviour
 #endif
 
         bool[] doors = new bool[4];
-        doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol].Type != 0;
-        doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1].Type != 0;
-        doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol].Type != 0;
-        doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
-        RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
-        roomManagerScript.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol]);
+        doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != null;
+        doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != null;
+        doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != null;
+        doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != null;
+        roomManagerScript.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors);
 
     }
 
@@ -80,9 +79,10 @@ public class LevelManager : MonoBehaviour
             if(RoomLeft == 1)
                 type = 10;
             bool newRoom = false;
-            if(RoomsGrid[x,y].Type == 0)
+            if(RoomsGrid[x,y] == null)
             {
-                RoomsGrid[x,y] = new RoomData(type);
+                RoomsGrid[x,y] = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + type));;
+                RoomsGrid[x,y].SetActive(false);
                 RoomLeft--;
                 newRoom = true;
             }
@@ -145,16 +145,15 @@ public class LevelManager : MonoBehaviour
                 break;
         }
 
-        if(NextRow >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol].Type != 0){
+        if(NextRow >=0 && NextCol >= 0 && NextRow < N && NextCol < N && RoomsGrid[NextRow,NextCol] != null){
             CurrentRow = NextRow;
             CurrentCol = NextCol;
             bool[] doors = new bool[4];
-            doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol].Type != 0;
-            doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1].Type != 0;
-            doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol].Type != 0;
-            doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1].Type != 0;
-            RoomsGrid[CurrentRow, CurrentCol].Doors = doors;
-            roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol]);
+            doors[0] = CurrentRow - 1 >= 0 && RoomsGrid[CurrentRow-1,CurrentCol] != null;
+            doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != null;
+            doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != null;
+            doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != null;
+            roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors);
         }
 
         

@@ -20,16 +20,32 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private List<GameObject> floor;
 
-    private RoomData roomData;
-    private int prevType;
+    public static RoomManager Instance;
 
-    public void NewRoom(ref RoomData data)
+    public void Start()
     {
-        this.levelManagerScript = GameObject.Find("Level Manager").GetComponent<LevelManager>();
-        this.tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
-        
-        this.gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        generateRoomFromLayout(ref data);
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        if(Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+
+        this.levelManagerScript = LevelManager.Instance;
+        this.tileManagerScript = TileManager.Instance;
+        this.gameManagerScript = GameManager.Instance;
+    }
+
+    public void NewRoom(ref GameObject roomLayout, bool[] doors)
+    {
+        this.roomLayout = roomLayout;
+        roomLayout.SetActive(true);
+        this.doors = doors;
+        Initialise();
     }
 
     //Main click entry point
@@ -86,23 +102,16 @@ public class RoomManager : MonoBehaviour
 
     private void Initialise()
     {
-        if(roomData.IsWon)
-        {
-            GameObject.DestroyImmediate(GameObject.Find("Enemies"), true);
-        }
-        else
-        {
-            enemies.Clear();
-            //Load enemies to list
-            GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
-            foreach(Transform child in enemyParentObj.transform){
-                if(child.gameObject.activeSelf){
-                    enemies.Add(child.gameObject);
-                }
+        enemies.Clear();
+        //Load enemies to list
+        GameObject enemyParentObj = roomLayout.gameObject.transform.Find("Enemies").gameObject;
+        foreach(Transform child in enemyParentObj.transform){
+            if(child.gameObject.activeSelf){
+                enemies.Add(child.gameObject);
             }
         }
 
-        /*interactables.Clear();*/
+        interactables.Clear();
         //Load interactables to list
         GameObject interactableParentObj = roomLayout.gameObject.transform.Find("Interactables").gameObject;
         foreach(Transform child in interactableParentObj.transform){
@@ -151,44 +160,19 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void NextRoom(ref RoomData data){
+    public void NextRoom(ref GameObject roomLayout, bool[] doors){
+        this.roomLayout.SetActive(false);
+        this.roomLayout = roomLayout;
+        this.doors = doors;
         Debug.Log("New Room Created");
-        GameObject.DestroyImmediate(GameObject.Find("Room Layout " + prevType + "(Clone)"), true);
-        generateRoomFromLayout(ref data);
-        Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
+        roomLayout.SetActive(true);
+        Initialise();
+        //Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
         
         if(enemies.Count > 0)
             gameManagerScript.StartFight();
     }
 
-    private void generateRoomFromLayout(ref RoomData data)
-    {
-        this.roomData = data;
-        this.roomLayout = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + data.Type));
-        roomLayout.transform.parent = this.transform;
-
-        prevType = data.Type;
-        this.doors = data.Doors;
-        tileManagerScript.NewTiles(width,height, doors);
-
-        interactables.Clear();
-        for(int i = 0; i < data.Interactables.Count; ++i){
-            if(data.Interactables[i] is Chest){
-                GameObject interactableGameObj = Resources.Load<GameObject>("Interactables/ChestObj");
-                if(!data.IsWon && data.Type != 1){
-                    List<Vector2Int> vects = gameManagerScript.tileManagerScript.GetPlayableArea();
-                    ((Chest)data.Interactables[i]).NewPos(vects[Random.Range(0, vects.Count)]);
-                }
-                interactableGameObj.transform.position = data.Interactables[i].Pos;
-                interactableGameObj.GetComponent<Chest>().CopyData((Chest)data.Interactables[i]);
-                interactableGameObj = GameObject.Instantiate(interactableGameObj);
-                interactableGameObj.transform.parent = GameObject.Find("Interactables").transform;
-                interactables.Add(interactableGameObj);
-            }
-        }
-        Initialise();
-
-    }
 
 
     public List<GameObject> GetAllEnemies(){
@@ -199,11 +183,6 @@ public class RoomManager : MonoBehaviour
         }
         
         return enemiesCopy;
-    }
-
-    internal void WinFight()
-    {
-        this.roomData.IsWon = true;
     }
 
 
