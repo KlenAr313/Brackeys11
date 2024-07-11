@@ -39,9 +39,10 @@ public class Player : MonoBehaviour
         rb = transform.GetChild(0).GetComponent<Rigidbody2D>();
 
         currCharacter = characterScritps[0];
-        currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
-
-        GameManager.Instance.RefreshCurrentSpell();
+        if(GameManager.Instance != null){
+            currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
+            GameManager.Instance.RefreshCurrentSpell();
+        }
     }
 
     void Awake(){
@@ -83,7 +84,25 @@ public class Player : MonoBehaviour
     }
 
     public PlayerSaveData GetSaveInfo(){
-        return null;
+
+        List<int> characterHealths = new List<int>();
+        List<int> characterManas = new List<int>();;
+
+        foreach(Character character in characterScritps){
+            characterHealths.Add(character.health);
+            characterManas.Add(character.mana);
+        }
+
+        return new PlayerSaveData(characterHealths, characterManas);
+    }
+
+    public void LoadFromData(PlayerSaveData data){
+
+        //Esetleges problémák a karakter object-ek loadolásával
+        for(int i = 0; i < characterScritps.Count; i++){
+            characterScritps[i].health = data.characterHealths[i];
+            characterScritps[i].mana = data.characterManas[i];
+        }
     }
 
 }
