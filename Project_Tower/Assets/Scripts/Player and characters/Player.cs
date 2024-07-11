@@ -1,20 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
-    void Awake()
+    public bool canMove;
+    public float velocity;
+
+    private Rigidbody2D rb;
+    void OnValidate()
     {
         if(Instance == null){
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
 
         if(Instance != this){
             Destroy(this.gameObject);
         }
+
+        canMove = true;
+
+        rb = transform.GetChild(0).GetComponent<Rigidbody2D>();
+    }
+
+    void Awake(){
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Update(){
@@ -30,6 +42,23 @@ public class Player : MonoBehaviour
             {
                 Application.Quit();
             }
+
+            if(canMove){
+                float moveX = Input.GetAxisRaw("Horizontal");
+                float moveY = Input.GetAxisRaw("Vertical");
+
+                Vector2 moveVector = new Vector2(moveX, moveY).normalized * velocity;
+                
+                rb.velocity = moveVector;
+            }
+    }
+
+    public void EnableFreeMovement(){
+        canMove = true;
+    }
+
+    public void DisableFreeMovement(){
+        canMove = false;
     }
 
 }
