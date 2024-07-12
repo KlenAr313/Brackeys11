@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
     public bool canMove;
     public float velocity;
+    public Animator animator;
 
     public Character currCharacter;
 
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
         canMove = true;
 
         rb = transform.GetChild(0).GetComponent<Rigidbody2D>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
 
         currCharacter = characterScritps[0];
         if(GameManager.Instance != null){
@@ -69,7 +71,10 @@ public class Player : MonoBehaviour
                 float moveX = Input.GetAxisRaw("Horizontal");
                 float moveY = Input.GetAxisRaw("Vertical");
 
-                Vector2 moveVector = new Vector2(moveX, moveY).normalized * velocity;
+                Vector2 moveVector = new Vector2(moveX, moveY).normalized * Time.deltaTime * velocity;
+                animator.SetFloat("Horizontal", moveX);
+                animator.SetFloat("Vertical", moveY);
+                animator.SetFloat("Speed", new Vector2(moveX, moveY).normalized.magnitude);
                 
                 rb.velocity = moveVector;
             }
