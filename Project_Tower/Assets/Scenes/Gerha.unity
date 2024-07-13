@@ -13740,7 +13740,7 @@ GameObject:
   - component: {fileID: 152085693}
   m_Layer: 0
   m_Name: Character 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13774,6 +13774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 0
   followPointIndex: 0
+  offsetLength: 0
   posX: 4
   posY: 4
   health: 100
@@ -43938,7 +43939,7 @@ GameObject:
   - component: {fileID: 475530378}
   m_Layer: 0
   m_Name: Character 3
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43972,6 +43973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 2
   followPointIndex: 0
+  offsetLength: 0
   posX: 13
   posY: 4
   health: 100
@@ -73950,7 +73952,7 @@ GameObject:
   - component: {fileID: 830425445}
   m_Layer: 0
   m_Name: Character 2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73984,6 +73986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 1
   followPointIndex: 0
+  offsetLength: 0
   posX: 6
   posY: 4
   health: 100

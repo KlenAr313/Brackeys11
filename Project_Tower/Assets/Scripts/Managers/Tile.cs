@@ -30,6 +30,15 @@ public class Tile : MonoBehaviour
         tileManagerScript.SetHightlightedTile(posX, posY);
     }
 
+
+    void Update(){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Debug.Log(hit.transform.name + " has been hit!");
+            }
+    }
     
     void OnMouseExit()
     {
@@ -41,10 +50,13 @@ public class Tile : MonoBehaviour
     }
 
     void OnMouseOver(){
+        //Debug.Log(Graphics.raycastTarget);
         if(Input.GetMouseButtonDown(0)){
             tileManagerScript.Click(this.posX, this.posY);
         }
     }
+
+    
 
 
     public int getPosX()

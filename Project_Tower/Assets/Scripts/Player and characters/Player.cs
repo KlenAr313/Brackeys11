@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
             currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
             GameManager.Instance.RefreshCurrentSpell();
         }
+
     }
 
     void Awake(){
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour
         currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
 
         followPoints.Add(new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y));
+
+        OnRoomEnter();
     }
 
     void Update(){
@@ -89,6 +92,7 @@ public class Player : MonoBehaviour
                     timer += Time.fixedDeltaTime;
                 }
 
+                //Veriable to see how many character have passed the 0th followpoint
                 float closeCount = 0;
                 foreach(Character character in characterScritps){
                     if(character != currCharacter){
@@ -103,6 +107,11 @@ public class Player : MonoBehaviour
 
                         //Move the character
                         if(character.followPointIndex < followPoints.Count){
+
+                            //Calculating offset vector
+                            if(character.followPointIndex > 0){
+                                Vector2 diffVector = new Vector2(followPoints[character.followPointIndex].x - followPoints[character.followPointIndex - 1].x, followPoints[character.followPointIndex].y - followPoints[character.followPointIndex - 1].y);
+                            }
                             character.Move(followPoints[character.followPointIndex].x - character.transform.position.x, followPoints[character.followPointIndex].y - character.transform.position.y);
                         }
 
