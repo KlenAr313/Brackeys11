@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isPlayerTurn;
     [SerializeField] public bool isFighting;
     [SerializeField] public GameObject playerObj;
-    [SerializeField] public Player playerScript;
     [SerializeField] public RoomManager roomManagerScript;
     [SerializeField] public TileManager tileManagerScript;
     [SerializeField] public List<SpellBase> spellList;
-    [SerializeField] public SpellBase currentSpell = null;
     [SerializeField] public CombatManager combatManagerScript;
 
     //Basically the length of the spell bar
@@ -28,36 +27,45 @@ public class GameManager : MonoBehaviour
     public event Action SpellRefreshed;
     public event Action OnGameOver;
 
+    public static GameManager Instance;
+
     void Awake(){
-        playerObj = GameObject.Find("Player").gameObject;
-        playerScript = GameObject.Find("Player").GetComponent<Player>();
-        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
-        tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
-        combatManagerScript = gameObject.GetComponent<CombatManager>();
-
-        GameObject spellsObj = this.gameObject.transform.Find("Spells").gameObject;
-
-        currentX = -1;
-        currentY = -1;
-
-        Component[] components = spellsObj.GetComponents(typeof(Component));
-        foreach(Component comp in components){
-            if(comp.ToString() != "Spells (UnityEngine.Transform)"){
-                spellList.Add((SpellBase)comp);
-                Debug.Log("Spell Added");
-            }
-        }
-
-        isPlayerTurn = false;
-
-        RefreshCurrentSpell();
-
+        DontDestroyOnLoad(this.gameObject);
         //Debug miatt true, false legyen alapból!
 #if DEBUG
         //isFighting = true;
 #else
         isFighting = false;
 #endif
+    }
+
+    void OnValidate(){
+        if(Instance == null){
+            Instance = this;
+        }
+        
+        if(Instance != this){
+            Destroy(this.gameObject);
+        }
+
+        spellList.Clear();  
+        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
+        tileManagerScript = GameObject.Find("Tile Manager").GetComponent<TileManager>();
+        combatManagerScript = gameObject.GetComponent<CombatManager>();
+
+        GameObject spellsObj = this.gameObject.transform.Find("Spells").gameObject;
+        Component[] components = spellsObj.GetComponents(typeof(Component));
+        foreach(Component comp in components){
+            if(comp.ToString() != "Spells (UnityEngine.Transform)"){
+                spellList.Add((SpellBase)comp);
+            }
+        }
+
+        currentX = -1;
+        currentY = -1;
+
+        isPlayerTurn = false;
+        RefreshCurrentSpell();
     }
 
     public void TileClicked(int posX, int posY){
@@ -74,25 +82,23 @@ public class GameManager : MonoBehaviour
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
-                if(currentSpell != null && currentSpell.ManaCost <= playerScript.mana){
-                    foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
-                        //Debug.Log("Tile effected by " + currentSpell.spellName + ": X: " + coord.x + " Y: " + coord.y);
-                        roomManagerScript.TileClicked(coord.x, coord.y, true);
-                    }
+                //currCharacter = characterScritps[currCharacterIndex];
+                if(Player.Instance.currentSpell != null && Player.Instance.currentSpell.ManaCost <= Player.Instance.currCharacter.mana){
+                    roomManagerScript.TileClickedAttack(Player.Instance.currentSpell.Cast(currentX, currentY));
 
-                    currentSpell.PlayAnimation(currentX, currentY);
-                    currentSpell.PlaySound();
+                    Player.Instance.currentSpell.PlayAnimation(currentX, currentY);
+                    Player.Instance.currentSpell.PlaySound();
                     tileManagerScript.RemoveAllHighlight();
 
 
-                    playerScript.DecreaseMana(currentSpell.ManaCost);
+                    Player.Instance.currCharacter.DecreaseMana(Player.Instance.currentSpell.ManaCost);
                     StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
             }
         }
         else
         {
-            roomManagerScript.TileClicked(posX, posY, false);
+            roomManagerScript.TileClicked(posX, posY);
         }
     }
 
@@ -113,8 +119,8 @@ public class GameManager : MonoBehaviour
         if(isFighting){
             //Player köre
             if(isPlayerTurn){
-                if(currentSpell != null){
-                    foreach(Vector2Int coord in currentSpell.Cast(currentX, currentY)){
+                if(Player.Instance.currentSpell != null){
+                    foreach(Vector2Int coord in Player.Instance.currentSpell.Cast(currentX, currentY)){
                         tileManagerScript.highlightSpellPreview(coord.x, coord.y);
                     }
                 }
@@ -132,10 +138,16 @@ public class GameManager : MonoBehaviour
         roomManagerScript.WinFight();
     }
 
+    //Highlight miatt van itt
     public void RefreshCurrentSpell(){
+
+        if(Player.Instance == null){
+            return;
+        }
+
         foreach(SpellBase spell in spellList){
-            if(spell.spellName == playerScript.selectedSpell){
-                currentSpell = spell;
+            if(spell.spellName == Player.Instance.currCharacter.selectedSpell){
+                Player.Instance.currentSpell = spell;
             }
         }
 
@@ -174,6 +186,11 @@ public class GameManager : MonoBehaviour
     public void Restart(){
         //Végleges Scene név re beirni
         SceneManager.LoadScene(0);
+    }
+
+    public Character GetRandomCharacter(){
+        System.Random rnd = new System.Random();
+        return Player.Instance.characterScritps[rnd.Next(0,Player.Instance.characterScritps.Count)];
     }
 
 

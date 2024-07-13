@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1869358703395010053}
   - component: {fileID: 4139945544544620449}
   - component: {fileID: 5167670624770167584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfabd6c4307a224f9ded3b8599eb7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 0.15518877, g: 0.6603774, b: 0, a: 0}
-  _offsetColor: {r: 0.100480005, g: 0.4245283, b: 0, a: 0}
+  _baseColor: {r: 0.15518877, g: 0.6603774, b: 0, a: 0.05490196}
+  _offsetColor: {r: 0.100480005, g: 0.4245283, b: 0, a: 0.05882353}
   _renderer: {fileID: 1869358703395010053}
   highlight: {fileID: 6349206722244416378}
   posX: 0
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2964529373957694805}
   - component: {fileID: 8870101171810193247}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

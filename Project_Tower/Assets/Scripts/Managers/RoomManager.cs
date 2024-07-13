@@ -33,37 +33,8 @@ public class RoomManager : MonoBehaviour
     }
 
     //Main click entry point
-    public void TileClicked(int posX, int posY, bool isAttack){
-        if(isAttack){
-            foreach(GameObject enemy in enemies){
-                EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
-                /*
-                if(enemyBaseScript == null){
-                    Debug.Log("Enemy script null");
-                }
-                */
-                if(enemyBaseScript.PosX == posX && enemyBaseScript.PosY == posY){
-                    //Ne sebezzünk ha:
-                    if(gameManagerScript.currentSpell.spellName != "Heal" && gameManagerScript.currentSpell.spellName != "Mana"){
-                        enemyBaseScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
-                    }
-                }
-            }
-
-            if(posX == gameManagerScript.playerScript.PosX && posY == gameManagerScript.playerScript.PosY){
-                if(gameManagerScript.currentSpell.spellName == "Heal"){
-                    gameManagerScript.playerScript.GetHealed(gameManagerScript.playerScript.GetFinalDamage());
-                    //Debug.Log("Healing: " + gameManagerScript.playerScript.GetFinalDamage());
-                }
-                else if(gameManagerScript.currentSpell.spellName == "Mana"){
-                    gameManagerScript.playerScript.GiveMana(gameManagerScript.playerScript.GetFinalDamage());
-                }
-                else{
-                    gameManagerScript.playerScript.GetDamaged(gameManagerScript.playerScript.GetFinalDamage(), gameManagerScript.currentSpell.animationTime);
-                }
-            }
-        }
-        else if(doors[0] && posY == height-1 && posX == width / 2)
+    public void TileClicked(int posX, int posY){
+        if(doors[0] && posY == height-1 && posX == width / 2)
                 StartCoroutine(levelManagerScript.OpenDoor(0));
         else if(doors[1] && posY == height / 2 && posX == width-1 )
                 StartCoroutine(levelManagerScript.OpenDoor(1));
@@ -80,7 +51,38 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    
+    public void TileClickedAttack(List<Vector2Int> coordList){
+        
+        foreach(GameObject enemy in enemies){
+                EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
+                Vector2Int enemyPos = new Vector2Int(enemyBaseScript.PosX, enemyBaseScript.PosY);
+                if(coordList.Contains(enemyPos)){
+                    //Ne sebezzünk ha:
+                    if(Player.Instance.currentSpell.spellName != "Heal" && Player.Instance.currentSpell.spellName != "Mana"){
+                        enemyBaseScript.GetDamaged(Player.Instance.currCharacter.GetFinalDamage(), Player.Instance.currentSpell.animationTime);
+                    }
+                }
+            }
+            
+
+        foreach(Character character in Player.Instance.characterScritps){
+            Vector2Int characterPos = new Vector2Int(character.PosX, character.PosY);
+
+            if(coordList.Contains(characterPos)){
+                if(Player.Instance.currentSpell.spellName == "Heal"){
+                    character.GetHealed(Player.Instance.currCharacter.GetFinalDamage());
+                    //Debug.Log("Healing: " + gameManagerScript.playerScript.GetFinalDamage());
+                }
+                else if(Player.Instance.currentSpell.spellName == "Mana"){
+                    character.GiveMana(Player.Instance.currCharacter.GetFinalDamage());
+                }
+                else{
+                    character.GetDamaged(Player.Instance.currCharacter.GetFinalDamage(), Player.Instance.currentSpell.animationTime);
+                }
+            }
+        }
+            
+    }
 
     private void Initialise()
     {

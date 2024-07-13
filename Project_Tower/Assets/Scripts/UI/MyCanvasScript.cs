@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyCanvasScript : MonoBehaviour
+public class MainCanvasScript : MonoBehaviour
 {
     [SerializeField] private GameObject endScreen;
     [SerializeField] private GameManager gameManagerScript;
 
+    [SerializeField] public static MainCanvasScript MainCanvasInstance;
+
     void Start(){
+        MainCanvasInstance = this;
+
         this.endScreen = transform.Find("End Screen").gameObject;
 
         gameManagerScript.OnGameOver += GameOver;

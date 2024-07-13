@@ -6,8 +6,8 @@ public class BasicEnemy : EnemyBase
 {
 
     protected override Vector2Int GetAttackPosition(){
-        int playerPosX = gameManagerScript.playerScript.PosX;
-        int playerPosY = gameManagerScript.playerScript.PosY;
+        int playerPosX = GameManager.Instance.GetRandomCharacter().PosX;
+        int playerPosY = GameManager.Instance.GetRandomCharacter().PosY;
 
         System.Random rnd = new System.Random();
 
