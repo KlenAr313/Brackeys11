@@ -12,6 +12,7 @@ TagManager:
   - BottomDoor
   - LeftDoor
   - BotDoor
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
   - Tile
+  - 
+  - 
   - 
   - 
   - 

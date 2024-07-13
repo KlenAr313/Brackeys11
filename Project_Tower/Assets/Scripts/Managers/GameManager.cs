@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -217,6 +218,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("P gombnyomás");
             tileManagerScript.GetPlayableArea(1);
         }
+
     } 
 #endif
 

@@ -43,9 +43,11 @@ public class TileManager : MonoBehaviour
             for (int y = 0; y < _height; y++)
             {
                 //Debug.Log("Tile generated");
-                Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
+                Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y , -9), Quaternion.identity);
                 spawnedTile.SetPosX(x);
                 spawnedTile.SetPosY(y);
+                //6 a Tile Layer, hogy ne legyen collision semmivel
+                spawnedTile.gameObject.layer = 6;
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.isHighlightable = true;
@@ -83,7 +85,6 @@ public class TileManager : MonoBehaviour
     }
 
     public void Click(int posX, int posY){
-        Debug.Log("Tile managger Clicked");
         GameManager.Instance.TileClicked(posX, posY);
     }
 

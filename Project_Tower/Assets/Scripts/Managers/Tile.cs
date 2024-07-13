@@ -41,9 +41,7 @@ public class Tile : MonoBehaviour
     }
 
     void OnMouseOver(){
-        //Debug.Log("Tile" +this.posX +" " +this.posY + " Over!!!4!");
         if(Input.GetMouseButtonDown(0)){
-            Debug.Log("Tile" +this.posX +" " +this.posY + " Clicked");
             tileManagerScript.Click(this.posX, this.posY);
         }
     }
