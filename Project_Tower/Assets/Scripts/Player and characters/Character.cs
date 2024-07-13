@@ -147,6 +147,7 @@ public class Character : MonoBehaviour, IFighter
         rb.velocity = moveVector;
     }
 
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "Character"){

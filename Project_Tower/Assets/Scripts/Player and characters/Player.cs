@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
         followPoints.Add(new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y));
 
         OnRoomEnter();
+
     }
 
     void Update(){
@@ -96,7 +97,7 @@ public class Player : MonoBehaviour
                 float moveY = Input.GetAxisRaw("Vertical");
                 currCharacter.Move(moveX, moveY);
 
-                //Only increase timer and move others if we are moving
+                //Only increase timer if we are moving
                 //Debug.Log((new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y) - lastPostion).magnitude);
                 if((new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y) - lastPostion).magnitude > 0.001f){
                     timer += Time.fixedDeltaTime;
@@ -119,20 +120,9 @@ public class Player : MonoBehaviour
                         if(character.followPointIndex < followPoints.Count){
 
                             //If we get close to them, they stop a bit, so they won't flicker
-                            if(character.followPointIndex == followPoints.Count-1 && character.Distance(currCharacter.transform.position.x, currCharacter.transform.position.y) <= character.offsetLength){
-                               
+                            if(character.followPointIndex == followPoints.Count-1 && character.Distance(currCharacter.transform.position.x, currCharacter.transform.position.y) <= character.offsetLength){    
                                 character.frameCount = 10;
 
-                               /*
-                                character.frameCount++;
-                                if(character.frameCount > 12){
-
-                                }
-                                //If the frame count where the player is close by lower then 5 then don't stop moving
-                                else{
-                                    character.Move(followPoints[character.followPointIndex].x - character.transform.position.x, followPoints[character.followPointIndex].y - character.transform.position.y, 0.9f);
-                                }
-                                */
                             }
                             else{
                                 //character.frameCount = 0;
@@ -146,6 +136,17 @@ public class Player : MonoBehaviour
                         }
                     }
                 }
+                
+                if(characterScritps[1].frameCount > 0 && characterScritps[2].frameCount > 0 && characterScritps[1].Distance(characterScritps[2].gameObject.transform.position.x, characterScritps[2].gameObject.transform.position.y) <= 0.8f){
+                    Vector2 diffVector = new Vector2(
+                        characterScritps[1].gameObject.transform.position.x - characterScritps[2].gameObject.transform.position.x, 
+                        characterScritps[1].gameObject.transform.position.y - characterScritps[2].gameObject.transform.position.y
+                    );
+
+                    diffVector = diffVector.normalized * -1;
+                    //Debug.Log(diffVector);   
+                    characterScritps[2].Move(diffVector.x, diffVector.y);
+                }
 
                 //if everyone follows the second point, delete the first
                 if(closeCount >= characterScritps.Count-1){
@@ -157,11 +158,17 @@ public class Player : MonoBehaviour
                 }
 
 
-            if(timer >= 0.5f){
+            if(timer >= 0.5f && (new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y) - followPoints[followPoints.Count-1]).magnitude >= 1f){
                 timer = 0.0f;
                 followPoints.Add(new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y));
             }
         }
+
+        /*
+        if(characterScritps[1].Distance(characterScritps[2].PosX, characterScritps[2].PosY) <= 1f){
+            Debug.Log("Túl közel");
+        }
+        */
 
         lastPostion = new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y);
 
