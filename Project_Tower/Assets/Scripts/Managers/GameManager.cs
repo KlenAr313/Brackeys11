@@ -135,7 +135,6 @@ public class GameManager : MonoBehaviour
 
     public void EndFight(){
         this.isFighting = false;
-        roomManagerScript.WinFight();
     }
 
     //Highlight miatt van itt

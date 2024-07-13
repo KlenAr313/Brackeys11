@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    private int _width, _height;
+    [SerializeField] private int _width = 20, _height = 20;
 
     [SerializeField] private Tile _tilePrefab;
 
@@ -13,10 +13,22 @@ public class TileManager : MonoBehaviour
 
     private bool[] doors;
 
-    public void NewTiles(int width, int height, bool[] doors)
+    public static TileManager Instance;
+
+    public void Start(){
+        if(Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        if(Instance != this){
+            Destroy(this.gameObject);
+        }
+        GenerateGrid();
+    }
+
+    public void SetTiles(bool[] doors)
     {
-        _width = width;
-        _height = height;
         this.doors = doors;
         if(_tiles != null)
             _tiles.Clear();
@@ -36,7 +48,7 @@ public class TileManager : MonoBehaviour
                 spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.isHighlightable = true;
+                spawnedTile.isHighlightable = false;
 
                 SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                 spriteRenderer.color = Color.white;
@@ -45,7 +57,7 @@ public class TileManager : MonoBehaviour
                 spawnedTile.Init(isOffset, this.gameObject, x, y);
 
                 
-                if((doors[0] && y == _height-1 && x == _width / 2) || (doors[1] && y == _height / 2 && x == _width-1)
+                /*if((doors[0] && y == _height-1 && x == _width / 2) || (doors[1] && y == _height / 2 && x == _width-1)
                     || (doors[2] && x == _width / 2 && y == 0) || (doors[3] && x == 0 && y == _height / 2))
                 {
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
@@ -57,7 +69,7 @@ public class TileManager : MonoBehaviour
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                     //spriteRenderer.color = Color.gray;
                     spawnedTile.isHighlightable = false;
-                }
+                }*/
 
                 _tiles[new Vector2(x, y)] = spawnedTile;
             }
