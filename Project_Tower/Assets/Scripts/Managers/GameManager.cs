@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -68,8 +69,8 @@ public class GameManager : MonoBehaviour
         RefreshCurrentSpell();
     }
 
-    public void TileClicked(int posX, int posY){
-
+    public void TileClicked(int posX, int posY)
+    {
         if(!canClick){
             return;
         }
@@ -77,6 +78,10 @@ public class GameManager : MonoBehaviour
         if(tileManagerScript.IsTileClickable(posX, posY)){
             currentX = posX;
             currentY = posY;
+        }
+        else
+        {
+            return;
         }
 
         if(isFighting){
@@ -135,7 +140,6 @@ public class GameManager : MonoBehaviour
 
     public void EndFight(){
         this.isFighting = false;
-        roomManagerScript.WinFight();
     }
 
     //Highlight miatt van itt
@@ -214,6 +218,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("P gombnyomás");
             tileManagerScript.GetPlayableArea(1);
         }
+
     } 
 #endif
 
