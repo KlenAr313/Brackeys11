@@ -11,7 +11,7 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private GameObject roomLayout;
 
-    [SerializeField] private GameObject[] doors = {null, null, null, null};
+    private GameObject[] doors = {null, null, null, null};
     [SerializeField] public int height;
     [SerializeField] public int width;
 
@@ -54,6 +54,7 @@ public class RoomManager : MonoBehaviour
 
     //Main click entry point
     public void TileClicked(int posX, int posY){
+        Debug.Log("Tile Clicked");
         if(doors[0] != null && doors[0].transform.position.x == posX && doors[0].transform.position.y == posY)
                 StartCoroutine(levelManagerScript.OpenDoor(0));
         else if(doors[1] != null && doors[1].transform.position.x == posX && doors[1].transform.position.y == posY)

@@ -68,8 +68,8 @@ public class GameManager : MonoBehaviour
         RefreshCurrentSpell();
     }
 
-    public void TileClicked(int posX, int posY){
-
+    public void TileClicked(int posX, int posY)
+    {
         if(!canClick){
             return;
         }
@@ -77,6 +77,10 @@ public class GameManager : MonoBehaviour
         if(tileManagerScript.IsTileClickable(posX, posY)){
             currentX = posX;
             currentY = posY;
+        }
+        else
+        {
+            return;
         }
 
         if(isFighting){

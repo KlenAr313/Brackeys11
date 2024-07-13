@@ -48,7 +48,7 @@ public class TileManager : MonoBehaviour
                 spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.isHighlightable = false;
+                spawnedTile.isHighlightable = true;
 
                 SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                 spriteRenderer.color = Color.white;
@@ -83,6 +83,7 @@ public class TileManager : MonoBehaviour
     }
 
     public void Click(int posX, int posY){
+        Debug.Log("Tile managger Clicked");
         GameManager.Instance.TileClicked(posX, posY);
     }
 

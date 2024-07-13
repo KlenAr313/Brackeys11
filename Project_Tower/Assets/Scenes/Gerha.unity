@@ -13774,6 +13774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 0
   followPointIndex: 0
+  offsetLength: 0
   posX: 4
   posY: 4
   health: 100
@@ -43972,6 +43973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 2
   followPointIndex: 0
+  offsetLength: 0
   posX: 13
   posY: 4
   health: 100
@@ -73984,6 +73986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIndex: 1
   followPointIndex: 0
+  offsetLength: 0
   posX: 6
   posY: 4
   health: 100
@@ -228224,6 +228227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9d8499c8f32d9459ff767f6aa7efce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _width: 20
+  _height: 20
   _tilePrefab: {fileID: 4139945544544620449, guid: f7d99661899c5454d87e230f5f4dd947, type: 3}
 --- !u!4 &1618395020
 Transform:
@@ -250689,7 +250694,11 @@ MonoBehaviour:
   gameManagerScript: {fileID: 2037264997}
   levelManagerScript: {fileID: 1584098985}
   roomLayout: {fileID: 0}
-  doors: 00010101
+  doors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   height: 8
   width: 16
   enemies: []
@@ -250878,6 +250887,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  wall: []
 --- !u!4 &1653269191
 Transform:
   m_ObjectHideFlags: 0
