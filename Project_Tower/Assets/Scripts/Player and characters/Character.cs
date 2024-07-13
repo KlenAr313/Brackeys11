@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class Character : MonoBehaviour, IFighter
     [SerializeField] public int characterIndex;
     [SerializeField] public int followPointIndex;
     [SerializeField] public float offsetLength;
+    [SerializeField] public int frameCount;
+
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
@@ -120,17 +123,27 @@ public class Character : MonoBehaviour, IFighter
 
     
     public void Move(float moveX, float moveY){
-        float vel = Player.Instance.velocity;
+        Vector2 moveVector = new Vector2(moveX, moveY).normalized * Time.fixedDeltaTime * Player.Instance.velocity;
 
-        if(this != Player.Instance.currCharacter){
-            vel = vel * 0.8f;
-        }
-
-        Vector2 moveVector = new Vector2(moveX, moveY).normalized * Time.fixedDeltaTime * vel;
         animator.SetFloat("Horizontal", moveX);
         animator.SetFloat("Vertical", moveY);
+
         animator.SetFloat("Speed", new Vector2(moveX, moveY).normalized.magnitude);
                 
+        rb.velocity = moveVector;
+    }
+
+    //Move with custom velocity
+    public void Move(float moveX, float moveY, float velocityMultiplier){
+        float vel = Player.Instance.velocity * velocityMultiplier;
+
+        Vector2 moveVector = new Vector2(moveX, moveY).normalized * Time.fixedDeltaTime * vel;
+
+        animator.SetFloat("Horizontal", moveX);
+        animator.SetFloat("Vertical", moveY);
+
+        animator.SetFloat("Speed", new Vector2(moveX, moveY).normalized.magnitude);
+            
         rb.velocity = moveVector;
     }
 
