@@ -7,6 +7,8 @@ using UnityEngine;
 public class Character : MonoBehaviour, IFighter
 {
     [SerializeField] public int characterIndex;
+    [SerializeField] public int followPointIndex;
+    [SerializeField] public float offsetLength;
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
@@ -18,6 +20,9 @@ public class Character : MonoBehaviour, IFighter
     [SerializeField] private int setSpeed;
     [SerializeField] public List<string> spells;
     [SerializeField] protected Sprite previewImage;
+
+    private Rigidbody2D rb;
+    public Animator animator;
 
     public string selectedSpell;
     public event Action UpdateStatUI;
@@ -72,10 +77,13 @@ public class Character : MonoBehaviour, IFighter
 
         this.posX = (int)transform.position.x;
         this.posY = (int)transform.position.y;
+
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+
+        followPointIndex = 0;
     }
 
-    void Start(){
-    }
 
     void Update()
     {
@@ -108,6 +116,34 @@ public class Character : MonoBehaviour, IFighter
                 GameManager.Instance.RefreshCurrentSpell();
             }
         }
+    }
+
+    
+    public void Move(float moveX, float moveY){
+        float vel = Player.Instance.velocity;
+
+        if(this != Player.Instance.currCharacter){
+            vel = vel * 0.8f;
+        }
+
+        Vector2 moveVector = new Vector2(moveX, moveY).normalized * Time.fixedDeltaTime * vel;
+        animator.SetFloat("Horizontal", moveX);
+        animator.SetFloat("Vertical", moveY);
+        animator.SetFloat("Speed", new Vector2(moveX, moveY).normalized.magnitude);
+                
+        rb.velocity = moveVector;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Character"){
+            Physics2D.IgnoreCollision(this.gameObject.GetComponent<Collider2D>(), col.gameObject.GetComponent<Collider2D>());
+        }
+    }
+
+
+    public float Distance(float targetX, float targetY){
+        return new Vector2(targetX - this.gameObject.transform.position.x, targetY - this.gameObject.transform.position.y).magnitude;
     }
 
     public void GiveMana(int amount){
