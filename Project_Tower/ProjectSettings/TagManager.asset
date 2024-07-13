@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Wall
+  - Floor
+  - TopDoor
+  - RightDoor
+  - BottomDoor
+  - LeftDoor
+  - BotDoor
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -12,9 +20,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
   - Tile
+  - 
+  - 
   - 
   - 
   - 
