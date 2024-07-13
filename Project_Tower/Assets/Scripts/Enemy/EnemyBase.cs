@@ -77,8 +77,8 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
         Vector2Int target = this.GetAttackPosition();
         float animationTime = gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(target.x, target.y);
         foreach(Vector2Int coord in gameManagerScript.GetSpellByName(spells[0]).Cast(target.x, target.y)){
-            if(coord.x == GameManager.Instance.currCharacter.PosX && coord.y == GameManager.Instance.currCharacter.PosY){
-                GameManager.Instance.currCharacter.GetDamaged(baseDamage, animationTime);
+            if(coord.x == Player.Instance.currCharacter.PosX && coord.y == Player.Instance.currCharacter.PosY){
+                Player.Instance.currCharacter.GetDamaged(baseDamage, animationTime);
                 Debug.Log("Player damaged");
             }
             if(gameManagerScript.roomManagerScript.GetTileNameByCoord(coord.x, coord.y) == "enemy"){

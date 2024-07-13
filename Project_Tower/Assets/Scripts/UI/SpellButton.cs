@@ -29,7 +29,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
 
         mySpellIndex = Int32.Parse(gameObject.name.Substring(gameObject.name.Length-1)) - 1;
-        Refresh();
+        //Refresh();
     }
 
 
@@ -37,13 +37,13 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         selectedImage.SetActive(false);
 
-        if(mySpellIndex < gameManagerScript.currCharacter.spells.Count){
-            spellBaseScript = gameManagerScript.GetSpellByName(gameManagerScript.currCharacter.spells[mySpellIndex]);
+        if(mySpellIndex < Player.Instance.currCharacter.spells.Count){
+            spellBaseScript = gameManagerScript.GetSpellByName(Player.Instance.currCharacter.spells[mySpellIndex]);
             if(spellBaseScript != null){
                 spellIcon.GetComponent<UnityEngine.UI.Image>().sprite = spellBaseScript.icon;
                 spellName = spellBaseScript.spellName;     
 
-                    if(gameManagerScript.currentSpell.spellName == this.spellBaseScript.spellName){
+                    if(Player.Instance.currentSpell.spellName == this.spellBaseScript.spellName){
                         selectedImage.SetActive(true);
                     }
                     else{
@@ -63,7 +63,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             return;
         }
 
-        gameManagerScript.currCharacter.selectedSpell = this.spellBaseScript.spellName;
+        Player.Instance.currCharacter.selectedSpell = this.spellBaseScript.spellName;
         gameManagerScript.RefreshCurrentSpell();
         Refresh();
     }

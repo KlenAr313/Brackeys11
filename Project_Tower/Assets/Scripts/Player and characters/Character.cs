@@ -7,6 +7,8 @@ using UnityEngine;
 public class Character : MonoBehaviour, IFighter
 {
     [SerializeField] public int characterIndex;
+    [SerializeField] public int followPointIndex;
+    [SerializeField] public float offsetLength;
     [SerializeField] private int posX;
     [SerializeField] private int posY;
 
@@ -18,6 +20,9 @@ public class Character : MonoBehaviour, IFighter
     [SerializeField] private int setSpeed;
     [SerializeField] public List<string> spells;
     [SerializeField] protected Sprite previewImage;
+
+    private Rigidbody2D rb;
+    public Animator animator;
 
     public string selectedSpell;
     public event Action UpdateStatUI;
@@ -31,9 +36,11 @@ public class Character : MonoBehaviour, IFighter
 
     public IEnumerator Die(float waitTilDisappear){
         yield return new WaitForSeconds(waitTilDisappear);
-        if (Input.GetKeyDown(KeyCode.R) && GameManager.Instance.characterScritps[0].health <= 0 
-                    && GameManager.Instance.characterScritps[1].health <= 0 
-                    && GameManager.Instance.characterScritps[2].health <= 0
+
+        //EZ itt mi???
+        if (Input.GetKeyDown(KeyCode.R) && Player.Instance.characterScritps[0].health <= 0 
+                    && Player.Instance.characterScritps[1].health <= 0 
+                    && Player.Instance.characterScritps[2].health <= 0
                 )
             {
                 GameManager.Instance.GameOver();
@@ -70,38 +77,73 @@ public class Character : MonoBehaviour, IFighter
 
         this.posX = (int)transform.position.x;
         this.posY = (int)transform.position.y;
+
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+
+        followPointIndex = 0;
     }
 
-    void Start(){
-        GameManager.Instance.RefreshCurrentSpell();
-    }
 
     void Update()
     {
-        if(GameManager.Instance.currCharacter == this){
+        if(Player.Instance.currCharacter == this){
+
+            //Ki ne hozd a Refresh-t kivülre mert meghalsz (csak akkor update-elődjön ha van változás, különben minden frame-en hivná)
             if (Input.GetKeyDown("1"))
             {
                 selectedSpell = spells[0];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("2"))
             {
                 selectedSpell = spells[1];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("3"))
             {
                 selectedSpell = spells[2];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("4"))
             {
                 selectedSpell = spells[3];
+                GameManager.Instance.RefreshCurrentSpell();
             }
             if (Input.GetKeyDown("5"))
             {
                 selectedSpell = spells[4];
+                GameManager.Instance.RefreshCurrentSpell();
             }
-
-            GameManager.Instance.RefreshCurrentSpell();
         }
+    }
+
+    
+    public void Move(float moveX, float moveY){
+        float vel = Player.Instance.velocity;
+
+        if(this != Player.Instance.currCharacter){
+            vel = vel * 0.8f;
+        }
+
+        Vector2 moveVector = new Vector2(moveX, moveY).normalized * Time.fixedDeltaTime * vel;
+        animator.SetFloat("Horizontal", moveX);
+        animator.SetFloat("Vertical", moveY);
+        animator.SetFloat("Speed", new Vector2(moveX, moveY).normalized.magnitude);
+                
+        rb.velocity = moveVector;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Character"){
+            Physics2D.IgnoreCollision(this.gameObject.GetComponent<Collider2D>(), col.gameObject.GetComponent<Collider2D>());
+        }
+    }
+
+
+    public float Distance(float targetX, float targetY){
+        return new Vector2(targetX - this.gameObject.transform.position.x, targetY - this.gameObject.transform.position.y).magnitude;
     }
 
     public void GiveMana(int amount){
