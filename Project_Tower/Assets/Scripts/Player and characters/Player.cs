@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,12 +11,16 @@ public class Player : MonoBehaviour
     public bool canMove;
     public float velocity;
     private float timer;
+    private Vector2 lastPostion;
 
     public Character currCharacter;
 
     [SerializeField] public SpellBase currentSpell;
     [SerializeField] public List<Character> characterScritps;
     public List<Vector2> followPoints;
+
+
+
     void OnValidate()
     {
         if(Instance == null){
@@ -44,6 +49,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.RefreshCurrentSpell();
         }
 
+        lastPostion = new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y);
     }
 
     void Awake(){
@@ -78,28 +84,32 @@ public class Player : MonoBehaviour
         foreach(Character character in characterScritps){
             if(character != currCharacter){
                 character.Move(0, 0);
+                
+                if(character.frameCount > 0){
+                    character.frameCount--;
+                }
             }
         }
 
         if(canMove){
                 float moveX = Input.GetAxisRaw("Horizontal");
                 float moveY = Input.GetAxisRaw("Vertical");
-
                 currCharacter.Move(moveX, moveY);
 
                 //Only increase timer and move others if we are moving
-                if(new Vector2(moveX, moveY).normalized.magnitude > 0.01f){
+                //Debug.Log((new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y) - lastPostion).magnitude);
+                if((new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y) - lastPostion).magnitude > 0.001f){
                     timer += Time.fixedDeltaTime;
                 }
 
                 //Veriable to see how many character have passed the 0th followpoint
                 float closeCount = 0;
                 foreach(Character character in characterScritps){
-                    if(character != currCharacter){
+                    if(character != currCharacter && character.frameCount <= 0){
 
                         //If close the the first follow point, start following the second one
                         if(character.followPointIndex < followPoints.Count 
-                            && character.Distance(followPoints[character.followPointIndex].x, followPoints[character.followPointIndex].y) <= 0.5f
+                            && character.Distance(followPoints[character.followPointIndex].x, followPoints[character.followPointIndex].y) <= 0.3f
                             )
                         {
                             character.followPointIndex++;
@@ -108,15 +118,30 @@ public class Player : MonoBehaviour
                         //Move the character
                         if(character.followPointIndex < followPoints.Count){
 
-                            //Calculating offset vector
-                            if(character.followPointIndex > 0){
-                                Vector2 diffVector = new Vector2(followPoints[character.followPointIndex].x - followPoints[character.followPointIndex - 1].x, followPoints[character.followPointIndex].y - followPoints[character.followPointIndex - 1].y);
+                            //If we get close to them, they stop a bit, so they won't flicker
+                            if(character.followPointIndex == followPoints.Count-1 && character.Distance(currCharacter.transform.position.x, currCharacter.transform.position.y) <= character.offsetLength){
+                               
+                                character.frameCount = 10;
+
+                               /*
+                                character.frameCount++;
+                                if(character.frameCount > 12){
+
+                                }
+                                //If the frame count where the player is close by lower then 5 then don't stop moving
+                                else{
+                                    character.Move(followPoints[character.followPointIndex].x - character.transform.position.x, followPoints[character.followPointIndex].y - character.transform.position.y, 0.9f);
+                                }
+                                */
                             }
-                            character.Move(followPoints[character.followPointIndex].x - character.transform.position.x, followPoints[character.followPointIndex].y - character.transform.position.y);
+                            else{
+                                //character.frameCount = 0;
+                                character.Move(followPoints[character.followPointIndex].x - character.transform.position.x, followPoints[character.followPointIndex].y - character.transform.position.y);
+                            }
                         }
 
                         //Check how many character are following the second point
-                        if(character.followPointIndex > 0){
+                        if(character.followPointIndex > 1){
                             closeCount++;
                         }
                     }
@@ -132,12 +157,13 @@ public class Player : MonoBehaviour
                 }
 
 
-            if(timer >= 0.1f){
+            if(timer >= 0.5f){
                 timer = 0.0f;
                 followPoints.Add(new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y));
             }
         }
 
+        lastPostion = new Vector2(currCharacter.gameObject.transform.position.x, currCharacter.gameObject.transform.position.y);
 
     }
 
@@ -153,6 +179,7 @@ public class Player : MonoBehaviour
 
         //Set offset length from main character
         foreach(Character character in characterScritps){
+            character.frameCount = 0;
             if(character != currCharacter){
                 character.offsetLength = new Vector2(character.transform.position.x - currCharacter.transform.position.x, character.transform.position.y - currCharacter.transform.position.y).magnitude;
             }
