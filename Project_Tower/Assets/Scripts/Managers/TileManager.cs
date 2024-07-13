@@ -27,7 +27,7 @@ public class TileManager : MonoBehaviour
         GenerateGrid();
     }
 
-    public void NewTiles(bool[] doors)
+    public void SetTiles(bool[] doors)
     {
         this.doors = doors;
         if(_tiles != null)
@@ -42,13 +42,13 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                Debug.Log("Tile generated");
+                //Debug.Log("Tile generated");
                 Tile spawnedTile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.SetPosX(x);
                 spawnedTile.SetPosY(y);
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.isHighlightable = true;
+                spawnedTile.isHighlightable = false;
 
                 SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                 spriteRenderer.color = Color.white;
@@ -64,12 +64,12 @@ public class TileManager : MonoBehaviour
                     //spriteRenderer.color = Color.blue;
                     spawnedTile.isHighlightable = false;
                 }
-                else*/ if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
+                else if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
                 {
                     spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                     //spriteRenderer.color = Color.gray;
                     spawnedTile.isHighlightable = false;
-                }
+                }*/
 
                 _tiles[new Vector2(x, y)] = spawnedTile;
             }

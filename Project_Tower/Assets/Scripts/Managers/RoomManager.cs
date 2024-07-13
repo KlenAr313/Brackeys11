@@ -11,7 +11,7 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private GameObject roomLayout;
 
-    [SerializeField] private bool[] doors = {true, true, false, true};
+    [SerializeField] private GameObject[] doors = {null, null, null, null};
     [SerializeField] public int height;
     [SerializeField] public int width;
 
@@ -19,44 +19,48 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> obstacles;
     [SerializeField] private List<GameObject> interactables;
     [SerializeField] private List<GameObject> floor;
+    [SerializeField] private List<GameObject> wall;
 
     public static RoomManager Instance;
 
-    public void Start()
+    public void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        if(Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
+        DontDestroyOnLoad(this.gameObject);
 
         this.levelManagerScript = LevelManager.Instance;
         this.tileManagerScript = TileManager.Instance;
         this.gameManagerScript = GameManager.Instance;
     }
 
-    public void NewRoom(ref GameObject roomLayout, bool[] doors)
+    public void OnValidate()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+
+        if(Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void NewRoom(ref GameObject roomLayout, bool[] doorWays)
     {
         this.roomLayout = roomLayout;
         roomLayout.SetActive(true);
-        this.doors = doors;
-        Initialise();
+        Initialise(doorWays);
     }
 
     //Main click entry point
     public void TileClicked(int posX, int posY){
-        if(doors[0] && posY == height-1 && posX == width / 2)
+        if(doors[0] != null && doors[0].transform.position.x == posX && doors[0].transform.position.y == posY)
                 StartCoroutine(levelManagerScript.OpenDoor(0));
-        else if(doors[1] && posY == height / 2 && posX == width-1 )
+        else if(doors[1] != null && doors[1].transform.position.x == posX && doors[1].transform.position.y == posY)
                 StartCoroutine(levelManagerScript.OpenDoor(1));
-        else if(doors[2] && posX == width / 2 && posY == 0)
+        else if(doors[2] != null && doors[2].transform.position.x == posX && doors[2].transform.position.y == posY)
                 StartCoroutine(levelManagerScript.OpenDoor(2));
-        else if(doors[3] && posX == 0 && posY == height / 2)
+        else if(doors[3] != null && doors[3].transform.position.x == posX && doors[3].transform.position.y == posY)
                 StartCoroutine(levelManagerScript.OpenDoor(3));
         else{
             foreach(GameObject item in interactables){
@@ -100,7 +104,7 @@ public class RoomManager : MonoBehaviour
             
     }
 
-    private void Initialise()
+    private void Initialise(bool[] doorWays)
     {
         enemies.Clear();
         //Load enemies to list
@@ -134,19 +138,37 @@ public class RoomManager : MonoBehaviour
         //Load floor to list
         GameObject floorParentObj = roomLayout.gameObject.transform.Find("Floor").gameObject;
         foreach(Transform child in floorParentObj.transform){
-            if(child.gameObject.activeSelf)
+            if(child.gameObject.activeSelf && child.gameObject.tag == "Floor")
             {
-                if(doors[0] && child.transform.position.y == height-1 && child.transform.position.x == width / 2)
-                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
-                if (doors[1] && child.transform.position.y == height / 2 && child.transform.position.x == width-1)
-                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da1"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
-                if(doors[2] && child.transform.position.x == width / 2 && child.transform.position.y == 0)
-                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da3"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
-                if(doors[3] && child.transform.position.x == 0 && child.transform.position.y == height / 2)
-                    child.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da2"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
-            
+                
                 floor.Add(child.gameObject);
             }
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            doors[i] = null;
+        }
+        Debug.Log(doorWays[0].ToString() + doorWays[1].ToString()+doorWays[2].ToString()+doorWays[3].ToString());
+        if(doorWays[0])
+        {
+            doors[0] = floorParentObj.gameObject.transform.Find("TopDoor").gameObject;
+            doors[0].gameObject.transform.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+        }
+        if (doorWays[1])
+        {
+            doors[1] = floorParentObj.gameObject.transform.Find("RightDoor").gameObject;
+            doors[1].gameObject.transform.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da1"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+        }
+        if(doorWays[2])
+        {
+            doors[2] = floorParentObj.gameObject.transform.Find("BottomDoor").gameObject;
+            doors[2].gameObject.transform.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da2"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+        }
+        if(doorWays[3])
+        {
+            doors[3] = floorParentObj.gameObject.transform.Find("LeftDoor").gameObject;
+            doors[3].gameObject.transform.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da3"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
         }
     }
 
@@ -160,13 +182,12 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void NextRoom(ref GameObject roomLayout, bool[] doors){
+    public void NextRoom(ref GameObject roomLayout, bool[] doorWays){
         this.roomLayout.SetActive(false);
         this.roomLayout = roomLayout;
-        this.doors = doors;
         Debug.Log("New Room Created");
         roomLayout.SetActive(true);
-        Initialise();
+        Initialise(doorWays);
         //Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
         
         if(enemies.Count > 0)
@@ -188,6 +209,7 @@ public class RoomManager : MonoBehaviour
 
     #region Utilities
 
+    // TODO: We are only looking for enemy with this func
     public string GetTileNameByCoord(int posX, int posY){
 
         foreach(GameObject obj in enemies){
@@ -217,6 +239,7 @@ public class RoomManager : MonoBehaviour
         return null;
     }
 
+    // TODO: We are only looking for enemy with this func
     public GameObject GetTileGameObjectByCoord(int posX, int posY){
         
         foreach(GameObject obj in enemies){

@@ -2867,7 +2867,7 @@ GameObject:
   - component: {fileID: 8295193934380453784}
   - component: {fileID: 894618507682724977}
   m_Layer: 0
-  m_Name: Square (142)
+  m_Name: TopDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10672,7 +10672,7 @@ GameObject:
   - component: {fileID: 6145462364011315411}
   - component: {fileID: 3471725608720612558}
   m_Layer: 0
-  m_Name: Square (26)
+  m_Name: BottomDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10756,7 +10756,7 @@ GameObject:
   - component: {fileID: 8468992294151975551}
   - component: {fileID: 7433889457885280621}
   m_Layer: 0
-  m_Name: Square (124)
+  m_Name: RightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11074,7 +11074,7 @@ GameObject:
   - component: {fileID: 3644814903408409426}
   - component: {fileID: 4947484933123525034}
   m_Layer: 0
-  m_Name: Square (64)
+  m_Name: LeftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

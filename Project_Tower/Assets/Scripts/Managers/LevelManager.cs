@@ -22,19 +22,10 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance = null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        if(Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-
+        DontDestroyOnLoad(this.gameObject);
+        
         gameManagerScript = GameManager.Instance;
-        roomManagerScript = GameObject.Find("Room Manager").GetComponent<RoomManager>();
+        roomManagerScript = RoomManager.Instance;
 
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
@@ -69,8 +60,21 @@ public class LevelManager : MonoBehaviour
         doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != null;
         doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != null;
         doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != null;
-        roomManagerScript.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors);
+        RoomManager.Instance.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors);
 
+    }
+
+    public void OnValidate()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+
+        if(Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private bool RandomizeRooms(int x, int y, int type)
@@ -123,23 +127,15 @@ public class LevelManager : MonoBehaviour
         {
             case 0:
                 NextRow--;
-                gameManagerScript.currCharacter.SetPosition(gameManagerScript.roomManagerScript.width/2,2);
-                gameManagerScript.currCharacter.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 1:
                 NextCol++;
-                gameManagerScript.currCharacter.SetPosition(2,gameManagerScript.roomManagerScript.height/2);
-                gameManagerScript.currCharacter.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 2:
                 NextRow++;
-                gameManagerScript.currCharacter.SetPosition(gameManagerScript.roomManagerScript.width/2,gameManagerScript.roomManagerScript.height-3);
-                gameManagerScript.currCharacter.transform.rotation = Quaternion.Euler(0,0,0);
                 break;
             case 3:
                 NextCol--;
-                gameManagerScript.currCharacter.SetPosition(gameManagerScript.roomManagerScript.width-3,gameManagerScript.roomManagerScript.height/2);
-                gameManagerScript.currCharacter.transform.rotation = Quaternion.Euler(0,180,0);
                 break;
             default:
                 break;
