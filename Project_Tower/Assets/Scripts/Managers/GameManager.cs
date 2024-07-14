@@ -136,10 +136,12 @@ public class GameManager : MonoBehaviour
     public void StartFight(){
         this.isFighting = true;
         combatManagerScript.StartCombat();
+        Player.Instance.OnCombatStart();
     }
 
     public void EndFight(){
         this.isFighting = false;
+        Player.Instance.OnCombatEnd();
     }
 
     //Highlight miatt van itt

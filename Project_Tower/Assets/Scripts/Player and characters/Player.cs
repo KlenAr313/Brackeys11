@@ -193,6 +193,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCombatStart(){
+        this.currCharacter = characterScritps[0];
+        canMove = false;
+    }
+
+    public void OnCombatEnd(){
+        this.currCharacter = characterScritps[0];
+        canMove = true;
+    }
+
     public PlayerSaveData GetSaveInfo(){
 
         List<int> characterHealths = new List<int>();
