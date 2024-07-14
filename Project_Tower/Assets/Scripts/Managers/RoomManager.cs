@@ -52,6 +52,18 @@ public class RoomManager : MonoBehaviour
         Initialise(doorWays);
     }
 
+    public void NextRoom(ref GameObject roomLayout, bool[] doorWays){
+        this.roomLayout.SetActive(false);
+        this.roomLayout = roomLayout;
+        Debug.Log("New Room Created");
+        roomLayout.SetActive(true);
+        Initialise(doorWays);
+        //Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
+        
+        if(enemies.Count > 0)
+            gameManagerScript.StartFight();
+    }
+
     //Main click entry point
     public void TileClicked(int posX, int posY){
         if(doors[0] != null && doors[0].transform.position.x == posX && doors[0].transform.position.y == posY)
@@ -149,7 +161,7 @@ public class RoomManager : MonoBehaviour
         {
             doors[i] = null;
         }
-        Debug.Log(doorWays[0].ToString() + doorWays[1].ToString()+doorWays[2].ToString()+doorWays[3].ToString());
+        //Debug.Log(doorWays[0].ToString() + doorWays[1].ToString()+doorWays[2].ToString()+doorWays[3].ToString());
         if(doorWays[0])
         {
             doors[0] = floorParentObj.gameObject.transform.Find("TopDoor").gameObject;
@@ -170,6 +182,9 @@ public class RoomManager : MonoBehaviour
             doors[3] = floorParentObj.gameObject.transform.Find("LeftDoor").gameObject;
             doors[3].gameObject.transform.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da3"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
         }
+
+        
+        tileManagerScript.SetTiles(floor);
     }
 
     public void RoomUpdateEnemies(){
@@ -181,20 +196,6 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
-
-    public void NextRoom(ref GameObject roomLayout, bool[] doorWays){
-        this.roomLayout.SetActive(false);
-        this.roomLayout = roomLayout;
-        Debug.Log("New Room Created");
-        roomLayout.SetActive(true);
-        Initialise(doorWays);
-        //Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
-        
-        if(enemies.Count > 0)
-            gameManagerScript.StartFight();
-    }
-
-
 
     public List<GameObject> GetAllEnemies(){
         List<GameObject> enemiesCopy = new List<GameObject>();

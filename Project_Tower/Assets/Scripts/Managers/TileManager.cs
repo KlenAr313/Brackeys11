@@ -15,7 +15,7 @@ public class TileManager : MonoBehaviour
 
     public static TileManager Instance;
 
-    public void Start(){
+    public void Awake(){
         if(Instance == null){
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -27,12 +27,18 @@ public class TileManager : MonoBehaviour
         GenerateGrid();
     }
 
-    public void SetTiles(bool[] doors)
+    public void SetTiles(List<GameObject> floors)
     {
-        this.doors = doors;
-        if(_tiles != null)
-            _tiles.Clear();
-        GenerateGrid();
+        foreach (var item in _tiles)
+        {
+            item.Value.isHighlightable = false;
+        }
+        foreach (var item in floors)
+        {
+            //Debug.Log("Here: " +item.gameObject.transform.position.x +" " + item.gameObject.transform.position.y);
+            GetTileAtPosition(new Vector2(item.gameObject.transform.position.x, item.gameObject.transform.position.y)).isHighlightable = true;
+            //Debug.Log(GetTileAtPosition(new Vector2(item.gameObject.transform.position.x, item.gameObject.transform.position.y)).isHighlightable);
+        }
     }
 
     void GenerateGrid()
@@ -50,7 +56,7 @@ public class TileManager : MonoBehaviour
                 spawnedTile.gameObject.layer = 6;
                 spawnedTile.transform.parent = this.transform;
                 spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.isHighlightable = true;
+                spawnedTile.isHighlightable = false;
 
                 SpriteRenderer spriteRenderer = spawnedTile.GetComponent<SpriteRenderer>();
                 spriteRenderer.color = Color.white;

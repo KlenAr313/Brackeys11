@@ -71,20 +71,21 @@ public class GameManager : MonoBehaviour
 
     public void TileClicked(int posX, int posY)
     {
+        //Debug.Log("TileClicked: " + posX + " " + posY);
         if(!canClick){
             return;
         }
 
-        if(tileManagerScript.IsTileClickable(posX, posY)){
-            currentX = posX;
-            currentY = posY;
-        }
-        else
-        {
-            return;
-        }
-
         if(isFighting){
+
+            if(tileManagerScript.IsTileClickable(posX, posY)){
+                currentX = posX;
+                currentY = posY;
+            }
+            else
+            {
+                return;
+            }
             //Player köre
             if(isPlayerTurn){
                 //currCharacter = characterScritps[currCharacterIndex];
