@@ -13,8 +13,8 @@ public class Fireball : SpellBase
     }
 
     
-    public override List<Vector2Int> Cast(int posX, int posY){
+    public override List<Vector2Int> GetEffectedTiles(int posX, int posY){
 
-        return base.Cast(posX, posY);
+        return base.GetEffectedTiles(posX, posY);
     }
 }

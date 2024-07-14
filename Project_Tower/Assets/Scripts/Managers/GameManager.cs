@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             if(isPlayerTurn){
                 //currCharacter = characterScritps[currCharacterIndex];
                 if(Player.Instance.currentSpell != null && Player.Instance.currentSpell.ManaCost <= Player.Instance.currCharacter.mana){
-                    roomManagerScript.TileClickedAttack(Player.Instance.currentSpell.Cast(currentX, currentY));
+                    roomManagerScript.TileClickedAttack(Player.Instance.currentSpell.GetEffectedTiles(currentX, currentY));
 
                     Player.Instance.currentSpell.PlayAnimation(currentX, currentY);
                     Player.Instance.currentSpell.PlaySound();
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             //Player köre
             if(isPlayerTurn){
                 if(Player.Instance.currentSpell != null){
-                    foreach(Vector2Int coord in Player.Instance.currentSpell.Cast(currentX, currentY)){
+                    foreach(Vector2Int coord in Player.Instance.currentSpell.GetEffectedTiles(currentX, currentY)){
                         tileManagerScript.highlightSpellPreview(coord.x, coord.y);
                     }
                 }

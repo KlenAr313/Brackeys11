@@ -8,9 +8,9 @@ using UnityEngine;
 public class Character : MonoBehaviour, IFighter
 {
     [SerializeField] public int characterIndex;
-    [SerializeField] public int followPointIndex;
-    [SerializeField] public float offsetLength;
-    [SerializeField] public int frameCount;
+    [SerializeField][HideInInspector] public int followPointIndex;
+    [SerializeField][HideInInspector] public float offsetLength;
+    [SerializeField][HideInInspector] public int frameCount;
 
     [SerializeField] private int posX;
     [SerializeField] private int posY;
@@ -21,8 +21,9 @@ public class Character : MonoBehaviour, IFighter
     [SerializeField] public int mana;
     private int baseMana;
     [SerializeField] private int setSpeed;
+    [SerializeField] public int moveRange;
     [SerializeField] public List<string> spells;
-    [SerializeField] protected Sprite previewImage;
+    [SerializeField][HideInInspector] protected Sprite previewImage;
 
     private Rigidbody2D rb;
     public Animator animator;
@@ -116,6 +117,26 @@ public class Character : MonoBehaviour, IFighter
             if (Input.GetKeyDown("5"))
             {
                 selectedSpell = spells[4];
+                GameManager.Instance.RefreshCurrentSpell();
+            }
+            if (Input.GetKeyDown("6"))
+            {
+                selectedSpell = spells[5];
+                GameManager.Instance.RefreshCurrentSpell();
+            }
+            if (Input.GetKeyDown("7"))
+            {
+                selectedSpell = spells[6];
+                GameManager.Instance.RefreshCurrentSpell();
+            }
+            if (Input.GetKeyDown("8"))
+            {
+                selectedSpell = spells[7];
+                GameManager.Instance.RefreshCurrentSpell();
+            }
+            if (Input.GetKeyDown("9"))
+            {
+                selectedSpell = spells[8];
                 GameManager.Instance.RefreshCurrentSpell();
             }
         }

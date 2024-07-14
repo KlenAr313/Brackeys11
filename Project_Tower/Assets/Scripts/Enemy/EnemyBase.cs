@@ -76,7 +76,7 @@ public abstract class EnemyBase : MonoBehaviour, IFighter
         //Ide lehet irni a spell kiválasztás logikáját
         Vector2Int target = this.GetAttackPosition();
         float animationTime = gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(target.x, target.y);
-        foreach(Vector2Int coord in gameManagerScript.GetSpellByName(spells[0]).Cast(target.x, target.y)){
+        foreach(Vector2Int coord in gameManagerScript.GetSpellByName(spells[0]).GetEffectedTiles(target.x, target.y)){
             if(coord.x == Player.Instance.currCharacter.PosX && coord.y == Player.Instance.currCharacter.PosY){
                 Player.Instance.currCharacter.GetDamaged(baseDamage, animationTime);
                 Debug.Log("Player damaged");
