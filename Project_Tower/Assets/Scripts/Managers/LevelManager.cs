@@ -26,7 +26,10 @@ public class LevelManager : MonoBehaviour
         
         gameManagerScript = GameManager.Instance;
         roomManagerScript = RoomManager.Instance;
+    }
 
+    public void Start()
+    {
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
         CurrentRow = UnityEngine.Random.Range(0, N);
