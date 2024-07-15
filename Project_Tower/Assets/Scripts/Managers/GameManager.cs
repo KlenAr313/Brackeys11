@@ -88,15 +88,21 @@ public class GameManager : MonoBehaviour
             }
             //Player köre
             if(isPlayerTurn){
-                //currCharacter = characterScritps[currCharacterIndex];
-                if(Player.Instance.currentSpell != null && Player.Instance.currentSpell.ManaCost <= Player.Instance.currCharacter.mana){
-                    roomManagerScript.TileClickedAttack(Player.Instance.currentSpell.Cast(currentX, currentY));
+                //Check if the player is moving
+                if(Player.Instance.currentSpell.spellName == "Move"){
+                    tileManagerScript.RemoveAllHighlight();
+                    ((Move)Player.Instance.currentSpell).PerformMove(currentX, currentY);
+                    //Refresh to highlighter after movement
+                    //TileHighlighter(currentX,currentY);
+                }
+                else if(Player.Instance.currentSpell != null && Player.Instance.currentSpell.ManaCost <= Player.Instance.currCharacter.mana){
+                    roomManagerScript.TileClickedAttack(Player.Instance.currentSpell.GetEffectedTiles(currentX, currentY));
 
                     Player.Instance.currentSpell.PlayAnimation(currentX, currentY);
                     Player.Instance.currentSpell.PlaySound();
                     tileManagerScript.RemoveAllHighlight();
 
-
+                    //Reduce mana and end player turn
                     Player.Instance.currCharacter.DecreaseMana(Player.Instance.currentSpell.ManaCost);
                     StartCoroutine(combatManagerScript.PlayerTakeTurn());
                 }
@@ -109,6 +115,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void TileHighlighter(int posX, int posY){
+        //Debug.Log("Center: " + posX + " " + posY);
 
         if(!isPlayerTurn){
             return;
@@ -126,7 +133,8 @@ public class GameManager : MonoBehaviour
             //Player köre
             if(isPlayerTurn){
                 if(Player.Instance.currentSpell != null){
-                    foreach(Vector2Int coord in Player.Instance.currentSpell.Cast(currentX, currentY)){
+                    //Debug.Log("Redoing highlights with: " + currentX + " " + currentY); 
+                    foreach(Vector2Int coord in Player.Instance.currentSpell.GetEffectedTiles(currentX, currentY)){
                         tileManagerScript.highlightSpellPreview(coord.x, coord.y);
                     }
                 }

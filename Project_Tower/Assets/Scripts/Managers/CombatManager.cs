@@ -12,6 +12,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] public List<Color> colors;
     [SerializeField] public int enemyCount;
     [SerializeField] public static CombatManager Instance;
+    [SerializeField] public List<IFighter> EnemyList;
 
     public event Action refreshCombatUI;
 
@@ -74,6 +75,7 @@ public class CombatManager : MonoBehaviour
         else{
             //Debug.Log("Player köre");
             Player.Instance.currCharacter = (Character)combatParticipants[currentTurnIndex];
+            Player.Instance.currCharacter.moveRange = Player.Instance.currCharacter.baseMoveRange;
             GameManager.Instance.isPlayerTurn = true;
             GameManager.Instance.RefreshCurrentSpell();
             Player.Instance.currCharacter.UpdateUI();
@@ -111,14 +113,14 @@ public class CombatManager : MonoBehaviour
 
     private void UpdateEnemyList(){
         GameManager.Instance.roomManagerScript.RoomUpdateEnemies();
-        List<IFighter> currentFightingEnemies = new List<IFighter>();
-        GameManager.Instance.roomManagerScript.GetAllEnemies().ForEach(i => currentFightingEnemies.Add(i.GetComponent<EnemyBase>()));
+        EnemyList = new List<IFighter>();
+        GameManager.Instance.roomManagerScript.GetAllEnemies().ForEach(i => EnemyList.Add(i.GetComponent<EnemyBase>()));
         //combatParticipants.Clear();
         int cnt = -1;
         int deadBefCurInd = 0;
         for(int i = 0; i < combatParticipants.Count;){
             cnt++;
-            if(combatParticipants[i] is not Character && !currentFightingEnemies.Contains(combatParticipants[i])){
+            if(combatParticipants[i] is not Character && !EnemyList.Contains(combatParticipants[i])){
                 combatParticipants.RemoveAt(i);
                 if(cnt <= currentTurnIndex)
                     currentTurnIndex--;

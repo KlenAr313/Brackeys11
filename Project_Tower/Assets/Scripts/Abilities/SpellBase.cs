@@ -22,7 +22,7 @@ public abstract class SpellBase : MonoBehaviour
     public int ManaCost { get => manaCost; set => manaCost = value; }
 
 
-    public virtual List<Vector2Int> Cast(int posX, int posY){
+    public virtual List<Vector2Int> GetEffectedTiles(int posX, int posY){
         List<Vector2Int> coords = new List<Vector2Int>();
 
         //Affected Tiles
@@ -35,16 +35,20 @@ public abstract class SpellBase : MonoBehaviour
     }
 
     public virtual float PlayAnimation(int posX, int posY){
-        ParticleSystem particle = Instantiate(particlePrefab, new Vector3(posX, posY, -1), Quaternion.identity);
-        
-        particle.Play();
+
+        if(particlePrefab != null){
+            ParticleSystem particle = Instantiate(particlePrefab, new Vector3(posX, posY, -1), Quaternion.identity);
+            particle.Play();
+        }
         
         return animationTime;
     }
 
     public virtual void PlaySound()
     {
-        sfx.PlayFX(spellName);
+        if(sfx != null){
+            sfx.PlayFX(spellName);
+        }
     }
 
     public virtual string GetDescription(){

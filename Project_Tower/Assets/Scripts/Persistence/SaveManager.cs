@@ -21,6 +21,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame(){
 
+        //Player save
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/PlayerSave.dat");
 
@@ -30,11 +31,13 @@ public class SaveManager : MonoBehaviour
         bf.Serialize(file, playerSaveData);
 
         file.Close();
+
         Debug.Log("Save Successful");
     }
 
     public void LoadGame(){
 
+        //Player Load
         if(File.Exists(Application.persistentDataPath + "/PlayerSave.dat")){
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/PlayerSave.dat", FileMode.Open);
