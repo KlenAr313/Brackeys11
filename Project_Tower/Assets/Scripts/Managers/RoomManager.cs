@@ -21,6 +21,12 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<GameObject> floor;
     [SerializeField] private List<GameObject> wall;
 
+    private Boundries roomBoundries;
+    public Boundries RoomBoundries{
+        get{
+            return roomBoundries;
+        } }
+
     public static RoomManager Instance;
 
     public void Awake()
@@ -34,13 +40,11 @@ public class RoomManager : MonoBehaviour
 
     public void OnValidate()
     {
-        if(Instance == null)
-        {
+        if(Instance == null){
             Instance = this;
         }
 
-        if(Instance != this)
-        {
+        if(Instance != this){
             Destroy(this.gameObject);
         }
     }
@@ -155,14 +159,31 @@ public class RoomManager : MonoBehaviour
 
         floor.Clear();
         //Load floor to list
+        float vMax = 5, hMax = 5, vMin = 5, hMin = 5;
         GameObject floorParentObj = roomLayout.gameObject.transform.Find("Floor").gameObject;
         foreach(Transform child in floorParentObj.transform){
             if(child.gameObject.activeSelf && child.gameObject.tag == "Floor")
             {
-                
+                if(child.gameObject.transform.position.y > vMax){
+                    vMax = child.gameObject.transform.position.y;
+                }
+                else if (child.gameObject.transform.position.y < vMin){
+                    vMin = child.gameObject.transform.position.y;
+                }
+
+                if(child.gameObject.transform.position.x > hMax){
+                    hMax = child.gameObject.transform.position.x;
+                }
+                else if (child.gameObject.transform.position.x < hMin){
+                    hMin = child.gameObject.transform.position.x;
+                }
+
                 floor.Add(child.gameObject);
             }
         }
+
+        roomBoundries = new Boundries(vMax,hMax,vMin,hMin);
+        //Debug.Log(RoomBoundries.VertMax + " " + RoomBoundries.HorMax +" " + RoomBoundries.VertMin + " " +RoomBoundries.HorMin);
 
         for (int i = 0; i < 4; i++)
         {
@@ -280,3 +301,38 @@ public class RoomManager : MonoBehaviour
 
     #endregion
 }
+
+
+public struct Boundries
+{
+    private float vertMax;
+    private float horMax; 
+    private float vertMin; 
+    private float horMin;
+
+    public readonly float VertMax { 
+        get{
+        return vertMax;
+        } }
+    public readonly float HorMax { 
+        get {
+        return horMax;
+        } }
+    public readonly float VertMin { 
+        get{
+            return vertMin;
+        } }
+    public readonly float HorMin { 
+        get{
+            return horMin;
+        } }
+
+    public Boundries(float vertMax, float horMax, float vertMin, float horMin)
+    {
+        this.vertMax = vertMax;
+        this.horMax = horMax;
+        this.vertMin = vertMin;
+        this.horMin = horMin;
+    }
+}
+
