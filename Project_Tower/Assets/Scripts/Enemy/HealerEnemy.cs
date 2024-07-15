@@ -17,9 +17,13 @@ public class HealerEnemy : EnemyBase
     }
 
     public override float Attack(){
-        List<IFighter> combPart = gameManagerScript.combatManagerScript.combatParticipants;
-        int ind = Random.Range(0,combPart.Count - 1);
+        int ind = Random.Range(0,CombatManager.Instance.EnemyList.Count - 1);
         float animationTime;
+
+        ((EnemyBase)CombatManager.Instance.EnemyList[ind]).GetHealed(baseDamage);
+        animationTime = gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(((EnemyBase)CombatManager.Instance.EnemyList[ind]).PosX, ((EnemyBase)CombatManager.Instance.EnemyList[ind]).PosY);
+
+        /*
         if(combPart[ind] is Character){
             ((EnemyBase)combPart[ind + 1]).GetHealed(baseDamage);
 
@@ -29,6 +33,7 @@ public class HealerEnemy : EnemyBase
             ((EnemyBase)combPart[ind]).GetHealed(baseDamage);
             animationTime = gameManagerScript.GetSpellByName(spells[0]).PlayAnimation(((EnemyBase)combPart[ind]).PosX, ((EnemyBase)combPart[ind]).PosY);
         }
+        */
 
         this.Lowlight();
         return animationTime;

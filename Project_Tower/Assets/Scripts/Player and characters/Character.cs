@@ -21,6 +21,7 @@ public class Character : MonoBehaviour, IFighter
     [SerializeField] public int mana;
     private int baseMana;
     [SerializeField] private int setSpeed;
+    [SerializeField] public int baseMoveRange;
     [SerializeField] public int moveRange;
     [SerializeField] public List<string> spells;
     [SerializeField][HideInInspector] protected Sprite previewImage;
@@ -89,8 +90,16 @@ public class Character : MonoBehaviour, IFighter
     }
 
 
+    public void UpdatePosition(){
+        posX = (int)math.round(transform.position.x);
+        posY = (int)math.round(transform.position.y);
+    }
+
     void Update()
     {
+
+        UpdatePosition();
+
         if(Player.Instance.currCharacter == this){
 
             //Ki ne hozd a Refresh-t kivülre mert meghalsz (csak akkor update-elődjön ha van változás, különben minden frame-en hivná)

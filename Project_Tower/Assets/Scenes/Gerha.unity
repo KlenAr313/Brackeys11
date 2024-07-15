@@ -342,6 +342,7 @@ MonoBehaviour:
   baseDamage: 2
   mana: 100
   setSpeed: 5
+  baseMoveRange: 3
   moveRange: 3
   spells:
   - Fireball
@@ -1417,6 +1418,7 @@ MonoBehaviour:
   baseDamage: 2
   mana: 100
   setSpeed: 5
+  baseMoveRange: 3
   moveRange: 3
   spells:
   - Meteor
@@ -3223,6 +3225,7 @@ MonoBehaviour:
   baseDamage: 2
   mana: 100
   setSpeed: 5
+  baseMoveRange: 3
   moveRange: 3
   spells:
   - FlameVortex

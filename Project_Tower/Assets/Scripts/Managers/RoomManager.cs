@@ -72,7 +72,8 @@ public class RoomManager : MonoBehaviour
     }
 
     public void TileClickedAttack(List<Vector2Int> coordList){
-        
+
+        //Looping though enemies in the effectd tiles
         foreach(GameObject enemy in enemies){
                 EnemyBase enemyBaseScript = enemy.gameObject.GetComponent<EnemyBase>();
                 Vector2Int enemyPos = new Vector2Int(enemyBaseScript.PosX, enemyBaseScript.PosY);
@@ -84,7 +85,7 @@ public class RoomManager : MonoBehaviour
                 }
             }
             
-
+        //Looping though players in the effectd tiles
         foreach(Character character in Player.Instance.characterScritps){
             Vector2Int characterPos = new Vector2Int(character.PosX, character.PosY);
 
@@ -101,6 +102,12 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }
+            
+    }
+
+    public void TileClickedMove(List<Vector2Int> coordList){
+
+        
             
     }
 
