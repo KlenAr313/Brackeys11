@@ -152,7 +152,7 @@ public class LevelManager : MonoBehaviour
             doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != null;
             doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != null;
             doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != null;
-            roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors);
+            roomManagerScript.NextRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors, (doorI + 2) % 4);
         }
 
         
