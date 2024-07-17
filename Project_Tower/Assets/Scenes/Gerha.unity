@@ -1790,7 +1790,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1815,7 +1815,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.5, y: 7.5, z: -10}
+  m_LocalPosition: {x: 7.5, y: 3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1834,7 +1834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 152085688}
-  isFollowing: 0
+  isFollowing: 1
 --- !u!1 &531374254
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,6 +5739,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510526790}
   m_CullTransparentMesh: 1
+--- !u!1 &1519563791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2570592296845185118, guid: 3f8a9cd096be1e140815a315c848e97b, type: 3}
+  m_PrefabInstance: {fileID: 8012855204281684759}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1519563796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519563791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4d082392c38a041adf1f29bd7d8c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1525411022
 GameObject:
   m_ObjectHideFlags: 0
@@ -6084,6 +6101,8 @@ MonoBehaviour:
   gameManagerScript: {fileID: 2037264997}
   roomManagerScript: {fileID: 1653269190}
   RoomCounter: 9
+  isBoss: 0
+  levelType: 0
 --- !u!4 &1584098986
 Transform:
   m_ObjectHideFlags: 0
@@ -7233,6 +7252,8 @@ MonoBehaviour:
   - {fileID: 467891195}
   - {fileID: 467891196}
   combatManagerScript: {fileID: 2037264999}
+  levelCounter: 0
+  isBosslevel: 0
   canClick: 1
 --- !u!4 &2037264998
 Transform:
@@ -8154,7 +8175,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2570592296845185118, guid: 3f8a9cd096be1e140815a315c848e97b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1519563796}
   m_SourcePrefab: {fileID: 100100000, guid: 3f8a9cd096be1e140815a315c848e97b, type: 3}
 --- !u!1 &8885391793005893223
 GameObject:

@@ -10,6 +10,8 @@ public class CameraScript : MonoBehaviour
 
     [SerializeField] private Transform target;
     [SerializeField] private bool isFollowing;
+    private float HorizontalCameraOffset = 7.5f;
+    private float VerticalCameraOffset = 3.5f;
 
     void OnValidate(){
         target = GameObject.Find("Character 1").transform;
@@ -21,24 +23,24 @@ public class CameraScript : MonoBehaviour
             Vector3 targetPosition = target.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
-            //Szoba bal korlátja
-            if(transform.position.x < 0){
-                transform.position = new Vector3(0f, transform.position.y, -10);
-            }
-
             //Szoba jobb korlátja
-            if(transform.position.x > 100){
-                transform.position = new Vector3(100f, transform.position.y, -10);
-            }
-
-            //Szoba alsó korlátja
-            if(transform.position.y < 0){
-                transform.position = new Vector3(transform.position.x, 0, -10);
+            if(transform.position.x > RoomManager.Instance.RoomBoundries.HorMax - HorizontalCameraOffset){
+                transform.position = new Vector3(RoomManager.Instance.RoomBoundries.HorMax - HorizontalCameraOffset, transform.position.y, -10);
             }
 
             //Szoba felső korlátja
-            if(transform.position.y > 100){
-                transform.position = new Vector3(transform.position.x, 100, -10);
+            if(transform.position.y > RoomManager.Instance.RoomBoundries.VertMax - VerticalCameraOffset){
+                transform.position = new Vector3(transform.position.x, RoomManager.Instance.RoomBoundries.VertMax - VerticalCameraOffset, -10);
+            }
+
+            //Szoba bal korlátja
+            if(transform.position.x < RoomManager.Instance.RoomBoundries.HorMin + HorizontalCameraOffset){
+                transform.position = new Vector3(RoomManager.Instance.RoomBoundries.HorMin + HorizontalCameraOffset, transform.position.y, -10);
+            }
+
+            //Szoba alsó korlátja
+            if(transform.position.y < RoomManager.Instance.RoomBoundries.VertMin + VerticalCameraOffset){
+                transform.position = new Vector3(transform.position.x, RoomManager.Instance.RoomBoundries.VertMin + VerticalCameraOffset, -10);
             }
         }
         

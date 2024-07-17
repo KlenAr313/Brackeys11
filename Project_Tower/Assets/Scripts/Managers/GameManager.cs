@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TileManager tileManagerScript;
     [SerializeField] public List<SpellBase> spellList;
     [SerializeField] public CombatManager combatManagerScript;
+    [SerializeField] public int levelCounter;
+    [SerializeField] public bool isBosslevel;
 
     //Basically the length of the spell bar
     [SerializeField] public static int MaxAbilities = 3;
@@ -66,6 +68,7 @@ public class GameManager : MonoBehaviour
         currentY = -1;
 
         isPlayerTurn = false;
+        levelCounter = 0;
         RefreshCurrentSpell();
     }
 
@@ -215,8 +218,31 @@ public class GameManager : MonoBehaviour
     }
 
     public void NextLevel(){
-        SceneManager.LoadScene("Gerha");
-        //LevelManager.Instance.NewLevel
+        //Ez legyen a legelején vagy megverlek
+        StartCoroutine(LoadYourAsyncScene());
+        
+    }
+
+    IEnumerator LoadYourAsyncScene()
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Gerha");
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        levelCounter++;
+        isBosslevel = levelCounter % 4 == 0;
+        Debug.Log("New Level Generated!");
+        LevelManager.Instance.NewLevel(isBosslevel, LevelType.Hokuszpokusz);
+        Player.Instance.OnRoomEnter();
     }
 
 

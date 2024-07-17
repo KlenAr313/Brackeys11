@@ -362,10 +362,10 @@ public struct Boundries
 
     public Boundries(float vertMax, float horMax, float vertMin, float horMin)
     {
-        this.vertMax = vertMax;
-        this.horMax = horMax;
-        this.vertMin = vertMin;
-        this.horMin = horMin;
+        this.vertMax = vertMax + 1;
+        this.horMax = horMax + 1;
+        this.vertMin = vertMin - 1;
+        this.horMin = horMin - 1;
     }
 }
 
