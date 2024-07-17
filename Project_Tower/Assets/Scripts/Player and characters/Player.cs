@@ -55,9 +55,6 @@ public class Player : MonoBehaviour
     void Awake(){
         DontDestroyOnLoad(this.gameObject);
         currentSpell = GameManager.Instance.GetSpellByName(currCharacter.GetSpells()[0]);
-
-        followPoints.Add(new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y));
-
         OnRoomEnter();
 
     }
@@ -183,6 +180,9 @@ public class Player : MonoBehaviour
     }
 
     public void OnRoomEnter(){
+        followPoints.Clear();
+
+        followPoints.Add(new Vector2(currCharacter.transform.position.x, currCharacter.transform.position.y));
 
         //Set offset length from main character
         foreach(Character character in characterScritps){
