@@ -186,7 +186,7 @@ public class RoomManager : MonoBehaviour
         }
 
         roomBoundries = new Boundries(vMax,hMax,vMin,hMin);
-        //Debug.Log(RoomBoundries.VertMax + " " + RoomBoundries.HorMax +" " + RoomBoundries.VertMin + " " +RoomBoundries.HorMin);
+        Debug.Log(roomBoundries.VertMax + " " + roomBoundries.HorMax +" " + roomBoundries.VertMin + " " +roomBoundries.HorMin);
 
         for (int i = 0; i < 4; i++)
         {

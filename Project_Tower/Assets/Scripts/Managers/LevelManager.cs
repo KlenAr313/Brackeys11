@@ -5,11 +5,19 @@ using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+enum LevelType
+{
+    GroundFloor,
+    Hokuszpokusz
+}
+
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameManager gameManagerScript;
     [SerializeField] private RoomManager roomManagerScript;
     [SerializeField] private int RoomCounter;
+    [SerializeField] private bool isBoss;
+    [SerializeField] private LevelType levelType;
     private int N;
     private GameObject[,] RoomsGrid;
     private int CurrentRow;
@@ -88,7 +96,7 @@ public class LevelManager : MonoBehaviour
             bool newRoom = false;
             if(RoomsGrid[x,y] == null)
             {
-                RoomsGrid[x,y] = GameObject.Instantiate(Resources.Load<GameObject>("Room Layout " + type));;
+                RoomsGrid[x,y] = GameObject.Instantiate(Resources.Load<GameObject>("Rooms/" + levelType.ToString() + "/Room Layout " + type));;
                 RoomsGrid[x,y].SetActive(false);
                 RoomLeft--;
                 newRoom = true;

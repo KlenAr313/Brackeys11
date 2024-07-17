@@ -335,13 +335,15 @@ MonoBehaviour:
   characterIndex: 0
   followPointIndex: 0
   offsetLength: 0
-  startingPos: {x: 0, y: 0}
+  frameCount: 0
   posX: 4
   posY: 4
   health: 100
   baseDamage: 2
   mana: 100
   setSpeed: 5
+  baseMoveRange: 0
+  moveRange: 0
   spells:
   - Fireball
   - FlameVortex
@@ -1387,13 +1389,15 @@ MonoBehaviour:
   characterIndex: 2
   followPointIndex: 0
   offsetLength: 0
-  startingPos: {x: 0, y: 0}
+  frameCount: 0
   posX: 8
   posY: 4
   health: 100
   baseDamage: 2
   mana: 100
   setSpeed: 5
+  baseMoveRange: 0
+  moveRange: 0
   spells:
   - Meteor
   - 
@@ -3177,13 +3181,15 @@ MonoBehaviour:
   characterIndex: 1
   followPointIndex: 0
   offsetLength: 0
-  startingPos: {x: 0, y: 0}
+  frameCount: 0
   posX: 6
   posY: 4
   health: 100
   baseDamage: 2
   mana: 100
   setSpeed: 5
+  baseMoveRange: 0
+  moveRange: 0
   spells:
   - FlameVortex
   - 
@@ -5352,7 +5358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1362912282
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5980,6 +5986,8 @@ MonoBehaviour:
   gameManagerScript: {fileID: 2037264997}
   roomManagerScript: {fileID: 1653269190}
   RoomCounter: 9
+  isBoss: 0
+  levelType: 1
 --- !u!4 &1584098986
 Transform:
   m_ObjectHideFlags: 0
@@ -6191,6 +6199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9d8499c8f32d9459ff767f6aa7efce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _width: 20
+  _height: 20
   _tilePrefab: {fileID: 4139945544544620449, guid: f7d99661899c5454d87e230f5f4dd947, type: 3}
 --- !u!4 &1618395020
 Transform:
@@ -6361,8 +6371,8 @@ MonoBehaviour:
   tileManagerScript: {fileID: 1618395019}
   gameManagerScript: {fileID: 2037264997}
   levelManagerScript: {fileID: 1584098985}
+  playerScript: {fileID: 0}
   roomLayout: {fileID: 0}
-  doors: 00000000
   height: 8
   width: 16
   enemies: []
@@ -6551,6 +6561,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  wall: []
 --- !u!4 &1653269191
 Transform:
   m_ObjectHideFlags: 0
