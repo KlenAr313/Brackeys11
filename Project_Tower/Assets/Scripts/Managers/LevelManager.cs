@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-enum LevelType
+public enum LevelType
 {
     GroundFloor,
     Hokuszpokusz
@@ -36,7 +36,45 @@ public class LevelManager : MonoBehaviour
         roomManagerScript = RoomManager.Instance;
     }
 
+    public void OnValidate()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+
+        if(Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     public void Start()
+    {
+        NewLevel(isBoss, levelType);
+    }
+
+    public void NewLevel(bool isBoss, LevelType levelType)
+    {
+        this.isBoss = isBoss;
+        this.levelType = levelType;
+        if(!isBoss){
+            generateNormalLevel();
+        }
+        else{
+            generateBossLevel();
+        }
+    }
+
+    private void generateBossLevel()
+    {
+        RoomsGrid = new GameObject[1,1];
+
+        RoomsGrid[0,0] = GameObject.Instantiate(Resources.Load<GameObject>("Rooms/" + levelType.ToString() + "/BossRoom"));
+        RoomManager.Instance.NewRoom(ref RoomsGrid[0, 0], new bool[] {false, false, false, false}, 2);
+    }
+
+    private void generateNormalLevel()
     {
         N = RoomCounter / 2;
         RoomLeft = RoomCounter;
@@ -71,21 +109,8 @@ public class LevelManager : MonoBehaviour
         doors[1] = CurrentCol + 1 < N && RoomsGrid[CurrentRow,CurrentCol+1] != null;
         doors[2] = CurrentRow + 1 < N && RoomsGrid[CurrentRow+1,CurrentCol] != null;
         doors[3] = CurrentCol - 1 >= 0 && RoomsGrid[CurrentRow,CurrentCol-1] != null;
-        RoomManager.Instance.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors);
+        RoomManager.Instance.NewRoom(ref RoomsGrid[CurrentRow, CurrentCol], doors, Random.Range(0,4));
 
-    }
-
-    public void OnValidate()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-
-        if(Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     private bool RandomizeRooms(int x, int y, int type)

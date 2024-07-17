@@ -5986,8 +5986,8 @@ MonoBehaviour:
   gameManagerScript: {fileID: 2037264997}
   roomManagerScript: {fileID: 1653269190}
   RoomCounter: 9
-  isBoss: 0
-  levelType: 1
+  isBoss: 1
+  levelType: 0
 --- !u!4 &1584098986
 Transform:
   m_ObjectHideFlags: 0
