@@ -52,17 +52,17 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void NewRoom(ref GameObject roomLayout, bool[] doorWays)
+    public void NewRoom(ref GameObject roomLayout, bool[] doorWays, int entryWay)
     {
         this.roomLayout = roomLayout;
         roomLayout.SetActive(true);
-        Initialise(doorWays, Random.Range(0,4));
+        Initialise(doorWays, entryWay);
     }
 
     public void NextRoom(ref GameObject roomLayout, bool[] doorWays, int entryWay){
         this.roomLayout.SetActive(false);
         this.roomLayout = roomLayout;
-        Debug.Log("New Room Created");
+        //Debug.Log("New Room Created");
         roomLayout.SetActive(true);
         Initialise(doorWays, entryWay);
         //Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
@@ -186,7 +186,7 @@ public class RoomManager : MonoBehaviour
         }
 
         roomBoundries = new Boundries(vMax,hMax,vMin,hMin);
-        //Debug.Log(RoomBoundries.VertMax + " " + RoomBoundries.HorMax +" " + RoomBoundries.VertMin + " " +RoomBoundries.HorMin);
+        Debug.Log(roomBoundries.VertMax + " " + roomBoundries.HorMax +" " + roomBoundries.VertMin + " " +roomBoundries.HorMin);
 
         for (int i = 0; i < 4; i++)
         {
