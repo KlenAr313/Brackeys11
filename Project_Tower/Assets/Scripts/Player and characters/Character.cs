@@ -228,10 +228,10 @@ public class Character : MonoBehaviour, IFighter
         this.posY = (int)this.transform.position.y;
     }
 
-    public void SetPosition(int newPosX, int newPosY){
-        this.transform.position = new Vector3((float) newPosX, (float) newPosY);
-        this.posX = newPosX;
-        this.posY = newPosY;
+    public void SetPosition(float newPosX, float newPosY){
+        this.transform.position = new Vector3(newPosX, newPosY);
+        this.posX = (int)newPosX;
+        this.posY = (int)newPosY;
     }
 
     public void UpdateUI(){

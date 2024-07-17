@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] private TileManager tileManagerScript;
     [SerializeField] private GameManager gameManagerScript;
     [SerializeField] private LevelManager levelManagerScript;
+    [SerializeField] private Player playerScript;
 
     [SerializeField] private GameObject roomLayout;
 
@@ -36,6 +38,7 @@ public class RoomManager : MonoBehaviour
         this.levelManagerScript = LevelManager.Instance;
         this.tileManagerScript = TileManager.Instance;
         this.gameManagerScript = GameManager.Instance;
+        this.playerScript = Player.Instance;
     }
 
     public void OnValidate()
@@ -53,15 +56,15 @@ public class RoomManager : MonoBehaviour
     {
         this.roomLayout = roomLayout;
         roomLayout.SetActive(true);
-        Initialise(doorWays);
+        Initialise(doorWays, Random.Range(0,4));
     }
 
-    public void NextRoom(ref GameObject roomLayout, bool[] doorWays){
+    public void NextRoom(ref GameObject roomLayout, bool[] doorWays, int entryWay){
         this.roomLayout.SetActive(false);
         this.roomLayout = roomLayout;
         Debug.Log("New Room Created");
         roomLayout.SetActive(true);
-        Initialise(doorWays);
+        Initialise(doorWays, entryWay);
         //Debug.Log(doors[0].ToString() + doors[1].ToString() + doors[2].ToString() + doors[3].ToString());
         
         if(enemies.Count > 0)
@@ -127,7 +130,7 @@ public class RoomManager : MonoBehaviour
             
     }
 
-    private void Initialise(bool[] doorWays)
+    private void Initialise(bool[] doorWays, int entryWay)
     {
         enemies.Clear();
         //Load enemies to list
@@ -209,6 +212,36 @@ public class RoomManager : MonoBehaviour
         {
             doors[3] = floorParentObj.gameObject.transform.Find("LeftDoor").gameObject;
             doors[3].gameObject.transform.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Resources.Load<Texture2D>("DoorPic/da3"), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+        }
+
+        GameObject entryParentObj = roomLayout.gameObject.transform.Find("EntryPoints").gameObject;
+        Vector3 entryPoint;
+        switch(entryWay)
+        {
+            case 0:
+                entryPoint = entryParentObj.gameObject.transform.Find("Top").gameObject.transform.position;
+                playerScript.characterScritps[0].SetPosition((int)entryPoint.x, (int)entryPoint.y);
+                playerScript.characterScritps[1].SetPosition((int)entryPoint.x-1, (int)entryPoint.y+1);
+                playerScript.characterScritps[2].SetPosition((int)entryPoint.x+1, (int)entryPoint.y+1);
+                break;
+            case 1:
+                entryPoint = entryParentObj.gameObject.transform.Find("Right").gameObject.transform.position;
+                playerScript.characterScritps[0].SetPosition((int)entryPoint.x, (int)entryPoint.y);
+                playerScript.characterScritps[1].SetPosition((int)entryPoint.x+1, (int)entryPoint.y-1);
+                playerScript.characterScritps[2].SetPosition((int)entryPoint.x+1, (int)entryPoint.y+1);
+                break;
+            case 2:
+                entryPoint = entryParentObj.gameObject.transform.Find("Down").gameObject.transform.position;
+                playerScript.characterScritps[0].SetPosition((int)entryPoint.x, (int)entryPoint.y);
+                playerScript.characterScritps[1].SetPosition((int)entryPoint.x+1, (int)entryPoint.y-1);
+                playerScript.characterScritps[2].SetPosition((int)entryPoint.x-1, (int)entryPoint.y-1);
+                break;
+            case 3:
+                entryPoint = entryParentObj.gameObject.transform.Find("Left").gameObject.transform.position;
+                playerScript.characterScritps[0].SetPosition((int)entryPoint.x, (int)entryPoint.y);
+                playerScript.characterScritps[1].SetPosition((int)entryPoint.x-1, (int)entryPoint.y+1);
+                playerScript.characterScritps[2].SetPosition((int)entryPoint.x-1, (int)entryPoint.y-1);
+                break;
         }
 
         
