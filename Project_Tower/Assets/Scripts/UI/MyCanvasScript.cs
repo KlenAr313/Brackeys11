@@ -17,6 +17,8 @@ public class MainCanvasScript : MonoBehaviour
         gameManagerScript.OnGameOver += GameOver;
 
         endScreen.gameObject.SetActive(false);
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void GameOver(){

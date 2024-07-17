@@ -4509,6 +4509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room Layout 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7061976398587569586, guid: c1ebc67990afc454a97c01ed1d358777, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7737898156083374358, guid: c1ebc67990afc454a97c01ed1d358777, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6463,6 +6467,7 @@ MonoBehaviour:
   tileManagerScript: {fileID: 1618395019}
   gameManagerScript: {fileID: 2037264997}
   levelManagerScript: {fileID: 1584098985}
+  playerScript: {fileID: 0}
   roomLayout: {fileID: 0}
   height: 8
   width: 16

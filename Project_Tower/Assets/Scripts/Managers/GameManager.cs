@@ -69,6 +69,12 @@ public class GameManager : MonoBehaviour
         RefreshCurrentSpell();
     }
 
+        void OnGUI(){
+        if(GUI.Button(new Rect(10, 150, 100, 50), "Next Level")){
+            NextLevel();
+        }
+    }
+
     public void TileClicked(int posX, int posY)
     {
         //Debug.Log("TileClicked: " + posX + " " + posY);
@@ -206,6 +212,11 @@ public class GameManager : MonoBehaviour
     public Character GetRandomCharacter(){
         System.Random rnd = new System.Random();
         return Player.Instance.characterScritps[rnd.Next(0,Player.Instance.characterScritps.Count)];
+    }
+
+    public void NextLevel(){
+        SceneManager.LoadScene("Gerha");
+        //LevelManager.Instance.NewLevel
     }
 
 
