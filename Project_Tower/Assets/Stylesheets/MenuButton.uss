@@ -1,0 +1,14 @@
+.menuButton {
+    justify-content: flex-start;
+    align-self: center;
+    padding-right: 80px;
+    padding-left: 80px;
+    margin-right: 2px;
+    margin-left: 2px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    bottom: auto;
+    top: 40%;
+    width: 80px;
+}

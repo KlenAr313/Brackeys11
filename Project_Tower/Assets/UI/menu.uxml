@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Stylesheets/MenuButton.uss?fileID=7433441132597879392&amp;guid=ef6922fd52210554b8cf94a84f960f10&amp;type=3#MenuButton" />
+    <ui:Button text="Start new game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" class="menuButton" style="margin-right: 2px; margin-left: 2px; padding-right: 80px; overflow: hidden; transform-origin: center;" />
+    <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menuButton" />
+</ui:UXML>
